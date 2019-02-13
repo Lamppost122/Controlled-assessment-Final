@@ -47,7 +47,7 @@ class EditTeam(tk.Frame):
             self.RemovePlayerButton.grid(row =3,column = 4)
             self.SaveButton.grid(row = 3,column = 5)
             self.BackButton.grid(row =1,column = 3)
-            self.team = SystemToolKit.readFile("Team.json")
+            self.team = SystemToolKit.readFile("team.json")
             self.allPlayers = SystemToolKit.readFile("players.json")
 
         def BackButtonRun(self,controller):
@@ -56,7 +56,7 @@ class EditTeam(tk.Frame):
             controller.show_frame(PagesViewed[-1])
 
         def SaveTeam(self):
-            Team = SystemToolKit.readFile("Team.json")
+            Team = self.team
 
             TeamId = uuid.uuid4()
             Data = {}
@@ -65,7 +65,7 @@ class EditTeam(tk.Frame):
             Data["Team Number"] = self.txtTeamNumber.get()
             Team[str(TeamId)] = Data
 
-            with open("Team.json","w") as fp:
+            with open("team.json","w") as fp:
                 json.dump(Team,fp)
 
 
