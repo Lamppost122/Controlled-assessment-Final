@@ -31,6 +31,9 @@ from BackUp import *
 from TeamStats import *
 from ConfirmEmail import *
 from Gui import *
+from ImportData import *
+from SendAviablityCheck import *
+from ConfirmAvailablity import *
 import Config
 
 class SampleApp(tk.Tk):
@@ -47,7 +50,10 @@ class SampleApp(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
-        for F in (Login, Register,ProfileSetup,Home,AddMatch,MatchScreen,AdminCommands,RemoveMatch,EditMatch,News,AddNews,MatchReport,RemovePlayer,EditPlayer,AddTeam,RemoveTeam,EditTeam,BackUp,TeamStats,ConfirmEmail):
+        for F in (Login, Register,ProfileSetup,Home,AddMatch,MatchScreen
+        ,AdminCommands,RemoveMatch,EditMatch,News,AddNews,MatchReport
+        ,RemovePlayer,EditPlayer,AddTeam,RemoveTeam,EditTeam,BackUp,TeamStats
+        ,ConfirmEmail,ImportData,SendAvailablityCheck,ConfirmAvailablity):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame

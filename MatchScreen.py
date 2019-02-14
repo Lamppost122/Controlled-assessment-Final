@@ -14,7 +14,10 @@ class MatchScreen(tk.Frame):
         self.lblTeam = ttk.Label(self,text = "Team: ")
         self.txtTeamNumber = ttk.Entry(self)
         self.GetTeamMatchesButton = tk.Button(self,text = "Get Team Matches",command=self.get_Team_Matches)
-        self.GetMyMatchesButton =tk.Button(self,text = "Get My Matches",command =self.GetMyMatches)
+        self.GetMyMatchesButton =tk.Button(self,text = "Get My Matches",command =lambda :self.GetMyMatches())
+        self.ConfirmAvailablityButton =tk.Button(self,text = "Confirm Availablity",command = lambda:controller.show_frame("ConfirmAvailablity")) # Temp Button will add a combo box when adding access levels
+        self.CheckAvailablityButton =tk.Button(self,text="Check Availablity",command = lambda:controller.show_frame("SendAvailablityCheck"))
+        self.ViewAvailablityButton =tk.Button(self,text = "View Availability")
         self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun(controller))
         self.Title.config(background="#f4f8ff",fg = "#485e82",pady="5")
         self.Title.grid(row = 0,column  =0)
@@ -23,6 +26,9 @@ class MatchScreen(tk.Frame):
         self.GetTeamMatchesButton.grid(row = 1,column  =2)
         self.GetMyMatchesButton.grid(row = 1,column  =3)
         self.BackButton.grid(row =1 ,column = 4)
+        self.ConfirmAvailablityButton.grid(row=1,column = 5)
+        self.CheckAvailablityButton.grid(row=2,column = 5)
+        self.ViewAvailablityButton.grid(row=3,column =5)
 
     def BackButtonRun(self,controller):
         global PagesViewed
@@ -35,7 +41,6 @@ class MatchScreen(tk.Frame):
          Data = SystemToolKit.readFile("matches.json")
          TeamID = self.GetTeamID(TeamNumber)
          MatchData = Data[TeamID]
-         print MatchData
 
          for i ,j in enumerate(MatchData):
             MatchText = "Oposition: "+MatchData[j]["Opposition"] +"    Data: "+ MatchData[j]['Date']+"   Time: "+ MatchData[j]["Time"]+"   Location: "+ MatchData[j]["Location"]
@@ -44,17 +49,20 @@ class MatchScreen(tk.Frame):
     @staticmethod
     def GetTeamID(TeamNumber):
         Teams = SystemToolKit.readFile("team.json")
+
         for i in Teams:
             if Teams[i]["Team Number"] == str(TeamNumber):
 
                 return i
     def GetMyTeam(self):
-        Data = SystemToolKit.readFile("teams.json")
-        for i in Data:
-            if Data[i]==Config.CurrentUser:
-                return i
+        team = SystemToolKit.readFile("team.json")
+
+        for k,i in enumerate(team):
+            for j in team[i]:
+                if team[i][j] == str(Config.CurrentUser):
+                    return i
     def GetMyMatches(self):
-         TeamID = self.geMyTeam()
+         TeamID = self.GetMyTeam()
 
 
          Data = SystemToolKit.readFile("matches.json")

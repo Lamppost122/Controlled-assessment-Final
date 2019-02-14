@@ -59,7 +59,15 @@ class Home(tk.Frame):
 
         with open("team.json","r")as fp:
             team = json.load(fp)
-        print team
+
+        for k,i in enumerate(team):
+            for j in team[i]:
+                if team[i][j] == str(Config.CurrentUser):
+                    teamNumber =team[i]["Team Number"]
+                    break
+            if k == len(team):
+                teamNumber = "No Team Assigned"
+
         try:
             Playerdata = player[Config.CurrentUser]
         except KeyError:
@@ -88,6 +96,6 @@ class Home(tk.Frame):
         self.lblDataAddress.config(text = Playerdata["Address"])
         self.lblDataPostcode.config(text = Playerdata["Post code"])
         self.lblDataDateOfBirth.config(text = Playerdata["Date of Birth"])
-        self.lblDataTeam.config(text = Playerdata["First name"]) # Need to change to team when team is implemented
+        self.lblDataTeam.config(text = teamNumber)
 
 

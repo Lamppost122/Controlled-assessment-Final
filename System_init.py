@@ -15,6 +15,7 @@ class System_init:
                 else:
                     with open(i,"w+") as fp:
                         json.dump({},fp)
+                    print("New File Create with name : "+ i)
 
     @staticmethod
     def init__SystemBackUps():
@@ -25,6 +26,7 @@ class System_init:
         }
         with open("BackupList.json","w")as fp:
             json.dump(data,fp)
+        print("New File Create with name : "+ "BackupList.json")
 
     def PlayerFile(PlayerFileName = "players.json"):
         with open(PlayerFileName,"w") as fp:
