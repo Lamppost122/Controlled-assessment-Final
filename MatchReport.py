@@ -4,6 +4,10 @@ from tkinter import font  as tkfont
 from tkinter import messagebox
 from tkinter import ttk
 from Gui import *
+from SystemToolKit import *
+import datetime
+from datetime import date
+from AddMatch import *
 
 class MatchReport(tk.Frame):
 
@@ -22,7 +26,7 @@ class MatchReport(tk.Frame):
         self.RemoveRowButton = tk.Button(self,text="Remove row",command = self.RemovePlayer)
         self.AddRowButton = tk.Button(self,text = "Add Row",command= self.AddPlayer )
         self.SubmitButton = tk.Button(self,text = "Submit",command = self.submit)
-        self.ImportButton = tk.Button(self,text="Import Team",command = self.ImportTeam)
+        self.ImportButton = tk.Button(self,text="Import Team",command = lambda: self.ImportTeam())
         self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun(controller))
         self.lblFirstName = ttk.Label(self,text = "FirstName")
         self.lblLastName = ttk.Label(self,text = "Last Name")
@@ -112,12 +116,14 @@ class MatchReport(tk.Frame):
                         data =  list(reversed(data))
 
                         playerData = self.Player_Data(data[2],data[3],data[4],data[5])
-                        player = "temp"#self.getPLayerID(data[0],data[1])
+                        player = self.getPlayerID(data[0],data[1])
+
                         matchReport[player] = playerData
                         data = []
 
 
-                except :AttributeError
+                except AttributeError:
+                    pass
             else:
                 try:
 
@@ -125,7 +131,7 @@ class MatchReport(tk.Frame):
                     if len(matchData) == 5:
 
 
-                        matchID ="temp" #self.getMatchID(matchData[4],matchData[3])
+                        matchID =self.getMatchID(matchData[3],matchData[4])
                         winStatus = self.win_Status(matchData[2],matchData[1])
                         matchData = self.Match_Data(matchID,matchData[2],matchData[1],winStatus)
                         matchReport["Match Data"] = matchData
@@ -136,7 +142,9 @@ class MatchReport(tk.Frame):
 
 
 
-                except :AttributeError
+                except AttributeError:
+                    pass
+
         return matchReport
     def write_Match_Report(self,matchReport):
         with open('matchReport.json') as fp:
@@ -144,18 +152,19 @@ class MatchReport(tk.Frame):
         matchReportID = uuid.uuid4()
         matchReport[matchReportID] = matchReport
     def getMatchID(self,Date,Team):
-         with open('matchs.json') as fp:
-                matchss= json.load(fp)
-         for i in players:
-            if i["Date"] ==  Date and i["Team"] == Team: #Will need to change dependent on an uodate to match structure
+         with open('matches.json') as fp:
+                matches= json.load(fp)
+
+         TeamID =AddMatch.getTeamId(Team)
+         for i in matches[TeamID]:
+            if matches[TeamID][i]["Date"] ==  Date :
                 return i
 
     def getPlayerID(self,FirstName,LastName):
-        with open('player.json') as fp:
+        with open('players.json') as fp:
                 players= json.load(fp)
-        print(players)
         for i in players:
-            if i["FirstName"] ==  FirstName and i["LastName"] == LastName:
+            if players[i]["First name"] ==  FirstName and players[i]["Last name"] == LastName:
                 return i
     def win_Status(self,ClubScore ,OppositonScore):
         if ClubScore > OppositonScore:
@@ -185,27 +194,38 @@ class MatchReport(tk.Frame):
         return PlayerData
     def Player_stats_update(self,matchReport):
 
-        with open('playersStats.txt') as fp:
-            playersData = json.load(fp)
+
+        allPlayersData = SystemToolKit.readFile('playerStats.json')
+        TeamID = AddMatch.getTeamId(self.txtTeam.get())
+        try:
+            playersData= allPlayersData[TeamID]
+
+        except KeyError:
+            playersData= {}
 
         for i in matchReport:
             if i!= "Match Data":
-                playersData[i]["Life time goals"] += i["Goal"]
-                playersData[i]["Season goals"] += i["Goal"]
-                playersData[i]["Life time green cards"] += i["Green cards"]
-                playersData[i]["Season green cards"] += i["Green cards"]
-                playersData[i]["Life time yellopw cards"] += i["Yellow cards"]
-                playersData[i]["Season yellow cards"] += i["Yellow cards"]
-                playersData[i]["Life time red cards"] += i["Red cards"]
-                playersData[i]["Season red cards"] += i["Red cards"]
+
+                playersData[i]["Life time goals"] += int(matchReport[i]["Goals"])
+                playersData[i]["Season goals"] += int(matchReport[i]["Goals"])
+                playersData[i]["Life time green cards"] += int(matchReport[i]["Green cards"])
+                playersData[i]["Season green cards"] += int(matchReport[i]["Green cards"])
+                playersData[i]["Life time yellow cards"] += int(matchReport[i]["Yellow cards"])
+                playersData[i]["Season yellow cards"] += int(matchReport[i]["Yellow cards"])
+                playersData[i]["Life time red cards"] += int(matchReport[i]["Red Cards"])
+                playersData[i]["Season red cards"] += int(matchReport[i]["Red Cards"])
                 playersData[i]["Life time Games"] +=1
                 playersData[i]["Season games"] += 1
 
-        with open('playersStats.json', 'w+') as fp:
-                    json.dump(playersData, fp)
+
+        allPlayersData[TeamID] =playersData
+
+
+        with open('playerStats.json', 'w+') as fp:
+                    json.dump(allPlayersData, fp)
 
     def seasonReset(self):
-        with open('playersStats.json') as fp:
+        with open('playerStats.json') as fp:
             playersData = json.load(fp)
         for data in playersData:
             data["Season goals"] = 0
@@ -214,24 +234,30 @@ class MatchReport(tk.Frame):
             data["Season red cards"] = 0
             data["Season games"] = 0
 
-        with open('players.json', 'w+') as fp:
+        with open('playerStats.json', 'w+') as fp:
                     json.dump(playersData, fp)
 
     def newSeason(self):
         with open('season.txt') as fp:
             season= fp.read()
-        date = datetime.datetime.strptime(season, '%Y-%d-%m')
-        if datetime.datetime.today() > date:
+        present =datetime.datetime.now()
+        currentYear =present.year
+        if datetime.datetime(currentYear,9,1) <present:
             self.seasonReset()
-            date = date + timedelta(year=1)
-            with open('season.txt') as fp:
-                fp.write(date)
+            currentYear +=1
+        seasonData = "01/09/"+str(currentYear)
+        f= open("season.txt","w+")
+        f.write(seasonData)
+        f.close()
+
 
     def submit(self):
         self.newSeason()
         matchReport = self.get_Match_Report_Data()
         self.write_Match_Report(matchReport)
         self.Player_stats_update(matchReport)
+        messagebox.showinfo("","Match Report Submitted")
+        self.controller.show_frame("Home")
 
     def ImportTeam(self):
         teamNumber = self.txtImport.get()
@@ -240,17 +266,15 @@ class MatchReport(tk.Frame):
 
 
     def get_Team(self,teamNumber):
+        team= SystemToolKit.readFile("team.json")
+        Players = SystemToolKit.readFile("players.json")
 
+        Names = []
+        for i, j in enumerate(team):
+                if team[j]["Team Number"] == teamNumber:
+                    for k,l in enumerate(Players):
 
-        Names = [["john","mark"],["antony","jamon"]]
-##        with open('team.json') as fp:
-##            team = fp.read()
-##
-##
-##        for i in team:
-##            Names.append(i["First name"],i["Last name"])
-
-
+                        Names.append((Players[team[j][str(k)]]["First name"],Players[team[j][str(k)]]["Last name"]))
 
 
         return Names
