@@ -4,9 +4,6 @@ from tkinter import font  as tkfont
 from tkinter import messagebox
 from tkinter import ttk
 
-
-
-
 PagesViewed = ["Login"]
 from SystemToolKit import *
 from Login import *
@@ -31,6 +28,11 @@ from BackUp import *
 from TeamStats import *
 from ConfirmEmail import *
 from Gui import *
+from ImportData import *
+from SendAviablityCheck import *
+from ConfirmAvailablity import *
+from ViewAvailablity import *
+from PlayerStats import *
 import Config
 
 class SampleApp(tk.Tk):
@@ -47,7 +49,11 @@ class SampleApp(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
-        for F in (Login, Register,ProfileSetup,Home,AddMatch,MatchScreen,AdminCommands,RemoveMatch,EditMatch,News,AddNews,MatchReport,RemovePlayer,EditPlayer,AddTeam,RemoveTeam,EditTeam,BackUp,TeamStats,ConfirmEmail):
+        for F in (Login, Register,ProfileSetup,HomePlayer,HomeAdmin,AddMatch,MatchScreen
+        ,AdminCommands,RemoveMatch,EditMatch,News,AddNews,MatchReport
+        ,RemovePlayer,EditPlayer,AddTeam,RemoveTeam,EditTeam,BackUp,TeamStats
+        ,ConfirmEmail,ImportData,SendAvailablityCheck,ConfirmAvailablity,ViewAvailablity
+        ,PlayerStats):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame
@@ -57,6 +63,9 @@ class SampleApp(tk.Tk):
 
     def show_frame(self, page_name):
         '''Show a frame for the given page name'''
+        if Config.AccessLevel == "Admin":
+            page_name=page_name+"Admin"
+
         frame = self.frames[page_name]
         PagesViewed.append(page_name)
 

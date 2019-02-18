@@ -76,8 +76,8 @@ class AddMatch(tk.Frame):
                 with open('matches.json', 'w+') as fp:
                     json.dump(match, fp)
                 controller.show_frame("Home")
-
-        def getTeamId(self,TeamNumber):
+        @staticmethod
+        def getTeamId(TeamNumber):
             Teams = SystemToolKit.readFile("team.json")
             for i in Teams:
                 if Teams[i]["Team Number"] == TeamNumber:
@@ -86,7 +86,7 @@ class AddMatch(tk.Frame):
         def getTeamMatches(self,match,TeamId):
             for i in match :
                 if i == TeamId :
-                    return match[TeamID]
+                    return match[TeamId]
             return {}
 
 
