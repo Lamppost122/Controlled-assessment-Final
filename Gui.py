@@ -25,7 +25,6 @@ from RemoveTeam import *
 from EditTeam import *
 from System_init import *
 from BackUp import *
-from TeamStats import *
 from ConfirmEmail import *
 from Gui import *
 from ImportData import *
@@ -49,11 +48,22 @@ class SampleApp(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
-        for F in (Login, Register,ProfileSetup,HomePlayer,HomeAdmin,AddMatch,MatchScreen
-        ,AdminCommands,RemoveMatch,EditMatch,News,AddNews,MatchReport
-        ,RemovePlayer,EditPlayer,AddTeam,RemoveTeam,EditTeam,BackUp,TeamStats
-        ,ConfirmEmail,ImportData,SendAvailablityCheck,ConfirmAvailablity,ViewAvailablity
-        ,PlayerStats):
+        for F in (LoginAdmin,LoginPlayer,LoginCoach, RegisterAdmin
+        ,RegisterCoach,ProfileSetupPlayer,HomeCoach,HomePlayer,HomeAdmin
+        ,AddMatchPlayer,AddMatchCoach,AddMatchAdmin,MatchScreenPlayer
+        ,MatchScreenCoach,MatchScreenAdmin,AdminCommandsAdmin,AdminCommandsPlayer
+        ,AdminCommandsCoach,RemoveMatchPlayer,RemoveMatchCoach,RemoveMatchAdmin
+        ,EditMatchCoach,EditMatchPlayer,EditMatchAdmin,NewsAdmin,NewsPlayer,NewsCoach
+        ,AddNewsAdmin,AddNewsPlayer,AddNewsCoach,MatchReportAdmin,MatchReportCoach
+        ,MatchReportPlayer,RemovePlayerPlayer,RemovePlayerAdmin,RemovePlayerCoach
+        ,EditPlayerAdmin,EditPlayerPlayer,EditPlayerCoach,AddTeamPlayer,AddTeamAdmin
+        ,AddTeamCoach,RemoveTeamAdmin,RemoveTeamCoach,RemoveTeamPlayer,EditTeamPlayer
+        ,EditTeamAdmin,EditTeamCoach,BackUpAdmin,BackUpPlayer,BackUpCoach
+        ,ConfirmEmailAdmin,ConfirmEmailCoach,ConfirmEmailPlayer,ImportDataAdmin
+        ,ImportDataCoach,ImportDataPlayer,SendAvailablityCheckPlayer,SendAvailablityCheckCoach
+        ,SendAvailablityCheckAdmin,ConfirmAvailablityAdmin,ConfirmAvailablityPlayer
+        ,ConfirmAvailablityCoach,ViewAvailablityCoach,ViewAvailablityPlayer,ViewAvailablityAdmin
+        ,PlayerStatsCoach,PlayerStatsPlayer,PlayerStatsAdmin):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame
@@ -65,6 +75,10 @@ class SampleApp(tk.Tk):
         '''Show a frame for the given page name'''
         if Config.AccessLevel == "Admin":
             page_name=page_name+"Admin"
+        elif Config.AccessLevel == "Coach":
+            page_name=page_name+"Coach"
+        else:
+            page_name=page_name+"Player"
 
         frame = self.frames[page_name]
         PagesViewed.append(page_name)

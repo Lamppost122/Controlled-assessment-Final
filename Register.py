@@ -7,8 +7,6 @@ import tkinter as tk
 from tkinter import font  as tkfont
 from tkinter import  messagebox
 from tkinter import ttk
-from email.MIMEMultipart import MIMEMultipart
-from email.MIMEText import MIMEText
 from SystemToolKit import *
 from Gui import *
 import random
