@@ -107,6 +107,50 @@ class HomePlayer(tk.Frame,Home):
         self.PlayerStatsButton.grid(row=4,column =3)
         self.AddPlayerButton.grid(row=4,column=4)
 
+class HomeCoach(tk.Frame,Home):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+
+        self.titleProfile = tk.Label(self,text="My Profile",font=controller.title_font)
+        self.lblFirstName= tk.Label(self,text=" First Name :")
+        self.lblLastName= tk.Label(self,text=" Last Name :")
+        self.lblPhoneNumber= tk.Label(self,text=" Phone Number :")
+        self.lblAddress= tk.Label(self,text=" Address :")
+        self.lblPostcode= tk.Label(self,text=" Postcode :")
+        self.lblDateOfBirth= tk.Label(self,text=" Date of Birth :")
+        self.lblTeam = tk.Label(self,text=" Team :")
+        self.GetDataButton =tk.Button(self,text="Get Data",command=lambda:self.on_show_frame(controller))
+        self.MatchButton =tk.Button(self,text = "Match Data",command = lambda :controller.show_frame("MatchScreen"))
+        self.PlayerStatsButton =tk.Button(self,text="Player Stats",command = lambda :controller.show_frame("PlayerStats"))
+
+        self.AdminCommandsButton = tk.Button(self,text = "AdminCommands",command = lambda:controller.show_frame("AdminCommands"))
+        self.AdminCommandsButton.grid(row=3,column =4)
+
+        self.AddPlayerButton=tk.Button(self,text="Setup Profile",command = lambda:controller.show_frame("ProfileSetup"))
+        self.NewsButton = tk.Button(self,text = "News/Updates",command = lambda:controller.show_frame("News"))
+        self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun(controller))
+
+        self.titleProfile.config(background="#f4f8ff",fg = "#485e82",pady="5")
+
+        self.titleProfile.grid(row = 0 ,column = 0 ,columnspan = 2)
+        self.lblFirstName.grid(row=1,column=0)
+        self.lblLastName.grid(row=2,column=0)
+        self.lblPhoneNumber.grid(row=3,column=0)
+        self.lblAddress.grid(row=4,column=0)
+        self.lblPostcode.grid(row=5,column=0)
+        self.lblDateOfBirth.grid(row=6,column=0)
+        self.lblTeam.grid(row=7,column = 0 )
+        self.GetDataButton.grid(row=8,column =0)
+        self.MatchButton.grid(row = 3,column = 3)
+
+        self.NewsButton.grid(row=3,column =5)
+        self.BackButton.grid(row=3,column = 6)
+        self.PlayerStatsButton.grid(row=4,column =3)
+        self.AddPlayerButton.grid(row=4,column=4)
+
 
 
 class HomeAdmin(tk.Frame,Home):

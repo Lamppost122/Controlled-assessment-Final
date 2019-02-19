@@ -129,4 +129,44 @@ class BackUpAdmin(tk.Frame,BackUp):
             self.createBackUpButton.grid(row=1,column = 2)
             self.recoverBackUpButton.grid(row=1,column = 3)
 
+class BackUpPlayer(tk.Frame,BackUp):
+
+        def __init__(self, parent, controller):
+            tk.Frame.__init__(self, parent)
+            self.controller = controller
+            self.Title =tk.Label(self,text="BackUps",font = controller.title_font)
+            self.PastBackupsList = tk.Listbox(self)
+            self.getBackupListButton = tk.Button(self,text="Get Back Ups",command = lambda: self.writeToScreen("BackupList.json"))
+            self.createBackUpButton = tk.Button(self,text="Create Back up",command =lambda: self.createBackUp("BackupList.json"))
+            self.recoverBackUpButton = tk.Button(self,text="Recover Back up",command =lambda: self.RecoverBackUp("BackupList.json"))
+            self.BackButton = tk.Button(self,text = "Back",command = lambda:self.BackButtonRun(controller))
+            self.Title.config(background="#f4f8ff",fg = "#485e82",pady="5")
+            self.PastBackupsList.config(background="white")
+            self.Title.grid(row = 0,column =0)
+            self.PastBackupsList.grid(row= 1,column= 0)
+            self.getBackupListButton.grid(row = 1,column =1)
+            self.createBackUpButton.grid(row=1,column = 2)
+            self.recoverBackUpButton.grid(row=1,column = 3)
+
+
+class BackUpCoach(tk.Frame,BackUp):
+
+        def __init__(self, parent, controller):
+            tk.Frame.__init__(self, parent)
+            self.controller = controller
+            self.Title =tk.Label(self,text="BackUps",font = controller.title_font)
+            self.PastBackupsList = tk.Listbox(self)
+            self.getBackupListButton = tk.Button(self,text="Get Back Ups",command = lambda: self.writeToScreen("BackupList.json"))
+            self.createBackUpButton = tk.Button(self,text="Create Back up",command =lambda: self.createBackUp("BackupList.json"))
+            self.recoverBackUpButton = tk.Button(self,text="Recover Back up",command =lambda: self.RecoverBackUp("BackupList.json"))
+            self.BackButton = tk.Button(self,text = "Back",command = lambda:self.BackButtonRun(controller))
+            self.Title.config(background="#f4f8ff",fg = "#485e82",pady="5")
+            self.PastBackupsList.config(background="white")
+            self.Title.grid(row = 0,column =0)
+            self.PastBackupsList.grid(row= 1,column= 0)
+            self.getBackupListButton.grid(row = 1,column =1)
+            self.createBackUpButton.grid(row=1,column = 2)
+            self.recoverBackUpButton.grid(row=1,column = 3)
+
+
 

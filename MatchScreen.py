@@ -6,7 +6,7 @@ from tkinter import ttk
 from Gui import *
 
 class MatchScreen:
-`   def BackButtonRun(self,controller):
+    def BackButtonRun(self,controller):
         global PagesViewed
         PagesViewed.pop()
         controller.show_frame(PagesViewed[-1])

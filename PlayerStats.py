@@ -1,19 +1,4 @@
-#-------------------------------------------------------------------------------
-# Name:        module1
-# Purpose:
-#
-# Author:      12chamilton
-#
-# Created:     19/02/2019
-# Copyright:   (c) 12chamilton 2019
-# Licence:     <your licence>
-#-------------------------------------------------------------------------------
-
-def main():
-    pass
-
-if __name__ == '__main__':
-    main()import json
+import json
 import tkinter as tk
 from tkinter import font  as tkfont
 from tkinter import messagebox
@@ -23,7 +8,7 @@ from Config import *
 from AddMatch import *
 from SystemToolKit import *
 
-class PLayerStats:
+class PlayerStats:
     def BackButtonRun(self):
         global PagesViewed
         PagesViewed.pop()

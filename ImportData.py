@@ -53,4 +53,21 @@ class ImportDataAdmin(tk.Frame,ImportData):
             self.txtFileName =tk.Entry(self)
             self.importButton =tk.Button(self,text ="Import")
 
+class ImportDataCoach(tk.Frame,ImportData):
+
+        def __init__(self, parent, controller):
+            tk.Frame.__init__(self, parent)
+            self.controller = controller
+            self.Title = tk.Label(self,text="Import Data",font= controller.title_font)
+            self.txtFileName =tk.Entry(self)
+            self.importButton =tk.Button(self,text ="Import")
+
+class ImportDataPlayer(tk.Frame,ImportData):
+
+        def __init__(self, parent, controller):
+            tk.Frame.__init__(self, parent)
+            self.controller = controller
+            self.Title = tk.Label(self,text="Import Data",font= controller.title_font)
+            self.txtFileName =tk.Entry(self)
+            self.importButton =tk.Button(self,text ="Import")
 
