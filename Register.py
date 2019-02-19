@@ -13,56 +13,7 @@ from SystemToolKit import *
 from Gui import *
 import random
 
-
-
-
-
-class Register(tk.Frame):
-
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        self.controller = controller
-
-        self.Title = tk.Label(self, text="Please fill in your details", font=controller.title_font)
-        self.loginButton = tk.Button(self, text="Login",command=lambda: controller.show_frame("Login") )
-        self.registerButton = tk.Button(self, text="Register",command=lambda: self.register(controller))
-        self.lblUsername = ttk.Label(self,text="Username: ")
-        self.lblPassword = ttk.Label(self,text="Password: ")
-        self.lblConfirmUsername = ttk.Label(self,text="Confirm Username: ")
-        self.lblConfirmPassword = ttk.Label(self,text="Confirm Password: ")
-        self.lblEmail = ttk.Label(self,text="Email: ")
-        self.txtUsername = ttk.Entry(self)
-        self.txtConfirmUsername = ttk.Entry(self)
-        self.txtPassword = ttk.Entry(self)
-        self.txtConfirmPassword = ttk.Entry(self)
-        self.txtEmail = ttk.Entry(self)
-        self.lblAccessLevel = ttk.Label(self,text = "Position: ")
-        self.var = tk.StringVar()
-        options = ["Player","Coach/Captin","Admin"]
-        self.var.set(options[0])
-
-        self.cmbAccessLevel = tk.OptionMenu(self, self.var,*options)
-
-        self.Title.config(background="#f4f8ff",fg = "#485e82",pady="5")
-        self.txtPassword.config(width="20",show="*")
-        self.txtConfirmPassword.config(width="20",show="*")
-
-
-        self.txtUsername.grid(row=1,column = 1)
-        self.txtConfirmUsername.grid(row=2,column = 1)
-        self.txtPassword.grid(row=3,column = 1)
-        self.txtConfirmPassword.grid(row=4,column = 1)
-        self.txtEmail.grid(row=5,column = 1)
-        self.loginButton.grid(row=7,column = 0)
-        self.registerButton.grid(row=7,column = 1)
-        self.lblUsername.grid(row=1,column = 0)
-        self.lblConfirmUsername.grid(row=2,column = 0)
-        self.lblPassword.grid(row=3,column = 0)
-        self.lblConfirmPassword.grid(row=4,column = 0)
-        self.lblEmail.grid(row=5,column = 0)
-        self.Title.grid(row=0,column = 0,columnspan=2)
-        self.lblAccessLevel.grid(row=6,column =0 )
-        self.cmbAccessLevel.grid(row=6,column = 1)
+class Register:
 
     def register(self,controller):
         self.getRegisterData()
@@ -123,4 +74,146 @@ class Register(tk.Frame):
         server.sendmail("ComputerScienceTest1@gmail.com", self.Email, text)
         server.quit()
 
+
+
+class RegisterAdmin(tk.Frame,Register):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        self.Title = tk.Label(self, text="Please fill in your details", font=controller.title_font)
+        self.loginButton = tk.Button(self, text="Login",command=lambda: controller.show_frame("Login") )
+        self.registerButton = tk.Button(self, text="Register",command=lambda: self.register(controller))
+        self.lblUsername = ttk.Label(self,text="Username: ")
+        self.lblPassword = ttk.Label(self,text="Password: ")
+        self.lblConfirmUsername = ttk.Label(self,text="Confirm Username: ")
+        self.lblConfirmPassword = ttk.Label(self,text="Confirm Password: ")
+        self.lblEmail = ttk.Label(self,text="Email: ")
+        self.txtUsername = ttk.Entry(self)
+        self.txtConfirmUsername = ttk.Entry(self)
+        self.txtPassword = ttk.Entry(self)
+        self.txtConfirmPassword = ttk.Entry(self)
+        self.txtEmail = ttk.Entry(self)
+        self.lblAccessLevel = ttk.Label(self,text = "Position: ")
+        self.var = tk.StringVar()
+        options = ["Player","Coach/Captin","Admin"]
+        self.var.set(options[0])
+
+        self.cmbAccessLevel = tk.OptionMenu(self, self.var,*options)
+
+        self.Title.config(background="#f4f8ff",fg = "#485e82",pady="5")
+        self.txtPassword.config(width="20",show="*")
+        self.txtConfirmPassword.config(width="20",show="*")
+
+
+        self.txtUsername.grid(row=1,column = 1)
+        self.txtConfirmUsername.grid(row=2,column = 1)
+        self.txtPassword.grid(row=3,column = 1)
+        self.txtConfirmPassword.grid(row=4,column = 1)
+        self.txtEmail.grid(row=5,column = 1)
+        self.loginButton.grid(row=7,column = 0)
+        self.registerButton.grid(row=7,column = 1)
+        self.lblUsername.grid(row=1,column = 0)
+        self.lblConfirmUsername.grid(row=2,column = 0)
+        self.lblPassword.grid(row=3,column = 0)
+        self.lblConfirmPassword.grid(row=4,column = 0)
+        self.lblEmail.grid(row=5,column = 0)
+        self.Title.grid(row=0,column = 0,columnspan=2)
+        self.lblAccessLevel.grid(row=6,column =0 )
+        self.cmbAccessLevel.grid(row=6,column = 1)
+
+class RegisterCoach(tk.Frame,Register):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        self.Title = tk.Label(self, text="Please fill in your details", font=controller.title_font)
+        self.loginButton = tk.Button(self, text="Login",command=lambda: controller.show_frame("Login") )
+        self.registerButton = tk.Button(self, text="Register",command=lambda: self.register(controller))
+        self.lblUsername = ttk.Label(self,text="Username: ")
+        self.lblPassword = ttk.Label(self,text="Password: ")
+        self.lblConfirmUsername = ttk.Label(self,text="Confirm Username: ")
+        self.lblConfirmPassword = ttk.Label(self,text="Confirm Password: ")
+        self.lblEmail = ttk.Label(self,text="Email: ")
+        self.txtUsername = ttk.Entry(self)
+        self.txtConfirmUsername = ttk.Entry(self)
+        self.txtPassword = ttk.Entry(self)
+        self.txtConfirmPassword = ttk.Entry(self)
+        self.txtEmail = ttk.Entry(self)
+        self.lblAccessLevel = ttk.Label(self,text = "Position: ")
+        self.var = tk.StringVar()
+        options = ["Player","Coach/Captin","Admin"]
+        self.var.set(options[0])
+
+        self.cmbAccessLevel = tk.OptionMenu(self, self.var,*options)
+
+        self.Title.config(background="#f4f8ff",fg = "#485e82",pady="5")
+        self.txtPassword.config(width="20",show="*")
+        self.txtConfirmPassword.config(width="20",show="*")
+
+
+        self.txtUsername.grid(row=1,column = 1)
+        self.txtConfirmUsername.grid(row=2,column = 1)
+        self.txtPassword.grid(row=3,column = 1)
+        self.txtConfirmPassword.grid(row=4,column = 1)
+        self.txtEmail.grid(row=5,column = 1)
+        self.loginButton.grid(row=7,column = 0)
+        self.registerButton.grid(row=7,column = 1)
+        self.lblUsername.grid(row=1,column = 0)
+        self.lblConfirmUsername.grid(row=2,column = 0)
+        self.lblPassword.grid(row=3,column = 0)
+        self.lblConfirmPassword.grid(row=4,column = 0)
+        self.lblEmail.grid(row=5,column = 0)
+        self.Title.grid(row=0,column = 0,columnspan=2)
+        self.lblAccessLevel.grid(row=6,column =0 )
+        self.cmbAccessLevel.grid(row=6,column = 1)
+
+class RegisterPlayer(tk.Frame,Register):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        self.Title = tk.Label(self, text="Please fill in your details", font=controller.title_font)
+        self.loginButton = tk.Button(self, text="Login",command=lambda: controller.show_frame("Login") )
+        self.registerButton = tk.Button(self, text="Register",command=lambda: self.register(controller))
+        self.lblUsername = ttk.Label(self,text="Username: ")
+        self.lblPassword = ttk.Label(self,text="Password: ")
+        self.lblConfirmUsername = ttk.Label(self,text="Confirm Username: ")
+        self.lblConfirmPassword = ttk.Label(self,text="Confirm Password: ")
+        self.lblEmail = ttk.Label(self,text="Email: ")
+        self.txtUsername = ttk.Entry(self)
+        self.txtConfirmUsername = ttk.Entry(self)
+        self.txtPassword = ttk.Entry(self)
+        self.txtConfirmPassword = ttk.Entry(self)
+        self.txtEmail = ttk.Entry(self)
+        self.lblAccessLevel = ttk.Label(self,text = "Position: ")
+        self.var = tk.StringVar()
+        options = ["Player","Coach/Captin","Admin"]
+        self.var.set(options[0])
+
+        self.cmbAccessLevel = tk.OptionMenu(self, self.var,*options)
+
+        self.Title.config(background="#f4f8ff",fg = "#485e82",pady="5")
+        self.txtPassword.config(width="20",show="*")
+        self.txtConfirmPassword.config(width="20",show="*")
+
+
+        self.txtUsername.grid(row=1,column = 1)
+        self.txtConfirmUsername.grid(row=2,column = 1)
+        self.txtPassword.grid(row=3,column = 1)
+        self.txtConfirmPassword.grid(row=4,column = 1)
+        self.txtEmail.grid(row=5,column = 1)
+        self.loginButton.grid(row=7,column = 0)
+        self.registerButton.grid(row=7,column = 1)
+        self.lblUsername.grid(row=1,column = 0)
+        self.lblConfirmUsername.grid(row=2,column = 0)
+        self.lblPassword.grid(row=3,column = 0)
+        self.lblConfirmPassword.grid(row=4,column = 0)
+        self.lblEmail.grid(row=5,column = 0)
+        self.Title.grid(row=0,column = 0,columnspan=2)
+        self.lblAccessLevel.grid(row=6,column =0 )
+        self.cmbAccessLevel.grid(row=6,column = 1)
 

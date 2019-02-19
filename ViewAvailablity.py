@@ -8,21 +8,7 @@ from Config import *
 from AddMatch import *
 from SystemToolKit import *
 
-class ViewAvailablity(tk.Frame):
-
-        def __init__(self, parent, controller):
-            tk.Frame.__init__(self, parent)
-            self.controller = controller
-            self.Title=tk.Label(self,text="Player Availablity",font=controller.title_font)
-            self.lblTeamNumber = tk.Label(self,text="Team Number: ")
-            self.txtTeamNumber = tk.Entry(self)
-            self.GetPlayersButton =tk.Button(self,text="Get Player Status",command=lambda:self.GetPlayers())
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
-            self.Title.grid(row=0,column =0)
-            self.lblTeamNumber.grid(row=1,column=0)
-            self.txtTeamNumber.grid(row=1,column =1)
-            self.GetPlayersButton.grid(row=1,column =2)
-            self.BackButton.grid(row=1,column=3)
+class ViewAvailablity:
 
         def BackButtonRun(self):
             global PagesViewed
@@ -33,7 +19,7 @@ class ViewAvailablity(tk.Frame):
             matchPlayers = SystemToolKit.readFile("matchAvailablity.json")
             players = SystemToolKit.readFile("players.json")
             match =SystemToolKit.readFile("matches.json")
-            print players
+
 
             TeamID = AddMatch.getTeamId(self.txtTeamNumber.get())
             matches = matchPlayers[TeamID]
@@ -54,4 +40,51 @@ class ViewAvailablity(tk.Frame):
                         self.lblPlayer.grid(row=count+2,column = 0)
                         count+=1
 
+class ViewAvailablityAdmin(tk.Frame,ViewAvailablity):
+
+        def __init__(self, parent, controller):
+            tk.Frame.__init__(self, parent)
+            self.controller = controller
+            self.Title=tk.Label(self,text="Player Availablity",font=controller.title_font)
+            self.lblTeamNumber = tk.Label(self,text="Team Number: ")
+            self.txtTeamNumber = tk.Entry(self)
+            self.GetPlayersButton =tk.Button(self,text="Get Player Status",command=lambda:self.GetPlayers())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.Title.grid(row=0,column =0)
+            self.lblTeamNumber.grid(row=1,column=0)
+            self.txtTeamNumber.grid(row=1,column =1)
+            self.GetPlayersButton.grid(row=1,column =2)
+            self.BackButton.grid(row=1,column=3)
+
+class ViewAvailablityCoach(tk.Frame,ViewAvailablity):
+
+        def __init__(self, parent, controller):
+            tk.Frame.__init__(self, parent)
+            self.controller = controller
+            self.Title=tk.Label(self,text="Player Availablity",font=controller.title_font)
+            self.lblTeamNumber = tk.Label(self,text="Team Number: ")
+            self.txtTeamNumber = tk.Entry(self)
+            self.GetPlayersButton =tk.Button(self,text="Get Player Status",command=lambda:self.GetPlayers())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.Title.grid(row=0,column =0)
+            self.lblTeamNumber.grid(row=1,column=0)
+            self.txtTeamNumber.grid(row=1,column =1)
+            self.GetPlayersButton.grid(row=1,column =2)
+            self.BackButton.grid(row=1,column=3)
+
+class ViewAvailablityPlayer(tk.Frame,ViewAvailablity):
+
+        def __init__(self, parent, controller):
+            tk.Frame.__init__(self, parent)
+            self.controller = controller
+            self.Title=tk.Label(self,text="Player Availablity",font=controller.title_font)
+            self.lblTeamNumber = tk.Label(self,text="Team Number: ")
+            self.txtTeamNumber = tk.Entry(self)
+            self.GetPlayersButton =tk.Button(self,text="Get Player Status",command=lambda:self.GetPlayers())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.Title.grid(row=0,column =0)
+            self.lblTeamNumber.grid(row=1,column=0)
+            self.txtTeamNumber.grid(row=1,column =1)
+            self.GetPlayersButton.grid(row=1,column =2)
+            self.BackButton.grid(row=1,column=3)
 

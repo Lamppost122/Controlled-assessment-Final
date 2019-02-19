@@ -52,4 +52,3 @@ class System_init:
             data[i] = {}
         with open(MatchFileName,"w") as fp:
             json.dump(data,fp)
-

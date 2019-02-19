@@ -6,7 +6,7 @@ from tkinter import ttk
 from Gui import *
 
 
-class AdminCommands(tk.Frame):
+class AdminCommandsAdmin(tk.Frame):
 
         def __init__(self, parent, controller):
             tk.Frame.__init__(self, parent)
@@ -70,4 +70,3 @@ class AdminCommands(tk.Frame):
             global PagesViewed
             PagesViewed.pop()
             controller.show_frame(PagesViewed[-1])
-
