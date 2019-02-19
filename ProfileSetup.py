@@ -5,47 +5,7 @@ from tkinter import messagebox
 from tkinter import ttk
 from Gui import *
 import Config
-
-class ProfileSetup(tk.Frame):
-
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        self.controller = controller
-
-        self.BackButton= tk.Button(self, text="Back",command=self.BackButtonRun)
-
-
-        self.lblFirstName= tk.Label(self,text=" First Name :")
-        self.lblLastName= tk.Label(self,text=" Last Name :")
-        self.lblPhoneNumber= tk.Label(self,text=" Phone Number :")
-        self.lblAddress= tk.Label(self,text=" Address :")
-        self.lblPostcode= tk.Label(self,text=" Postcode :")
-        self.lblDateOfBirth= tk.Label(self,text=" Date of Birth :")
-        self.txtFirstName = ttk.Entry(self)
-        self.txtLastName = ttk.Entry(self)
-        self.txtPhoneNumber = ttk.Entry(self)
-        self.txtAddress = ttk.Entry(self)
-        self.txtPostcode = ttk.Entry(self)
-        self.txtDateOfBirth = ttk.Entry(self)
-
-
-        self.SubmitButton= tk.Button(self, text="Submit",command=lambda: self.addNewPlayer(controller) )
-        self.BackButton= tk.Button(self, text="Back",command=lambda: controller.show_frame("Login"))
-
-        self.lblFirstName.grid(row=1,column=0)
-        self.lblLastName.grid(row=2,column=0)
-        self.lblPhoneNumber.grid(row=3,column=0)
-        self.lblAddress.grid(row=4,column=0)
-        self.lblPostcode.grid(row=5,column=0)
-        self.lblDateOfBirth.grid(row=6,column=0)
-        self.txtFirstName.grid(row=1,column=1)
-        self.txtLastName.grid(row=2,column=1)
-        self.txtPhoneNumber.grid(row=3,column=1)
-        self.txtAddress.grid(row=4,column=1)
-        self.txtPostcode.grid(row=5,column=1)
-        self.txtDateOfBirth.grid(row=6,column=1)
-        self.SubmitButton.grid(row=8,column=0,columnspan=2)
-        self.BackButton.grid(row=9,column = 0,columnspan = 2)
+class ProfileSetup:
 
     def BackButtonRun(self):
         global PagesViewed
@@ -146,3 +106,126 @@ class ProfileSetup(tk.Frame):
 ##        messagebox.showinfo("",dateOfBirth +" is not a valid date of birth.")
 ##        return False
         return True
+
+class ProfileSetupPlayer(tk.Frame,ProfileSetup):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        self.BackButton= tk.Button(self, text="Back",command=self.BackButtonRun)
+
+
+        self.lblFirstName= tk.Label(self,text=" First Name :")
+        self.lblLastName= tk.Label(self,text=" Last Name :")
+        self.lblPhoneNumber= tk.Label(self,text=" Phone Number :")
+        self.lblAddress= tk.Label(self,text=" Address :")
+        self.lblPostcode= tk.Label(self,text=" Postcode :")
+        self.lblDateOfBirth= tk.Label(self,text=" Date of Birth :")
+        self.txtFirstName = ttk.Entry(self)
+        self.txtLastName = ttk.Entry(self)
+        self.txtPhoneNumber = ttk.Entry(self)
+        self.txtAddress = ttk.Entry(self)
+        self.txtPostcode = ttk.Entry(self)
+        self.txtDateOfBirth = ttk.Entry(self)
+
+
+        self.SubmitButton= tk.Button(self, text="Submit",command=lambda: self.addNewPlayer(controller) )
+        self.BackButton= tk.Button(self, text="Back",command=lambda: controller.show_frame("Login"))
+
+        self.lblFirstName.grid(row=1,column=0)
+        self.lblLastName.grid(row=2,column=0)
+        self.lblPhoneNumber.grid(row=3,column=0)
+        self.lblAddress.grid(row=4,column=0)
+        self.lblPostcode.grid(row=5,column=0)
+        self.lblDateOfBirth.grid(row=6,column=0)
+        self.txtFirstName.grid(row=1,column=1)
+        self.txtLastName.grid(row=2,column=1)
+        self.txtPhoneNumber.grid(row=3,column=1)
+        self.txtAddress.grid(row=4,column=1)
+        self.txtPostcode.grid(row=5,column=1)
+        self.txtDateOfBirth.grid(row=6,column=1)
+        self.SubmitButton.grid(row=8,column=0,columnspan=2)
+        self.BackButton.grid(row=9,column = 0,columnspan = 2)
+
+class ProfileSetupCoach(tk.Frame,ProfileSetup):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        self.BackButton= tk.Button(self, text="Back",command=self.BackButtonRun)
+
+
+        self.lblFirstName= tk.Label(self,text=" First Name :")
+        self.lblLastName= tk.Label(self,text=" Last Name :")
+        self.lblPhoneNumber= tk.Label(self,text=" Phone Number :")
+        self.lblAddress= tk.Label(self,text=" Address :")
+        self.lblPostcode= tk.Label(self,text=" Postcode :")
+        self.lblDateOfBirth= tk.Label(self,text=" Date of Birth :")
+        self.txtFirstName = ttk.Entry(self)
+        self.txtLastName = ttk.Entry(self)
+        self.txtPhoneNumber = ttk.Entry(self)
+        self.txtAddress = ttk.Entry(self)
+        self.txtPostcode = ttk.Entry(self)
+        self.txtDateOfBirth = ttk.Entry(self)
+
+
+        self.SubmitButton= tk.Button(self, text="Submit",command=lambda: self.addNewPlayer(controller) )
+        self.BackButton= tk.Button(self, text="Back",command=lambda: controller.show_frame("Login"))
+
+        self.lblFirstName.grid(row=1,column=0)
+        self.lblLastName.grid(row=2,column=0)
+        self.lblPhoneNumber.grid(row=3,column=0)
+        self.lblAddress.grid(row=4,column=0)
+        self.lblPostcode.grid(row=5,column=0)
+        self.lblDateOfBirth.grid(row=6,column=0)
+        self.txtFirstName.grid(row=1,column=1)
+        self.txtLastName.grid(row=2,column=1)
+        self.txtPhoneNumber.grid(row=3,column=1)
+        self.txtAddress.grid(row=4,column=1)
+        self.txtPostcode.grid(row=5,column=1)
+        self.txtDateOfBirth.grid(row=6,column=1)
+        self.SubmitButton.grid(row=8,column=0,columnspan=2)
+        self.BackButton.grid(row=9,column = 0,columnspan = 2)
+
+class ProfileSetupAdmin(tk.Frame,ProfileSetup):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        self.BackButton= tk.Button(self, text="Back",command=self.BackButtonRun)
+
+
+        self.lblFirstName= tk.Label(self,text=" First Name :")
+        self.lblLastName= tk.Label(self,text=" Last Name :")
+        self.lblPhoneNumber= tk.Label(self,text=" Phone Number :")
+        self.lblAddress= tk.Label(self,text=" Address :")
+        self.lblPostcode= tk.Label(self,text=" Postcode :")
+        self.lblDateOfBirth= tk.Label(self,text=" Date of Birth :")
+        self.txtFirstName = ttk.Entry(self)
+        self.txtLastName = ttk.Entry(self)
+        self.txtPhoneNumber = ttk.Entry(self)
+        self.txtAddress = ttk.Entry(self)
+        self.txtPostcode = ttk.Entry(self)
+        self.txtDateOfBirth = ttk.Entry(self)
+
+
+        self.SubmitButton= tk.Button(self, text="Submit",command=lambda: self.addNewPlayer(controller) )
+        self.BackButton= tk.Button(self, text="Back",command=lambda: controller.show_frame("Login"))
+
+        self.lblFirstName.grid(row=1,column=0)
+        self.lblLastName.grid(row=2,column=0)
+        self.lblPhoneNumber.grid(row=3,column=0)
+        self.lblAddress.grid(row=4,column=0)
+        self.lblPostcode.grid(row=5,column=0)
+        self.lblDateOfBirth.grid(row=6,column=0)
+        self.txtFirstName.grid(row=1,column=1)
+        self.txtLastName.grid(row=2,column=1)
+        self.txtPhoneNumber.grid(row=3,column=1)
+        self.txtAddress.grid(row=4,column=1)
+        self.txtPostcode.grid(row=5,column=1)
+        self.txtDateOfBirth.grid(row=6,column=1)
+        self.SubmitButton.grid(row=8,column=0,columnspan=2)
+        self.BackButton.grid(row=9,column = 0,columnspan = 2)

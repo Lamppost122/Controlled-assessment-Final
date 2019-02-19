@@ -9,40 +9,7 @@ from tkinter import ttk
 from SystemToolKit import *
 from Gui import *
 import Config
-
-class Login(tk.Frame):
-
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        self.controller = controller
-        self.Title = tk.Label(self, text="Please login to your account", font=controller.title_font)
-        self.loginButton = tk.Button(self, text="Login",command= lambda:self.checkDetails(controller))
-        self.registerButton = tk.Button(self, text="Register",command=lambda: controller.show_frame("Register"))
-        self.lblUsername = tk.Label(self,text="Username: ")
-        self.lblPassword = tk.Label(self,text="Password: ")
-        self.txtUsername = ttk.Entry(self)
-        self.txtPassword = ttk.Entry(self)
-
-
-
-
-        self.Title.config(background="#f4f8ff",fg = "#485e82",pady="5")
-        self.loginButton.config(compound="left")
-        self.registerButton.config(compound="left")
-        self.lblUsername.config(justify="left",fg = "black",background="#f4f8ff")
-        self.lblPassword.config(justify="left",fg = "black",background="#f4f8ff")
-        self.txtUsername.config(width="20")
-        self.txtPassword.config(width="20",show="*")
-
-
-        self.Title.grid(row=0,column=0,columnspan=2)
-        self.loginButton.grid(row=4,column=1)
-        self.registerButton.grid(row=4,column=0)
-        self.lblUsername.grid(row=1,column=0)
-        self.lblPassword.grid(row=2,column=0)
-        self.txtUsername.grid(row=1,column = 1)
-        self.txtPassword.grid(row=2,column = 1)
-
+class Login:
     def checkDetails(self,controller):
         global CurrentUser, AccessLevel
         username = self.txtUsername.get()
@@ -125,4 +92,102 @@ class Login(tk.Frame):
 
             return inbox
 
+class LoginAdmin(tk.Frame,Login):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        self.Title = tk.Label(self, text="Please login to your account", font=controller.title_font)
+        self.loginButton = tk.Button(self, text="Login",command= lambda:self.checkDetails(controller))
+        self.registerButton = tk.Button(self, text="Register",command=lambda: controller.show_frame("Register"))
+        self.lblUsername = tk.Label(self,text="Username: ")
+        self.lblPassword = tk.Label(self,text="Password: ")
+        self.txtUsername = ttk.Entry(self)
+        self.txtPassword = ttk.Entry(self)
+
+
+
+
+        self.Title.config(background="#f4f8ff",fg = "#485e82",pady="5")
+        self.loginButton.config(compound="left")
+        self.registerButton.config(compound="left")
+        self.lblUsername.config(justify="left",fg = "black",background="#f4f8ff")
+        self.lblPassword.config(justify="left",fg = "black",background="#f4f8ff")
+        self.txtUsername.config(width="20")
+        self.txtPassword.config(width="20",show="*")
+
+
+        self.Title.grid(row=0,column=0,columnspan=2)
+        self.loginButton.grid(row=4,column=1)
+        self.registerButton.grid(row=4,column=0)
+        self.lblUsername.grid(row=1,column=0)
+        self.lblPassword.grid(row=2,column=0)
+        self.txtUsername.grid(row=1,column = 1)
+        self.txtPassword.grid(row=2,column = 1)
+
+class LoginPlayer(tk.Frame,Login):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        self.Title = tk.Label(self, text="Please login to your account", font=controller.title_font)
+        self.loginButton = tk.Button(self, text="Login",command= lambda:self.checkDetails(controller))
+        self.registerButton = tk.Button(self, text="Register",command=lambda: controller.show_frame("Register"))
+        self.lblUsername = tk.Label(self,text="Username: ")
+        self.lblPassword = tk.Label(self,text="Password: ")
+        self.txtUsername = ttk.Entry(self)
+        self.txtPassword = ttk.Entry(self)
+
+
+
+
+        self.Title.config(background="#f4f8ff",fg = "#485e82",pady="5")
+        self.loginButton.config(compound="left")
+        self.registerButton.config(compound="left")
+        self.lblUsername.config(justify="left",fg = "black",background="#f4f8ff")
+        self.lblPassword.config(justify="left",fg = "black",background="#f4f8ff")
+        self.txtUsername.config(width="20")
+        self.txtPassword.config(width="20",show="*")
+
+
+        self.Title.grid(row=0,column=0,columnspan=2)
+        self.loginButton.grid(row=4,column=1)
+        self.registerButton.grid(row=4,column=0)
+        self.lblUsername.grid(row=1,column=0)
+        self.lblPassword.grid(row=2,column=0)
+        self.txtUsername.grid(row=1,column = 1)
+        self.txtPassword.grid(row=2,column = 1)
+
+class LoginCoach(tk.Frame,Login):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        self.Title = tk.Label(self, text="Please login to your account", font=controller.title_font)
+        self.loginButton = tk.Button(self, text="Login",command= lambda:self.checkDetails(controller))
+        self.registerButton = tk.Button(self, text="Register",command=lambda: controller.show_frame("Register"))
+        self.lblUsername = tk.Label(self,text="Username: ")
+        self.lblPassword = tk.Label(self,text="Password: ")
+        self.txtUsername = ttk.Entry(self)
+        self.txtPassword = ttk.Entry(self)
+
+
+
+
+        self.Title.config(background="#f4f8ff",fg = "#485e82",pady="5")
+        self.loginButton.config(compound="left")
+        self.registerButton.config(compound="left")
+        self.lblUsername.config(justify="left",fg = "black",background="#f4f8ff")
+        self.lblPassword.config(justify="left",fg = "black",background="#f4f8ff")
+        self.txtUsername.config(width="20")
+        self.txtPassword.config(width="20",show="*")
+
+
+        self.Title.grid(row=0,column=0,columnspan=2)
+        self.loginButton.grid(row=4,column=1)
+        self.registerButton.grid(row=4,column=0)
+        self.lblUsername.grid(row=1,column=0)
+        self.lblPassword.grid(row=2,column=0)
+        self.txtUsername.grid(row=1,column = 1)
+        self.txtPassword.grid(row=2,column = 1)
 

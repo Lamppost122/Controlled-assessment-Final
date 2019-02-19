@@ -9,9 +9,8 @@ class SystemToolKit:
                     Data = json.load(fp)
                     return Data
 
-        except ValueError,IOError:
+        except ValueError or IOError:
             data = {}
             with open(FileName,"w+") as fp:
                 json.dump(data,fp)
             return Data
-

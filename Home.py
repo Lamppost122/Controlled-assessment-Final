@@ -150,7 +150,3 @@ class HomeAdmin(tk.Frame,Home):
         self.BackButton.grid(row=3,column = 6)
         self.PlayerStatsButton.grid(row=4,column =3)
         self.AddPlayerButton.grid(row=4,column=4)
-
-
-
-
