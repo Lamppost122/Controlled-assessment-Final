@@ -1,14 +1,15 @@
 import os
 import json
 import datetime
+import Config
 
 class System_init:
-    @staticmethod
+
     def FileCreation():
-        files = ["data.json","players.json","matches.json","teams.json","playerStats.json","updates.json","season.json","BackUpList.json","BackupDates.json","matchAvailablity.json","season.txt","matchReport.json"]
+        files = [Config.TeamFile,Config.UserFile,Config.PlayerFile,Config.MatchFile,Config.PlayerStatsFile,Config.UpdatesFile,Config.SeasonFile,Config.BackupListFile,Config.BackupDateFile,Config.MatchAvailablityFile,MatchReportFile]
         for i in files:
             if not os.path.isfile(i):
-                if i == "season.txt":
+                if i == Config.Season:
                     present =datetime.datetime.now()
                     currentYear =present.year
                     if datetime.datetime(currentYear,9,1) >present:
@@ -21,7 +22,7 @@ class System_init:
 
 
 
-                elif i == "BackUpList.json":
+                elif i == Config.BackupListFile:
 
                     System_init.init__SystemBackUps()
                 else:
@@ -32,23 +33,12 @@ class System_init:
     @staticmethod
     def init__SystemBackUps():
         data={
-        "Child":["data.json","players.json","matches.json","teams.json","playerStats.json","updates.json","season.json"],
+        "Child":[Config.UserFile,Config.PlayerFile,Config.MatchFile,Config.TeamFile,Config.PlayerStatsFile,Config.UpdatesFile,Config.SeasonFile],
         "Parent":[],
         "Grandparent":[]
         }
-        with open("BackupList.json","w")as fp:
+        with open(Config.BackupListFile,"w")as fp:
             json.dump(data,fp)
-        print("New File Create with name : "+ "BackupList.json")
+        print("New File Create with name : "+ Config.BackupListFile)
 
-    def PlayerFile(PlayerFileName = "players.json"):
-        with open(PlayerFileName,"w") as fp:
-            json.dump({},fp)
 
-    def TeamFile(TeamFileName ="teams.json" ):
-        with open(PlayerFileName,"w") as fp:
-                json.dump({},fp)
-    def MatchFile(MatchFileName = "matches.json",TeamFileName = "teams.json" ):
-        for i in teams:
-            data[i] = {}
-        with open(MatchFileName,"w") as fp:
-            json.dump(data,fp)

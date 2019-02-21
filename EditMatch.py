@@ -4,6 +4,8 @@ from tkinter import font  as tkfont
 from tkinter import messagebox
 from tkinter import ttk
 from Gui import *
+import Config
+from SystemToolKit import *
 
 class EditMatch:
     def BackButtonRun(self,controller):
@@ -16,8 +18,8 @@ class EditMatch:
         self.orderedList = []
 
 
-        with open("matches.json","r")as fp:
-            matches = json.load(fp)
+
+        matches =SystemToolKit.readFile(Config.MatchFile)
 
         self.teamMatches = matches[self.txtTeam.get()]
 
@@ -60,7 +62,7 @@ class EditMatch:
 
 
                     except :AttributeError
-            with open('matches.json', 'w') as fp:
+            with open(Config.MatchFile, 'w') as fp:
                 json.dump(self.teamMatches,fp)
 
 class EditMatchAdmin(tk.Frame,EditMatch):

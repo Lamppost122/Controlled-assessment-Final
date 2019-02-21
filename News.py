@@ -4,6 +4,7 @@ from tkinter import font  as tkfont
 from tkinter import messagebox
 from tkinter import ttk
 from Gui import *
+import Config
 class News:
     def BackButtonRun(self,controller):
             global PagesViewed
@@ -12,7 +13,7 @@ class News:
 
 
     def write_News_to_screen(self):
-        updates = SystemToolKit.readFile("updates.json")
+        updates = SystemToolKit.readFile(Config.UpdatesFile)
 
         for i in updates:
 

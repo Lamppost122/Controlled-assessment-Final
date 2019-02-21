@@ -10,6 +10,7 @@ from tkinter import ttk
 from SystemToolKit import *
 from Gui import *
 import random
+import  Config
 
 class Register:
 
@@ -41,7 +42,7 @@ class Register:
 
         if self.username == self.confirmUsername and self.password == self.confirmPassword :
 
-            users = SystemToolKit.readFile("data.json")
+            users = SystemToolKit.readFile(Config.UserFile)
             salt = uuid.uuid4().hex
             hashed_password = hashlib.sha512(self.password.encode('utf-8') + salt.encode('utf-8')).hexdigest()
             userID = str(uuid.uuid4())
@@ -53,7 +54,7 @@ class Register:
             data["ValidEmail"] = self.ValidEmail
             data["Confirmation code"] = self.confirmationCode
             users[userID] = data
-            with open('data.json', 'w+') as fp:
+            with open(Config.UserFile, 'w+') as fp:
                 json.dump(users, fp)
 
 

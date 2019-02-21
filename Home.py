@@ -16,13 +16,8 @@ class Home:
 
     def on_show_frame(self,controller):
         global CurrentUser
-
-
-        with open('players.json', 'r') as fp:
-                    player = json.load(fp)
-
-        with open("team.json","r")as fp:
-            team = json.load(fp)
+        player = SystemToolKit.readFile(Config.PlayerFile)
+        team = SystemToolKit.readFile(Config.TeamFile)
 
         for k,i in enumerate(team):
             for j in team[i]:

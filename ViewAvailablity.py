@@ -16,9 +16,9 @@ class ViewAvailablity:
             self.controller.show_frame(PagesViewed[-1])
 
         def GetPlayers(self):
-            matchPlayers = SystemToolKit.readFile("matchAvailablity.json")
-            players = SystemToolKit.readFile("players.json")
-            match =SystemToolKit.readFile("matches.json")
+            matchPlayers = SystemToolKit.readFile(Config.MatchAvailablityFile)
+            players = SystemToolKit.readFile(Config.PlayerFile)
+            match =SystemToolKit.readFile(Config.MatchFile)
 
 
             TeamID = AddMatch.getTeamId(self.txtTeamNumber.get())

@@ -48,7 +48,7 @@ class SampleApp(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
-        for F in (LoginAdmin,LoginPlayer,LoginCoach, RegisterAdmin
+        for F in (LoginAdmin,LoginPlayer,LoginCoach, RegisterAdmin,RegisterPlayer
         ,RegisterCoach,ProfileSetupPlayer,HomeCoach,HomePlayer,HomeAdmin
         ,AddMatchPlayer,AddMatchCoach,AddMatchAdmin,MatchScreenPlayer
         ,MatchScreenCoach,MatchScreenAdmin,AdminCommandsAdmin,AdminCommandsPlayer

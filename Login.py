@@ -14,7 +14,7 @@ class Login:
         global CurrentUser, AccessLevel
         username = self.txtUsername.get()
         password = self.txtPassword.get()
-        users = SystemToolKit.readFile("data.json")
+        users = SystemToolKit.readFile(Config.UserFile)
 
 
 
@@ -54,7 +54,7 @@ class Login:
         for i in inbox:
             if i.keys()[0] == str(users[UserID]["Email"]):
                 users[UserID]["ValidEmail"] = True
-                with open('data.json', 'w+') as fp:
+                with open(Config.UserFile, 'w+') as fp:
                     json.dump(users, fp)
 
 

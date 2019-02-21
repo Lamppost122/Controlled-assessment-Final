@@ -6,6 +6,7 @@ from tkinter import ttk
 from Gui import *
 from MatchScreen import *
 from AddMatch import *
+import Config
 class SendAvailablityCheck:
     def BackButtonRun(self):
         global PagesViewed
@@ -31,7 +32,7 @@ class SendAvailablityCheck:
 
     def GetMatches(self):
         self.MatchList.delete(0,tk.END)
-        self.teamMatches = SystemToolKit.readFile("matches.json")
+        self.teamMatches = SystemToolKit.readFile(Config.MatchFile)
         self.matches = self.teamMatches[MatchScreen.GetTeamID(self.txtTeamNumber.get())]
         self.orderedList = []
         for item in self.matches:
@@ -40,11 +41,11 @@ class SendAvailablityCheck:
             self.MatchList.insert(tk.END,text)
 
     def SendEmailToAll(self):
-##            self.ConnectToSever()
-##            Text = self.getText()
-##            for i in self.getEmailList():
-##                self.SendEmail(i,Text)
-##            self.DiscconectToServer()
+        self.ConnectToSever()
+        Text = self.getText()
+        for i in self.getEmailList():
+            self.SendEmail(i,Text)
+        self.DiscconectToServer()
         self.UpdateAvailablityFile()
         messagebox.showinfo("Message","All Emails Sent")
         self.BackButtonRun()
@@ -82,7 +83,7 @@ class SendAvailablityCheck:
             messagebox.showinfo("Message","No Match referenced")
 
     def UpdateAvailablityFile(self):
-        Matches = SystemToolKit.readFile("matchAvailablity.json")
+        Matches = SystemToolKit.readFile(Config.MatchAvailablityFile)
 
         MatchAvailablityData = {}
 
@@ -96,7 +97,7 @@ class SendAvailablityCheck:
 
         Matches[TeamId]=Teams
 
-        with open("matchAvailablity.json","w+")as fp:
+        with open(Config.MatchAvailablityFile,"w+")as fp:
             json.dump(Matches,fp)
 class SendAvailablityCheckAdmin(tk.Frame,SendAvailablityCheck):
 
@@ -121,9 +122,9 @@ class SendAvailablityCheckAdmin(tk.Frame,SendAvailablityCheck):
             self.MatchList.grid(row=3,column=1)
             self.SendEmailButton.grid(row=3,column = 3)
             self.BackButton.grid(row=1,column=3)
-            self.team = SystemToolKit.readFile("team.json")
-            self.allPlayers = SystemToolKit.readFile("players.json")
-            self.allUsers =SystemToolKit.readFile("data.json")
+            self.team = SystemToolKit.readFile(Config.TeamFile)
+            self.allPlayers = SystemToolKit.readFile(Config.PlayerFile)
+            self.allUsers =SystemToolKit.readFile(Config.UserFile)
             self.TeamPlayers = []
             self.orderedList = []
 
@@ -150,9 +151,9 @@ class SendAvailablityCheckCoach(tk.Frame,SendAvailablityCheck):
             self.MatchList.grid(row=3,column=1)
             self.SendEmailButton.grid(row=3,column = 3)
             self.BackButton.grid(row=1,column=3)
-            self.team = SystemToolKit.readFile("team.json")
-            self.allPlayers = SystemToolKit.readFile("players.json")
-            self.allUsers =SystemToolKit.readFile("data.json")
+            self.team = SystemToolKit.readFile(Config.TeamFile)
+            self.allPlayers = SystemToolKit.readFile(Config.PlayerFile)
+            self.allUsers =SystemToolKit.readFile(Config.UserFile)
             self.TeamPlayers = []
             self.orderedList = []
 
@@ -180,9 +181,9 @@ class SendAvailablityCheckPlayer(tk.Frame,SendAvailablityCheck):
             self.MatchList.grid(row=3,column=1)
             self.SendEmailButton.grid(row=3,column = 3)
             self.BackButton.grid(row=1,column=3)
-            self.team = SystemToolKit.readFile("team.json")
-            self.allPlayers = SystemToolKit.readFile("players.json")
-            self.allUsers =SystemToolKit.readFile("data.json")
+            self.team = SystemToolKit.readFile(Config.TeamFile)
+            self.allPlayers = SystemToolKit.readFile(Config.PlayerFile)
+            self.allUsers =SystemToolKit.readFile(Config.UserFile)
             self.TeamPlayers = []
             self.orderedList = []
 

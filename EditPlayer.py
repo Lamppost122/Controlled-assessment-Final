@@ -5,6 +5,8 @@ from tkinter import font  as tkfont
 from tkinter import messagebox
 from tkinter import ttk
 from Gui import *
+import Config
+from SystemToolKit import *
 class EditPlayer:
     def BackButtonRun(self,controller):
             global PagesViewed
@@ -17,7 +19,7 @@ class EditPlayer:
         self.orderedList = []
 
 
-        self.players = SystemToolKit.readFile("players.json")
+        self.players = SystemToolKit.readFile(Config.PlayerFile)
         print(self.players)
 
 
@@ -73,7 +75,7 @@ class EditPlayer:
 
                     except :AttributeError
 
-            with open('players.json', 'w') as fp:
+            with open(Config.PlayerFile, 'w') as fp:
                 json.dump(self.players,fp)
 
 class EditPlayerAdmin(tk.Frame,EditPlayer):

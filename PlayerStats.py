@@ -4,7 +4,7 @@ from tkinter import font  as tkfont
 from tkinter import messagebox
 from tkinter import ttk
 from Gui import *
-from Config import *
+import Config
 from AddMatch import *
 from SystemToolKit import *
 
@@ -15,7 +15,7 @@ class PlayerStats:
         self.controller.show_frame(PagesViewed[-1])
 
     def GetPlayersStats(self):
-        Data = SystemToolKit.readFile("playerStats.json")
+        Data = SystemToolKit.readFile(Config.PlayerStatsFile)
         TeamID =AddMatch.getTeamId(self.txtTeamNumber.get())
         TeamData = Data[TeamID]
         self.lblPlayerName =tk.Label(self,text="Player Name")
@@ -67,7 +67,7 @@ class PlayerStats:
 
 
     def GetPlayerName(self,PlayerID):
-        Players =SystemToolKit.readFile("players.json")
+        Players =SystemToolKit.readFile(Config.PlayerFile)
         return Players[PlayerID]["First name"]+" "+Players[PlayerID]["Last name"]
 
 class PlayerStatsAdmin(tk.Frame,PlayerStats):
