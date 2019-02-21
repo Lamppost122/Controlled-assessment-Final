@@ -4,6 +4,8 @@ from tkinter import font  as tkfont
 from tkinter import messagebox
 from tkinter import ttk
 from Gui import *
+import Config
+
 class AddTeam :
     def BackButtonRun(self,controller):
         global PagesViewed
@@ -11,7 +13,7 @@ class AddTeam :
         controller.show_frame(PagesViewed[-1])
 
     def SaveTeam(self):
-        Team = SystemToolKit.readFile("team.json")
+        Team = SystemToolKit.readFile(Config.TeamFile)
 
         TeamId = uuid.uuid4()
         Data = {}
@@ -20,7 +22,7 @@ class AddTeam :
         Data["Team Number"] = self.txtTeamNumber.get()
         Team[str(TeamId)] = Data
 
-        with open("Team.json","w") as fp:
+        with open(Config.TeamFile,"w") as fp:
             json.dump(Team,fp)
         self.controller.show_frame("Home")
 
@@ -33,7 +35,7 @@ class AddTeam :
 
 
 
-        self.allPlayers = SystemToolKit.readFile("players.json")
+        self.allPlayers = SystemToolKit.readFile(Config.PlayerFile)
 
 
         for i,j in enumerate(self.allPlayers):

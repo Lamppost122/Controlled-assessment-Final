@@ -5,6 +5,7 @@ from tkinter import messagebox
 from tkinter import ttk
 from SystemToolKit import *
 from Gui import *
+import Config
 class EditTeam:
 
         def BackButtonRun(self,controller):
@@ -13,7 +14,7 @@ class EditTeam:
             controller.show_frame(PagesViewed[-1])
 
         def SaveTeam(self):
-            Team = SystemToolKit.readFile("Team.json")
+            Team = SystemToolKit.readFile(Config.TeamFile)
 
             TeamId = uuid.uuid4()
             Data = {}
@@ -22,7 +23,7 @@ class EditTeam:
             Data["Team Number"] = self.txtTeamNumber.get()
             Team[str(TeamId)] = Data
 
-            with open("Team.json","w") as fp:
+            with open(Config.TeamFile,"w") as fp:
                 json.dump(Team,fp)
 
 
@@ -107,8 +108,8 @@ class EditTeamAdmin(tk.Frame,EditTeam):
             self.RemovePlayerButton.grid(row =3,column = 4)
             self.SaveButton.grid(row = 3,column = 5)
             self.BackButton.grid(row =1,column = 3)
-            self.team = SystemToolKit.readFile("Team.json")
-            self.allPlayers = SystemToolKit.readFile("players.json")
+            self.team = SystemToolKit.readFile(Config.TeamFile)
+            self.allPlayers = SystemToolKit.readFile(Config.PlayerFile)
 
 class EditTeamCoach(tk.Frame,EditTeam):
 
@@ -151,8 +152,8 @@ class EditTeamCoach(tk.Frame,EditTeam):
             self.RemovePlayerButton.grid(row =3,column = 4)
             self.SaveButton.grid(row = 3,column = 5)
             self.BackButton.grid(row =1,column = 3)
-            self.team = SystemToolKit.readFile("Team.json")
-            self.allPlayers = SystemToolKit.readFile("players.json")
+            self.team = SystemToolKit.readFile(Config.TeamFile)
+            self.allPlayers = SystemToolKit.readFile(Config.PlayerFile)
 
 class EditTeamPlayer(tk.Frame,EditTeam):
 
@@ -195,6 +196,6 @@ class EditTeamPlayer(tk.Frame,EditTeam):
             self.RemovePlayerButton.grid(row =3,column = 4)
             self.SaveButton.grid(row = 3,column = 5)
             self.BackButton.grid(row =1,column = 3)
-            self.team = SystemToolKit.readFile("Team.json")
-            self.allPlayers = SystemToolKit.readFile("players.json")
+            self.team = SystemToolKit.readFile(Config.TeamFile)
+            self.allPlayers = SystemToolKit.readFile(Config.PlayerFile)
 

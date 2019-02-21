@@ -35,8 +35,7 @@ class ProfileSetup:
         if self.validPlayerData(firstName , lastName, phoneNumber, address, postCode, DOB) == True :
 
 
-            with open('players.json', 'r') as fp:
-                    players = json.load(fp)
+            players =SystemToolKit.readFile(Config.PlayerFile)
             data["First name"] = firstName
             data["Last name"] = lastName
             data["Phone number"] = phoneNumber
@@ -46,7 +45,7 @@ class ProfileSetup:
             players[Config.CurrentUser] = data
 
 
-            with open('players.json', 'w+') as fp:
+            with open(Config.PlayerFile, 'w+') as fp:
                     json.dump(players, fp)
 
             controller.show_frame("Home")

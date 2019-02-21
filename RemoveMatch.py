@@ -4,6 +4,7 @@ from tkinter import font  as tkfont
 from tkinter import messagebox
 from tkinter import ttk
 from Gui import *
+import Config
 class RemoveMatch:
     def BackButtonRun(self,controller):
         global PagesViewed
@@ -16,7 +17,7 @@ class RemoveMatch:
     def GetMatches(self):
         self.MatchList.delete(0,tk.END)
 
-        self.teamMatches = SystemToolKit.readFile("matches.json")
+        self.teamMatches = SystemToolKit.readFile(Config.MatchFile)
         self.matches = self.teamMatches[self.txtTeam.get()]
         self.orderedList = []
 
@@ -31,7 +32,7 @@ class RemoveMatch:
         self.matches.pop(self.orderedList[self.MatchList.index(tk.ANCHOR)], None)
         self.MatchList.delete(tk.ANCHOR)
         self.teamMatches[self.txtTeam.get() ] = self.matches
-        with open("matches.json","w+")as fp:
+        with open(Config.MatchFile,"w+")as fp:
             json.dump(self.teamMatches,fp)
 
 class RemoveMatchAdmin(tk.Frame,RemoveMatch):

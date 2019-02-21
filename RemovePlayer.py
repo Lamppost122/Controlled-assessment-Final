@@ -4,6 +4,7 @@ from tkinter import font  as tkfont
 from tkinter import messagebox
 from tkinter import ttk
 from Gui import *
+import Config
 
 class RemovePlayer:
     def BackButtonRun(self,controller):
@@ -21,7 +22,7 @@ class RemovePlayer:
 
 
 
-        self.allPlayers = SystemToolKit.readFile("players.json")
+        self.allPlayers = SystemToolKit.readFile(Config.PlayerFile)
         self.orderedList = []
 
         for i,j in enumerate(self.allPlayers):
@@ -37,7 +38,7 @@ class RemovePlayer:
         self.allPlayers.pop(self.orderedList[self.PlayerList.index(tk.ANCHOR)], None)
         self.PlayerList.delete(tk.ANCHOR)
 
-        with open("players.json","w+")as fp:
+        with open(Config.PlayerFile,"w+")as fp:
             json.dump(self.allPlayers,fp)
 
 class RemovePlayerAdmin(tk.Frame,RemovePlayer):

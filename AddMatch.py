@@ -4,6 +4,7 @@ from tkinter import font  as tkfont
 from tkinter import messagebox
 from tkinter import ttk
 from Gui import *
+import Config
 
 class AddMatch:
     def BackButtonRun(self,controller):
@@ -23,7 +24,7 @@ class AddMatch:
 
 
 
-            match = SystemToolKit.readFile("matches.json")
+            match = SystemToolKit.readFile(Config.MatchFile)
             TeamId = self.getTeamId(Team)
 
             teamMatches = self.getTeamMatches(match,TeamId)
@@ -37,14 +38,13 @@ class AddMatch:
             teamMatches[matchID] = data
 
             match[TeamId] = teamMatches
-            print(match)
 
-            with open('matches.json', 'w+') as fp:
+            with open(Config.MatchFile, 'w+') as fp:
                 json.dump(match, fp)
             controller.show_frame("Home")
     @staticmethod
     def getTeamId(TeamNumber):
-        Teams = SystemToolKit.readFile("team.json")
+        Teams = SystemToolKit.readFile(Config.TeamFile)
         for i in Teams:
             if Teams[i]["Team Number"] == TeamNumber:
                 return i

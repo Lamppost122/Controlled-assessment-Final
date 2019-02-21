@@ -6,6 +6,7 @@ from tkinter import messagebox
 from tkinter import ttk
 import shutil
 import datetime
+import Config
 
 class BackUp:
     def BackButtonRun(self,controller):
@@ -117,9 +118,9 @@ class BackUpAdmin(tk.Frame,BackUp):
             self.controller = controller
             self.Title =tk.Label(self,text="BackUps",font = controller.title_font)
             self.PastBackupsList = tk.Listbox(self)
-            self.getBackupListButton = tk.Button(self,text="Get Back Ups",command = lambda: self.writeToScreen("BackupList.json"))
-            self.createBackUpButton = tk.Button(self,text="Create Back up",command =lambda: self.createBackUp("BackupList.json"))
-            self.recoverBackUpButton = tk.Button(self,text="Recover Back up",command =lambda: self.RecoverBackUp("BackupList.json"))
+            self.getBackupListButton = tk.Button(self,text="Get Back Ups",command = lambda: self.writeToScreen(Config.BackupListFile))
+            self.createBackUpButton = tk.Button(self,text="Create Back up",command =lambda: self.createBackUp(Config.BackupListFile))
+            self.recoverBackUpButton = tk.Button(self,text="Recover Back up",command =lambda: self.RecoverBackUp(Config.BackupListFile))
             self.BackButton = tk.Button(self,text = "Back",command = lambda:self.BackButtonRun(controller))
             self.Title.config(background="#f4f8ff",fg = "#485e82",pady="5")
             self.PastBackupsList.config(background="white")
@@ -136,9 +137,9 @@ class BackUpPlayer(tk.Frame,BackUp):
             self.controller = controller
             self.Title =tk.Label(self,text="BackUps",font = controller.title_font)
             self.PastBackupsList = tk.Listbox(self)
-            self.getBackupListButton = tk.Button(self,text="Get Back Ups",command = lambda: self.writeToScreen("BackupList.json"))
-            self.createBackUpButton = tk.Button(self,text="Create Back up",command =lambda: self.createBackUp("BackupList.json"))
-            self.recoverBackUpButton = tk.Button(self,text="Recover Back up",command =lambda: self.RecoverBackUp("BackupList.json"))
+            self.getBackupListButton = tk.Button(self,text="Get Back Ups",command = lambda: self.writeToScreen(Config.BackupListFile))
+            self.createBackUpButton = tk.Button(self,text="Create Back up",command =lambda: self.createBackUp(Config.BackupListFile))
+            self.recoverBackUpButton = tk.Button(self,text="Recover Back up",command =lambda: self.RecoverBack(Config.BackupListFile))
             self.BackButton = tk.Button(self,text = "Back",command = lambda:self.BackButtonRun(controller))
             self.Title.config(background="#f4f8ff",fg = "#485e82",pady="5")
             self.PastBackupsList.config(background="white")
@@ -156,9 +157,9 @@ class BackUpCoach(tk.Frame,BackUp):
             self.controller = controller
             self.Title =tk.Label(self,text="BackUps",font = controller.title_font)
             self.PastBackupsList = tk.Listbox(self)
-            self.getBackupListButton = tk.Button(self,text="Get Back Ups",command = lambda: self.writeToScreen("BackupList.json"))
-            self.createBackUpButton = tk.Button(self,text="Create Back up",command =lambda: self.createBackUp("BackupList.json"))
-            self.recoverBackUpButton = tk.Button(self,text="Recover Back up",command =lambda: self.RecoverBackUp("BackupList.json"))
+            self.getBackupListButton = tk.Button(self,text="Get Back Ups",command = lambda: self.writeToScreen(Config.BackupListFile))
+            self.createBackUpButton = tk.Button(self,text="Create Back up",command =lambda: self.createBackUp(Config.BackupListFile))
+            self.recoverBackUpButton = tk.Button(self,text="Recover Back up",command =lambda: self.RecoverBackUp(Config.BackupListFile))
             self.BackButton = tk.Button(self,text = "Back",command = lambda:self.BackButtonRun(controller))
             self.Title.config(background="#f4f8ff",fg = "#485e82",pady="5")
             self.PastBackupsList.config(background="white")

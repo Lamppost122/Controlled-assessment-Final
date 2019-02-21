@@ -8,6 +8,7 @@ from SystemToolKit import *
 import datetime
 from datetime import date
 from AddMatch import *
+import Config
 class MatchReport:
 
     def BackButtonRun(self,controller):
@@ -91,13 +92,13 @@ class MatchReport:
 
         return matchReport
     def write_Match_Report(self,matchReport):
-        with open('matchReport.json') as fp:
-                matchReport= json.load(fp)
+
+        matchReport = SystemToolKit.readFile(Config.MatchReportFile)
         matchReportID = uuid.uuid4()
         matchReport[matchReportID] = matchReport
     def getMatchID(self,Date,Team):
-         with open('matches.json') as fp:
-                matches= json.load(fp)
+
+         matches = SystemToolKit.readFile(Config.MatchFile)
 
          TeamID =AddMatch.getTeamId(Team)
          for i in matches[TeamID]:
@@ -105,8 +106,8 @@ class MatchReport:
                 return i
 
     def getPlayerID(self,FirstName,LastName):
-        with open('players.json') as fp:
-                players= json.load(fp)
+
+        players = SystemToolKit.readFile(Config.PlayerFile)
         for i in players:
             if players[i]["First name"] ==  FirstName and players[i]["Last name"] == LastName:
                 return i
@@ -139,7 +140,7 @@ class MatchReport:
     def Player_stats_update(self,matchReport):
 
 
-        allPlayersData = SystemToolKit.readFile('playerStats.json')
+        allPlayersData = SystemToolKit.readFile(Config.PlayerStatsFile)
         TeamID = AddMatch.getTeamId(self.txtTeam.get())
         try:
             playersData= allPlayersData[TeamID]
@@ -165,12 +166,12 @@ class MatchReport:
         allPlayersData[TeamID] =playersData
 
 
-        with open('playerStats.json', 'w+') as fp:
+        with open(Config.PlayerStatsFile, 'w+') as fp:
                     json.dump(allPlayersData, fp)
 
     def seasonReset(self):
-        with open('playerStats.json') as fp:
-            playersData = json.load(fp)
+
+        playersData = SystemToolKit.readFile(Config.PlayerStatsFile)
         for data in playersData:
             data["Season goals"] = 0
             data["Season green cards"] = 0
@@ -178,21 +179,21 @@ class MatchReport:
             data["Season red cards"] = 0
             data["Season games"] = 0
 
-        with open('playerStats.json', 'w+') as fp:
+        with open(Config.PlayerStatsFile, 'w+') as fp:
                     json.dump(playersData, fp)
 
     def newSeason(self):
-        with open('season.txt') as fp:
-            season= fp.read()
+
+        season = SystemToolKit.readFile(Config.SeasonFile)
+
         present =datetime.datetime.now()
         currentYear =present.year
         if datetime.datetime(currentYear,9,1) <present:
             self.seasonReset()
             currentYear +=1
         seasonData = "01/09/"+str(currentYear)
-        f= open("season.txt","w+")
-        f.write(seasonData)
-        f.close()
+        with open(Config.SeasonFile, 'w+') as fp:
+                    json.dump(seasonData, fp)
 
 
     def submit(self):
@@ -210,8 +211,8 @@ class MatchReport:
 
 
     def get_Team(self,teamNumber):
-        team= SystemToolKit.readFile("team.json")
-        Players = SystemToolKit.readFile("players.json")
+        team= SystemToolKit.readFile(Config.TeamFile)
+        Players = SystemToolKit.readFile(Config.PlayerFile)
 
         Names = []
         for i, j in enumerate(team):

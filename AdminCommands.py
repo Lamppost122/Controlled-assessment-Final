@@ -4,6 +4,7 @@ from tkinter import font  as tkfont
 from tkinter import messagebox
 from tkinter import ttk
 from Gui import *
+import Config
 class AdminCommands:
     def BackButtonRun(self,controller):
             global PagesViewed

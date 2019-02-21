@@ -4,6 +4,7 @@ from tkinter import font  as tkfont
 from tkinter import messagebox
 from tkinter import ttk
 from Gui import *
+import Config
 
 class MatchScreen:
     def BackButtonRun(self,controller):
@@ -14,7 +15,7 @@ class MatchScreen:
 
     def get_Team_Matches(self):
          TeamNumber = self.txtTeamNumber.get()
-         Data = SystemToolKit.readFile("matches.json")
+         Data = SystemToolKit.readFile(Config.MatchFile)
          TeamID = self.GetTeamID(TeamNumber)
          MatchData = Data[TeamID]
 
@@ -24,14 +25,14 @@ class MatchScreen:
             j.grid(row = i+2 ,column = 0 ,columnspan=5)
     @staticmethod
     def GetTeamID(TeamNumber):
-        Teams = SystemToolKit.readFile("team.json")
+        Teams = SystemToolKit.readFile(Config.TeamFile)
 
         for i in Teams:
             if Teams[i]["Team Number"] == str(TeamNumber):
 
                 return i
     def GetMyTeam(self):
-        team = SystemToolKit.readFile("team.json")
+        team = SystemToolKit.readFile(Config.TeamFile)
 
         for k,i in enumerate(team):
             for j in team[i]:
@@ -41,7 +42,7 @@ class MatchScreen:
          TeamID = self.GetMyTeam()
 
 
-         Data = SystemToolKit.readFile("matches.json")
+         Data = SystemToolKit.readFile(Config.MatchFile)
 
          MatchData = Data[TeamID]
 

@@ -7,7 +7,6 @@ class Validation:
 
         rule = re.compile('[A-Za-z]{2,30}( [A-Za-z]{2,30})?')
         if not rule.search(FirstName):
-            print("dfghdh")
             return False
         else:
             return True
@@ -81,11 +80,16 @@ class Validation:
             return False
     @staticmethod
     def Opposition(Opposition):
-        if re.findall('[^A-Za-z0-9]',Opposition):print True
+        if re.findall('[^A-Za-z0-9]',Opposition):
+            return False
+        else:
+            return True
+    @staticmethod
+    def Score(Score):
+
+            Score = int(Score)
 
 
 
 
-
-
-Validation.Opposition("Cardiff @5")
+Validation.Score("asds")

@@ -4,6 +4,8 @@ from tkinter import font  as tkfont
 from tkinter import messagebox
 from tkinter import ttk
 from Gui import *
+from SystemToolKit import *
+import Config
 
 class AddNews:
 
@@ -15,8 +17,7 @@ class AddNews:
 
     def AddUpdate(self):
 
-        with open('updates.json') as fp:
-                updates= json.load(fp)
+        updates = SystemToolKit.readFile(Config.UpdatesFile)
         index = 0
         for i,j in enumerate(list(((updates).keys()))):
             if index <= int(j):

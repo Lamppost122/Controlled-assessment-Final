@@ -5,7 +5,7 @@ from tkinter import font  as tkfont
 from tkinter import messagebox
 from tkinter import ttk
 from Gui import *
-from Config import *
+import Config
 from AddMatch import *
 from SystemToolKit import *
 
@@ -16,9 +16,9 @@ class ConfirmAvailablity:
             self.controller.show_frame(PagesViewed[-1])
 
     def GetMyMatches(self):
-        Players = SystemToolKit.readFile("players.json")
-        team = SystemToolKit.readFile("team.json")
-        matches = SystemToolKit.readFile("matches.json")
+        Players = SystemToolKit.readFile(Config.PlayerFile)
+        team = SystemToolKit.readFile(Config.TeamFile)
+        matches = SystemToolKit.readFile(Config.MatchFile)
         teamNumber = ""
         for k,i in enumerate(team):
             for j in team[i]:
@@ -81,7 +81,7 @@ class ConfirmAvailablityAdmin(tk.Frame,ConfirmAvailablity):
             self.Title.grid(row=0,column =0)
             self.GetMyMatchesButton.grid(row=1,column=0)
             self.BackButton.grid(row=1,column=1)
-            self.AvailableMatches = SystemToolKit.readFile("matchAvailablity.json")
+            self.AvailableMatches = SystemToolKit.readFile(Config.MatchAvailablityFile)
             self.ClearMatches()
 
 class ConfirmAvailablityPlayer(tk.Frame,ConfirmAvailablity):
@@ -95,7 +95,7 @@ class ConfirmAvailablityPlayer(tk.Frame,ConfirmAvailablity):
             self.Title.grid(row=0,column =0)
             self.GetMyMatchesButton.grid(row=1,column=0)
             self.BackButton.grid(row=1,column=1)
-            self.AvailableMatches = SystemToolKit.readFile("matchAvailablity.json")
+            self.AvailableMatches = SystemToolKit.readFile(Config.MatchAvailablityFile)
             self.ClearMatches()
 
 class ConfirmAvailablityCoach(tk.Frame,ConfirmAvailablity):
@@ -109,7 +109,7 @@ class ConfirmAvailablityCoach(tk.Frame,ConfirmAvailablity):
             self.Title.grid(row=0,column =0)
             self.GetMyMatchesButton.grid(row=1,column=0)
             self.BackButton.grid(row=1,column=1)
-            self.AvailableMatches = SystemToolKit.readFile("matchAvailablity.json")
+            self.AvailableMatches = SystemToolKit.readFile(Config.MatchAvailablityFile)
             self.ClearMatches()
 
 
