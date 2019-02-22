@@ -5,6 +5,7 @@ from tkinter import messagebox
 from tkinter import ttk
 from Gui import *
 import Config
+from Validation import *
 
 class AddMatch:
     def BackButtonRun(self,controller):
@@ -20,7 +21,7 @@ class AddMatch:
         data = {}
 
 
-        if self.validMatchData(Team , Location, Time, Date, Opposition) == True :
+        if Validation.TeamNumber(Team)==True and Validation.Address(Location)==True and Validation.Time(Time) == True and Validation.Date(Date)== True and Validation.Opposition(Opposition)==True:
 
 
 

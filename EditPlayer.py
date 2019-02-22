@@ -1,4 +1,4 @@
-
+import Validation
 import json
 import tkinter as tk
 from tkinter import font  as tkfont
@@ -20,7 +20,6 @@ class EditPlayer:
 
 
         self.players = SystemToolKit.readFile(Config.PlayerFile)
-        print(self.players)
 
 
 
@@ -50,7 +49,7 @@ class EditPlayer:
 
 
             count = 0
-
+            error = False
             data = []
 
             for i,j in enumerate(self.grid_slaves()):
@@ -63,20 +62,23 @@ class EditPlayer:
                         data.append(j.get())
                         if len(data) == 6 :
                             data =  list(reversed(data))
-                            self.players[self.orderedList[count]]["First name"] = data[0]
-                            self.players[self.orderedList[count]]["Last name"] = data[1]
-                            self.players[self.orderedList[count]]["Phone number"] = data[2]
-                            self.players[self.orderedList[count]]["Address"] = data[3]
-                            self.players[self.orderedList[count]]["Post code"] = data[4]
-                            self.players[self.orderedList[count]]["Date of Birth"] = data[5]
-                            count +=1
-                            data = []
+                            if Validation.FirstName(data[0]) ==True and Validation.LastName(data[1])==True and Validation.PhoneNumber(data[2])==True and Validation.Address(data[3])==True and Validation.Postcode(data[4])==True and Validation.DateOfBirth(data[5])==True:
+                                self.players[self.orderedList[count]]["First name"] = data[0]
+                                self.players[self.orderedList[count]]["Last name"] = data[1]
+                                self.players[self.orderedList[count]]["Phone number"] = data[2]
+                                self.players[self.orderedList[count]]["Address"] = data[3]
+                                self.players[self.orderedList[count]]["Post code"] = data[4]
+                                self.players[self.orderedList[count]]["Date of Birth"] = data[5]
+                                count +=1
+                                data = []
+                            else:
+                                error =True
 
 
                     except :AttributeError
-
-            with open(Config.PlayerFile, 'w') as fp:
-                json.dump(self.players,fp)
+            if error==False:
+                with open(Config.PlayerFile, 'w') as fp:
+                    json.dump(self.players,fp)
 
 class EditPlayerAdmin(tk.Frame,EditPlayer):
 

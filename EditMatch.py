@@ -6,6 +6,7 @@ from tkinter import ttk
 from Gui import *
 import Config
 from SystemToolKit import *
+import Validation
 
 class EditMatch:
     def BackButtonRun(self,controller):
@@ -41,8 +42,8 @@ class EditMatch:
 
     def Edit_Match(self):
 
-
             count = 0
+            error =False
 
             data = []
             for i,j in enumerate(self.grid_slaves()):
@@ -53,17 +54,21 @@ class EditMatch:
                         data.append(j.get())
                         if len(data) == 4 :
                             data =  list(reversed(data))
-                            self.teamMatches[self.orderedList[count]]["Opposition"] = data[0]
-                            self.teamMatches[self.orderedList[count]]["Location"] = data[3]
-                            self.teamMatches[self.orderedList[count]]["Time"] = data[2]
-                            self.teamMatches[self.orderedList[count]]["Date"] = data[1]
-                            count +=1
-                            data = []
+                            if Validation.Opposition(data[0]) == True and Validation.Address(data[3])==True and Validation.Time(data[2])==True and Validation.Date(data[1])==True:
+                                self.teamMatches[self.orderedList[count]]["Opposition"] = data[0]
+                                self.teamMatches[self.orderedList[count]]["Location"] = data[3]
+                                self.teamMatches[self.orderedList[count]]["Time"] = data[2]
+                                self.teamMatches[self.orderedList[count]]["Date"] = data[1]
+                                count +=1
+                                data = []
+                            else:
+                                error =True
 
 
                     except :AttributeError
-            with open(Config.MatchFile, 'w') as fp:
-                json.dump(self.teamMatches,fp)
+            if error == False:
+                with open(Config.MatchFile, 'w') as fp:
+                    json.dump(self.teamMatches,fp)
 
 class EditMatchAdmin(tk.Frame,EditMatch):
 

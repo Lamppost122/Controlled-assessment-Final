@@ -5,6 +5,7 @@ from tkinter import messagebox
 from tkinter import ttk
 from SystemToolKit import *
 from Gui import *
+import Validation
 import Config
 class EditTeam:
 
@@ -31,22 +32,23 @@ class EditTeam:
         def GetPlayer(self):
             self.PlayerList.delete(0,tk.END)
             data =self.txtPlayer.get()
-            data = data.lower()
-            for i,j in enumerate(self.allPlayers):
-                if self.allPlayers[j]["First name"].lower() == data or self.allPlayers[j]["Last name"].lower() == data or self.allPlayers[j]["First name"].lower() + " " + self.allPlayers[j]["Last name"].lower() == data:
+            if Validation.PresentsCheck(data) == True:
+                data = data.lower()
+                for i,j in enumerate(self.allPlayers):
+                    if self.allPlayers[j]["First name"].lower() == data or self.allPlayers[j]["Last name"].lower() == data or self.allPlayers[j]["First name"].lower() + " " + self.allPlayers[j]["Last name"].lower() == data:
 
-                    self.orderedList.append(j)
-                    text = str(self.allPlayers[j]["First name"]) + " " + str(self.allPlayers[j]["Last name"])
-                    self.PlayerList.insert(tk.END,text)
+                        self.orderedList.append(j)
+                        text = str(self.allPlayers[j]["First name"]) + " " + str(self.allPlayers[j]["Last name"])
+                        self.PlayerList.insert(tk.END,text)
 
         def GetTeam(self):
-
-            for i, j in enumerate(self.team):
-                if self.team[j]["Team Number"] == self.txtTeamNumber.get():
-                    for k,l in enumerate(self.allPlayers):
-                        self.TeamPlayers.append(self.team[j][str(k)])
-                        text = str(self.allPlayers[self.team[j][str(k)]]["First name"]) + " " + str(self.allPlayers[self.team[j][str(k)]]["Last name"])
-                        self.TeamList.insert(tk.END,text)
+            if Validation.TeamNumber(self.txtTeamNumber.get()) ==True:
+                for i, j in enumerate(self.team):
+                    if self.team[j]["Team Number"] == self.txtTeamNumber.get():
+                        for k,l in enumerate(self.allPlayers):
+                            self.TeamPlayers.append(self.team[j][str(k)])
+                            text = str(self.allPlayers[self.team[j][str(k)]]["First name"]) + " " + str(self.allPlayers[self.team[j][str(k)]]["Last name"])
+                            self.TeamList.insert(tk.END,text)
 
 
         def MovePlayer(self):

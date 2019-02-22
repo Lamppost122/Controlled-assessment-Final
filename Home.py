@@ -167,6 +167,8 @@ class HomeAdmin(tk.Frame,Home):
         self.MatchButton =tk.Button(self,text = "Match Data",command = lambda :controller.show_frame("MatchScreen"))
         self.PlayerStatsButton =tk.Button(self,text="Player Stats",command = lambda :controller.show_frame("PlayerStats"))
 
+        self.AdminCommandsButton = tk.Button(self,text = "AdminCommands",command = lambda:controller.show_frame("AdminCommands"))
+        self.AdminCommandsButton.grid(row=3,column =4)
 
         self.AddPlayerButton=tk.Button(self,text="Setup Profile",command = lambda:controller.show_frame("ProfileSetup"))
         self.NewsButton = tk.Button(self,text = "News/Updates",command = lambda:controller.show_frame("News"))

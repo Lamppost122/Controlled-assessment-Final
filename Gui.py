@@ -91,7 +91,7 @@ class SampleApp(tk.Tk):
 
 
 if __name__ == "__main__":
-    System_init.FileCreation()
+    #System_init.FileCreation()
 
     app = SampleApp()
     app.title("Whichurch Hockey Club Team System")
