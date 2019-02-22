@@ -16,10 +16,11 @@ class Register:
 
     def register(self,controller):
         self.getRegisterData()
-        self.addNewUser()
-        self.sendEmailConformation()
-        messagebox.showinfo("Messgae","Thank you for registring with us. You will need to confirm your email")
-        controller.show_frame("Login")
+        error = self.addNewUser()
+        if error == False:
+            self.sendEmailConformation()
+            messagebox.showinfo("Messgae","Thank you for registring with us. You will need to confirm your email")
+            controller.show_frame("Login")
 
 
     def getRegisterData(self):
@@ -39,23 +40,27 @@ class Register:
 
         data = {}
         users={}
+        error = False
+        if Validation.Username(self.username)==True and Validation.Password(self.password)==True and Validation.Email(self.Email) == True:
+            if self.username == self.confirmUsername and self.password == self.confirmPassword :
 
-        if self.username == self.confirmUsername and self.password == self.confirmPassword :
-
-            users = SystemToolKit.readFile(Config.UserFile)
-            salt = uuid.uuid4().hex
-            hashed_password = hashlib.sha512(self.password.encode('utf-8') + salt.encode('utf-8')).hexdigest()
-            userID = str(uuid.uuid4())
-            data["Username"] = self.username
-            data["Password"] = hashed_password
-            data["Salt"] = salt
-            data["Email"] = self.Email
-            data["AccessLevel"] = self.accessLevel
-            data["ValidEmail"] = self.ValidEmail
-            data["Confirmation code"] = self.confirmationCode
-            users[userID] = data
-            with open(Config.UserFile, 'w+') as fp:
-                json.dump(users, fp)
+                users = SystemToolKit.readFile(Config.UserFile)
+                salt = uuid.uuid4().hex
+                hashed_password = hashlib.sha512(self.password.encode('utf-8') + salt.encode('utf-8')).hexdigest()
+                userID = str(uuid.uuid4())
+                data["Username"] = self.username
+                data["Password"] = hashed_password
+                data["Salt"] = salt
+                data["Email"] = self.Email
+                data["AccessLevel"] = self.accessLevel
+                data["ValidEmail"] = self.ValidEmail
+                data["Confirmation code"] = self.confirmationCode
+                users[userID] = data
+                with open(Config.UserFile, 'w+') as fp:
+                    json.dump(users, fp)
+        else:
+            error = True
+        return error
 
 
 

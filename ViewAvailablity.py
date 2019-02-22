@@ -16,29 +16,30 @@ class ViewAvailablity:
             self.controller.show_frame(PagesViewed[-1])
 
         def GetPlayers(self):
-            matchPlayers = SystemToolKit.readFile(Config.MatchAvailablityFile)
-            players = SystemToolKit.readFile(Config.PlayerFile)
-            match =SystemToolKit.readFile(Config.MatchFile)
+            if Validation.TeamNumber(self.txtTeamNumber.get()) == True:
+                matchPlayers = SystemToolKit.readFile(Config.MatchAvailablityFile)
+                players = SystemToolKit.readFile(Config.PlayerFile)
+                match =SystemToolKit.readFile(Config.MatchFile)
 
 
-            TeamID = AddMatch.getTeamId(self.txtTeamNumber.get())
-            matches = matchPlayers[TeamID]
-            count = 0
-            for Data in matches:
-                MatchText =match[TeamID][Data]["Date"]+" at "+match[TeamID][Data]["Time"]+" against "+ match[TeamID][Data]["Opposition"]+"\n The Location is " + match[TeamID][Data]["Location"]
-                self.lblMatchTitle = tk.Label(self,text="Match: ")
-                self.lblMatchData= tk.Label(self,text=MatchText)
-                self.lblMatchData.grid(row=count+2,column=1)
-                self.lblMatchTitle.grid(row=count+2,column=0)
-                count+=1
+                TeamID = AddMatch.getTeamId(self.txtTeamNumber.get())
+                matches = matchPlayers[TeamID]
+                count = 0
+                for Data in matches:
+                    MatchText =match[TeamID][Data]["Date"]+" at "+match[TeamID][Data]["Time"]+" against "+ match[TeamID][Data]["Opposition"]+"\n The Location is " + match[TeamID][Data]["Location"]
+                    self.lblMatchTitle = tk.Label(self,text="Match: ")
+                    self.lblMatchData= tk.Label(self,text=MatchText)
+                    self.lblMatchData.grid(row=count+2,column=1)
+                    self.lblMatchTitle.grid(row=count+2,column=0)
+                    count+=1
 
-                for j,i in enumerate(matches[Data]):
-                    if i != "Date":
-                        playerText = players[i]["First name"]+" "+players[i]["Last name"] +": "+ matches[Data][i]
+                    for j,i in enumerate(matches[Data]):
+                        if i != "Date":
+                            playerText = players[i]["First name"]+" "+players[i]["Last name"] +": "+ matches[Data][i]
 
-                        self.lblPlayer =tk.Label(self,text =playerText)
-                        self.lblPlayer.grid(row=count+2,column = 0)
-                        count+=1
+                            self.lblPlayer =tk.Label(self,text =playerText)
+                            self.lblPlayer.grid(row=count+2,column = 0)
+                            count+=1
 
 class ViewAvailablityAdmin(tk.Frame,ViewAvailablity):
 

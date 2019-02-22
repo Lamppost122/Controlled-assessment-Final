@@ -32,7 +32,7 @@ class ProfileSetup:
         data = {}
         players={}
 
-        if self.validPlayerData(firstName , lastName, phoneNumber, address, postCode, DOB) == True :
+        if Validation.FirstName(firstName)==True and Validation.LastName(lastName)and Validation.PhoneNumber(phoneNumber)==True and Validation.Address(address)==True and Validation.Postcode(postCode)==True and Validation.DateOfBirth( DOB) == True :
 
 
             players =SystemToolKit.readFile(Config.PlayerFile)
@@ -50,61 +50,7 @@ class ProfileSetup:
 
             controller.show_frame("Home")
 
-    def validPlayerData(self,firstName,lastName,phoneNumber,Address,Postcode,dateOfBirth):
-        valid = [self.validFirstName(firstName)
-        ,self.validLastName(lastName)
-        ,self.validPhoneNumber(phoneNumber)
-        ,self.validAddress(Address)
-        ,self.validPostcode(Postcode)
-        ,self.validDateOfBirth(dateOfBirth)]
-        for i in valid:
-            if i == False :
-                return False
-        return True
 
-    def validFirstName(self,firstName):
-        if len(firstName) <30:
-            return True
-        else:
-            messagebox.showinfo("",firstName +" is not a valid first name.")
-            return False
-    def validLastName(self,LastName):
-        if len(LastName) <30:
-            return True
-        else:
-            messagebox.showinfo("",LastName +" is not a valid Last name.")
-            return False
-
-    def validPhoneNumber(self,phoneNumber):
-        if phoneNumber.isdigit() == True:
-            if phoneNumber[0] == "0" :
-                if len(phoneNumber) == 11 :
-                    return True
-        messagebox.showinfo("",phoneNumber +" is not a valid phone number.")
-        return False
-    def validAddress(self,address):
-        if len(address) < 30:
-            return True
-        messagebox.showinfo("",address +" is not a valid address.")
-        return False
-    def validPostcode(self,postcode):
-
-##        if re.match("^(([gG][iI][rR] {0,}0[aA]{2})|((([a-pr-uwyzA-PR-UWYZ][a-hk-yA-HK-Y]?[0-9][0-9]?)|(([a-pr-uwyzA-PR-UWYZ][0-9][a-hjkstuwA-HJKSTUW])|([a-pr-uwyzA-PR-UWYZ][a-hk-yA-HK-Y][0-9][abehmnprv-yABEHMNPRV-Y]))) {0,}[0-9][abd-hjlnp-uw-zABD-HJLNP-UW-Z]{2}))$)",postcode) == False:
-            return True
-##          messagebox.showinfo(postcode +" is not a valid postcode.")
-##        return False
-
-    def validDateOfBirth(self,dateOfBirth):
-##        try:
-##            datetime.strptime(dateOfBirth, '%d/%m/%Y')
-##        except ValueError:
-##            messagebox.showinfo("",dateOfBirth +" is not a valid date of birth.")
-##            return False
-##        if datetime.now() - timedelta(days=2000) > datetime.strptime(dateOfBirth, '%d/%m/%Y'):
-##            return True
-##        messagebox.showinfo("",dateOfBirth +" is not a valid date of birth.")
-##        return False
-        return True
 
 class ProfileSetupPlayer(tk.Frame,ProfileSetup):
 

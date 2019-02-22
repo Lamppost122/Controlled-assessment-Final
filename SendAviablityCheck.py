@@ -7,6 +7,7 @@ from Gui import *
 from MatchScreen import *
 from AddMatch import *
 import Config
+import Validation
 class SendAvailablityCheck:
     def BackButtonRun(self):
         global PagesViewed
@@ -14,8 +15,9 @@ class SendAvailablityCheck:
         self.controller.show_frame(PagesViewed[-1])
 
     def GetData(self):
-        self.GetTeam()
-        self.GetMatches()
+        if Validaion.TeamNumber( self.txtTeamNumber.get()) == True:
+            self.GetTeam()
+            self.GetMatches()
 
 
     def GetTeam(self):
@@ -69,7 +71,7 @@ class SendAvailablityCheck:
 
     def getEmailList(self):
         EmailList=[]
-        for i in self.TeamPlayers:#note need to test for multiple players
+        for i in self.TeamPlayers:
             for j in self.allUsers:
                 EmailList.append(self.allUsers[i]["Email"])
 

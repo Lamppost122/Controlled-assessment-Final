@@ -31,19 +31,15 @@ class AddTeam :
     def GetPlayer(self):
         self.PlayerList.delete(0,tk.END)
         data =self.txtPlayer.get()
-        data = data.lower()
+        if Validation.PresentsCheck(data) == True:
+            data = data.lower()
+            self.allPlayers = SystemToolKit.readFile(Config.PlayerFile)
+            for i,j in enumerate(self.allPlayers):
+                if self.allPlayers[j]["First name"].lower() == data or self.allPlayers[j]["Last name"].lower() == data or self.allPlayers[j]["First name"].lower() + " " + self.allPlayers[j]["Last name"].lower() == data:
 
-
-
-        self.allPlayers = SystemToolKit.readFile(Config.PlayerFile)
-
-
-        for i,j in enumerate(self.allPlayers):
-            if self.allPlayers[j]["First name"].lower() == data or self.allPlayers[j]["Last name"].lower() == data or self.allPlayers[j]["First name"].lower() + " " + self.allPlayers[j]["Last name"].lower() == data:
-
-                self.orderedList.append(j)
-                text = str(self.allPlayers[j]["First name"]) + " " + str(self.allPlayers[j]["Last name"])
-                self.PlayerList.insert(tk.END,text)
+                    self.orderedList.append(j)
+                    text = str(self.allPlayers[j]["First name"]) + " " + str(self.allPlayers[j]["Last name"])
+                    self.PlayerList.insert(tk.END,text)
 
     def MovePlayer(self):
         if self.PlayerList.index(tk.ANCHOR) < len(self.orderedList):

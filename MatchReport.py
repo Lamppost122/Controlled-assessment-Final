@@ -47,6 +47,7 @@ class MatchReport:
         data = []
         matchData = []
         matchReport = {}
+        error = False
 
 
         for i,j in enumerate(self.grid_slaves()):
@@ -59,12 +60,15 @@ class MatchReport:
 
 
                         data =  list(reversed(data))
+                        if Validation.Score(data[2]) ==True and Validation.FirstName(data[0])==True and Validation.LastName(data[1]) == True:
 
-                        playerData = self.Player_Data(data[2],data[3],data[4],data[5])
-                        player = self.getPlayerID(data[0],data[1])
+                            playerData = self.Player_Data(data[2],data[3],data[4],data[5])
+                            player = self.getPlayerID(data[0],data[1])
 
-                        matchReport[player] = playerData
-                        data = []
+                            matchReport[player] = playerData
+                            data = []
+                        else:
+                            error = True
 
 
                 except AttributeError:
@@ -75,11 +79,13 @@ class MatchReport:
                     matchData.append(j.get())
                     if len(matchData) == 5:
 
-
-                        matchID =self.getMatchID(matchData[3],matchData[4])
-                        winStatus = self.win_Status(matchData[2],matchData[1])
-                        matchData = self.Match_Data(matchID,matchData[2],matchData[1],winStatus)
-                        matchReport["Match Data"] = matchData
+                        if Validation.Date(matchData[3])==True and Validation.Time(matchData[4])==True and Validation.Score(matchData[2])==True and Validation.Score(matchData[1])==True:
+                            matchID =self.getMatchID(matchData[3],matchData[4])
+                            winStatus = self.win_Status(matchData[2],matchData[1])
+                            matchData = self.Match_Data(matchID,matchData[2],matchData[1],winStatus)
+                            matchReport["Match Data"] = matchData
+                        else:
+                            error =True
 
 
 
@@ -89,13 +95,15 @@ class MatchReport:
 
                 except AttributeError:
                     pass
-
-        return matchReport
+        if error == False:
+            return matchReport
+        else:
+            return None
     def write_Match_Report(self,matchReport):
-
-        matchReport = SystemToolKit.readFile(Config.MatchReportFile)
-        matchReportID = uuid.uuid4()
-        matchReport[matchReportID] = matchReport
+        if matchReport != None:
+            matchReport = SystemToolKit.readFile(Config.MatchReportFile)
+            matchReportID = uuid.uuid4()
+            matchReport[matchReportID] = matchReport
     def getMatchID(self,Date,Team):
 
          matches = SystemToolKit.readFile(Config.MatchFile)
@@ -147,27 +155,27 @@ class MatchReport:
 
         except KeyError:
             playersData= {}
+        if matchReport != None:
+            for i in matchReport:
+                if i!= "Match Data":
 
-        for i in matchReport:
-            if i!= "Match Data":
-
-                playersData[i]["Life time goals"] += int(matchReport[i]["Goals"])
-                playersData[i]["Season goals"] += int(matchReport[i]["Goals"])
-                playersData[i]["Life time green cards"] += int(matchReport[i]["Green cards"])
-                playersData[i]["Season green cards"] += int(matchReport[i]["Green cards"])
-                playersData[i]["Life time yellow cards"] += int(matchReport[i]["Yellow cards"])
-                playersData[i]["Season yellow cards"] += int(matchReport[i]["Yellow cards"])
-                playersData[i]["Life time red cards"] += int(matchReport[i]["Red Cards"])
-                playersData[i]["Season red cards"] += int(matchReport[i]["Red Cards"])
-                playersData[i]["Life time Games"] +=1
-                playersData[i]["Season games"] += 1
-
-
-        allPlayersData[TeamID] =playersData
+                    playersData[i]["Life time goals"] += int(matchReport[i]["Goals"])
+                    playersData[i]["Season goals"] += int(matchReport[i]["Goals"])
+                    playersData[i]["Life time green cards"] += int(matchReport[i]["Green cards"])
+                    playersData[i]["Season green cards"] += int(matchReport[i]["Green cards"])
+                    playersData[i]["Life time yellow cards"] += int(matchReport[i]["Yellow cards"])
+                    playersData[i]["Season yellow cards"] += int(matchReport[i]["Yellow cards"])
+                    playersData[i]["Life time red cards"] += int(matchReport[i]["Red Cards"])
+                    playersData[i]["Season red cards"] += int(matchReport[i]["Red Cards"])
+                    playersData[i]["Life time Games"] +=1
+                    playersData[i]["Season games"] += 1
 
 
-        with open(Config.PlayerStatsFile, 'w+') as fp:
-                    json.dump(allPlayersData, fp)
+            allPlayersData[TeamID] =playersData
+
+
+            with open(Config.PlayerStatsFile, 'w+') as fp:
+                        json.dump(allPlayersData, fp)
 
     def seasonReset(self):
 

@@ -6,6 +6,7 @@ from tkinter import ttk
 from Gui import *
 from SystemToolKit import *
 import Config
+import Validation
 
 class AddNews:
 
@@ -16,15 +17,15 @@ class AddNews:
 
 
     def AddUpdate(self):
-
-        updates = SystemToolKit.readFile(Config.UpdatesFile)
-        index = 0
-        for i,j in enumerate(list(((updates).keys()))):
-            if index <= int(j):
-                index =int(j) + 1
-        updates[index] = {"Data":self.txtAddUpdate.get("1.0",'end-1c'),"Date":str(datetime.date.today())}
-        with open('updates.json',"w") as fp:
-                json.dump(updates,fp)
+        if Validation.PresentsCheck( self.txtAddUpdate.get("1.0",'end-1c')) == True:
+            updates = SystemToolKit.readFile(Config.UpdatesFile)
+            index = 0
+            for i,j in enumerate(list(((updates).keys()))):
+                if index <= int(j):
+                    index =int(j) + 1
+            updates[index] = {"Data":self.txtAddUpdate.get("1.0",'end-1c'),"Date":str(datetime.date.today())}
+            with open(Config.UpdatesFile,"w") as fp:
+                    json.dump(updates,fp)
 
 
 class AddNewsAdmin(tk.Frame,AddNews):
