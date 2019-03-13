@@ -10,9 +10,8 @@ from SystemToolKit import *
 
 class PlayerStats:
     def BackButtonRun(self):
-        global PagesViewed
-        PagesViewed.pop()
-        self.controller.show_frame(PagesViewed[-1])
+        Config.PagesViewed.pop()
+        controller.show_frame(Config.PagesViewed[-1])
 
     def GetPlayersStats(self):
         Data = SystemToolKit.readFile(Config.PlayerStatsFile)

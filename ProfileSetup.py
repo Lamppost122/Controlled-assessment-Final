@@ -78,6 +78,17 @@ class ProfileSetupPlayer(tk.Frame,ProfileSetup):
         self.SubmitButton= tk.Button(self, text="Submit",command=lambda: self.addNewPlayer(controller) )
         self.BackButton= tk.Button(self, text="Back",command=lambda: controller.show_frame("Login"))
 
+        self.lblFirstName.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblLastName.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblPhoneNumber.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblAddress.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblPostcode.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblDateOfBirth.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.SubmitButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+
+
+
         self.lblFirstName.grid(row=1,column=0)
         self.lblLastName.grid(row=2,column=0)
         self.lblPhoneNumber.grid(row=3,column=0)
@@ -114,6 +125,15 @@ class ProfileSetupCoach(tk.Frame,ProfileSetup):
         self.txtAddress = ttk.Entry(self)
         self.txtPostcode = ttk.Entry(self)
         self.txtDateOfBirth = ttk.Entry(self)
+
+        self.lblFirstName.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblLastName.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblPhoneNumber.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblAddress.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblPostcode.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblDateOfBirth.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.SubmitButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
 
 
         self.SubmitButton= tk.Button(self, text="Submit",command=lambda: self.addNewPlayer(controller) )
@@ -159,6 +179,15 @@ class ProfileSetupAdmin(tk.Frame,ProfileSetup):
 
         self.SubmitButton= tk.Button(self, text="Submit",command=lambda: self.addNewPlayer(controller) )
         self.BackButton= tk.Button(self, text="Back",command=lambda: controller.show_frame("Login"))
+
+        self.lblFirstName.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblLastName.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblPhoneNumber.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblAddress.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblPostcode.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblDateOfBirth.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.SubmitButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
 
         self.lblFirstName.grid(row=1,column=0)
         self.lblLastName.grid(row=2,column=0)

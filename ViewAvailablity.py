@@ -11,9 +11,8 @@ from SystemToolKit import *
 class ViewAvailablity:
 
         def BackButtonRun(self):
-            global PagesViewed
-            PagesViewed.pop()
-            self.controller.show_frame(PagesViewed[-1])
+            Config.PagesViewed.pop()
+            self.controller.show_frame(Config.PagesViewed[-1])
 
         def GetPlayers(self):
             if Validation.TeamNumber(self.txtTeamNumber.get()) == True:
@@ -48,9 +47,16 @@ class ViewAvailablityAdmin(tk.Frame,ViewAvailablity):
             self.controller = controller
             self.Title=tk.Label(self,text="Player Availablity",font=controller.title_font)
             self.lblTeamNumber = tk.Label(self,text="Team Number: ")
-            self.txtTeamNumber = tk.Entry(self)
+            self.txtTeamNumber = ttk.Entry(self)
             self.GetPlayersButton =tk.Button(self,text="Get Player Status",command=lambda:self.GetPlayers())
             self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+
+            self.lblTeamNumber.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+            self.GetPlayersButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
+            self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+            self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
+
+
             self.Title.grid(row=0,column =0)
             self.lblTeamNumber.grid(row=1,column=0)
             self.txtTeamNumber.grid(row=1,column =1)
@@ -64,9 +70,16 @@ class ViewAvailablityCoach(tk.Frame,ViewAvailablity):
             self.controller = controller
             self.Title=tk.Label(self,text="Player Availablity",font=controller.title_font)
             self.lblTeamNumber = tk.Label(self,text="Team Number: ")
-            self.txtTeamNumber = tk.Entry(self)
+            self.txtTeamNumber = ttk.Entry(self)
             self.GetPlayersButton =tk.Button(self,text="Get Player Status",command=lambda:self.GetPlayers())
             self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+
+            self.lblTeamNumber.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+            self.GetPlayersButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
+            self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+            self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
+
+
             self.Title.grid(row=0,column =0)
             self.lblTeamNumber.grid(row=1,column=0)
             self.txtTeamNumber.grid(row=1,column =1)
@@ -80,9 +93,16 @@ class ViewAvailablityPlayer(tk.Frame,ViewAvailablity):
             self.controller = controller
             self.Title=tk.Label(self,text="Player Availablity",font=controller.title_font)
             self.lblTeamNumber = tk.Label(self,text="Team Number: ")
-            self.txtTeamNumber = tk.Entry(self)
+            self.txtTeamNumber = ttk.Entry(self)
             self.GetPlayersButton =tk.Button(self,text="Get Player Status",command=lambda:self.GetPlayers())
             self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+
+            self.lblTeamNumber.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+            self.GetPlayersButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
+            self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+            self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
+
+
             self.Title.grid(row=0,column =0)
             self.lblTeamNumber.grid(row=1,column=0)
             self.txtTeamNumber.grid(row=1,column =1)

@@ -34,9 +34,9 @@ class Login:
                     break
 
             elif (j+1) == len(users):
-                messagebox.showinfo("Messgae","Username or password incorrect")
+                messagebox.showinfo("Message","Username or password incorrect")
         if len(users) == 0:
-            messagebox.showinfo("Messgae","No users installed")
+            messagebox.showinfo("Message","No users installed")
 
     @staticmethod
     def checkPassword(userHash,password,salt):
@@ -107,12 +107,11 @@ class LoginAdmin(tk.Frame,Login):
 
 
 
-
-        self.Title.config(background="#f4f8ff",fg = "#485e82",pady="5")
-        self.loginButton.config(compound="left")
-        self.registerButton.config(compound="left")
-        self.lblUsername.config(justify="left",fg = "black",background="#f4f8ff")
-        self.lblPassword.config(justify="left",fg = "black",background="#f4f8ff")
+        self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+        self.loginButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.registerButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.lblUsername.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblPassword.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
         self.txtUsername.config(width="20")
         self.txtPassword.config(width="20",show="*")
 
@@ -138,17 +137,13 @@ class LoginPlayer(tk.Frame,Login):
         self.txtUsername = ttk.Entry(self)
         self.txtPassword = ttk.Entry(self)
 
-
-
-
-        self.Title.config(background="#f4f8ff",fg = "#485e82",pady="5")
-        self.loginButton.config(compound="left")
-        self.registerButton.config(compound="left")
-        self.lblUsername.config(justify="left",fg = "black",background="#f4f8ff")
-        self.lblPassword.config(justify="left",fg = "black",background="#f4f8ff")
+        self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+        self.loginButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.registerButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.lblUsername.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblPassword.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
         self.txtUsername.config(width="20")
         self.txtPassword.config(width="20",show="*")
-
 
         self.Title.grid(row=0,column=0,columnspan=2)
         self.loginButton.grid(row=4,column=1)
@@ -171,17 +166,13 @@ class LoginCoach(tk.Frame,Login):
         self.txtUsername = ttk.Entry(self)
         self.txtPassword = ttk.Entry(self)
 
-
-
-
-        self.Title.config(background="#f4f8ff",fg = "#485e82",pady="5")
-        self.loginButton.config(compound="left")
-        self.registerButton.config(compound="left")
-        self.lblUsername.config(justify="left",fg = "black",background="#f4f8ff")
-        self.lblPassword.config(justify="left",fg = "black",background="#f4f8ff")
+        self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+        self.loginButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.registerButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.lblUsername.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblPassword.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
         self.txtUsername.config(width="20")
         self.txtPassword.config(width="20",show="*")
-
 
         self.Title.grid(row=0,column=0,columnspan=2)
         self.loginButton.grid(row=4,column=1)

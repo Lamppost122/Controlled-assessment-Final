@@ -194,7 +194,3 @@ class Validation:
         return True
 
 
-
-
-
-Validation.Score("asds")

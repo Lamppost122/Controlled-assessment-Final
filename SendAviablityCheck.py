@@ -10,9 +10,9 @@ import Config
 import Validation
 class SendAvailablityCheck:
     def BackButtonRun(self):
-        global PagesViewed
-        PagesViewed.pop()
-        self.controller.show_frame(PagesViewed[-1])
+        Config.PagesViewed.pop()
+        self.controller.show_frame(Config.PagesViewed[-1])
+
 
     def GetData(self):
         if Validaion.TeamNumber( self.txtTeamNumber.get()) == True:
@@ -114,7 +114,15 @@ class SendAvailablityCheckAdmin(tk.Frame,SendAvailablityCheck):
             self.lblPlayers = tk.Label(self,text="Players:")
             self.lblMatches = tk.Label(self,text="Matches:")
             self.MatchList = tk.Listbox(self)
-            self.txtTeamNumber = tk.Entry(self)
+            self.txtTeamNumber = ttk.Entry(self)
+
+            self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+            self.GetTeamButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
+            self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
+            self.SendEmailButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
+            self.lblPlayers.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+            self.lblMatches.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+
             self.Title.grid(row=0,column=0)
             self.GetTeamButton.grid(row=1,column=1)
             self.txtTeamNumber.grid(row=1,column =0)
@@ -143,7 +151,15 @@ class SendAvailablityCheckCoach(tk.Frame,SendAvailablityCheck):
             self.lblPlayers = tk.Label(self,text="Players:")
             self.lblMatches = tk.Label(self,text="Matches:")
             self.MatchList = tk.Listbox(self)
-            self.txtTeamNumber = tk.Entry(self)
+            self.txtTeamNumber = ttk.Entry(self)
+
+            self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+            self.GetTeamButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
+            self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
+            self.SendEmailButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
+            self.lblPlayers.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+            self.lblMatches.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+
             self.Title.grid(row=0,column=0)
             self.GetTeamButton.grid(row=1,column=1)
             self.txtTeamNumber.grid(row=1,column =0)
@@ -173,7 +189,15 @@ class SendAvailablityCheckPlayer(tk.Frame,SendAvailablityCheck):
             self.lblPlayers = tk.Label(self,text="Players:")
             self.lblMatches = tk.Label(self,text="Matches:")
             self.MatchList = tk.Listbox(self)
-            self.txtTeamNumber = tk.Entry(self)
+            self.txtTeamNumber = ttk.Entry(self)
+
+            self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+            self.GetTeamButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
+            self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
+            self.SendEmailButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
+            self.lblPlayers.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+            self.lblMatches.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+
             self.Title.grid(row=0,column=0)
             self.GetTeamButton.grid(row=1,column=1)
             self.txtTeamNumber.grid(row=1,column =0)

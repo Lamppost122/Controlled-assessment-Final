@@ -10,9 +10,8 @@ import Config
 
 class BackUp:
     def BackButtonRun(self,controller):
-        global PagesViewed
-        PagesViewed.pop()
-        controller.show_frame(PagesViewed[-1])
+        Config.PagesViewed.pop()
+        controller.show_frame(Config.PagesViewed[-1])
 
     def writeToScreen(self,FileName):
         self.PastBackupsList.delete(0,tk.END)

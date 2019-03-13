@@ -11,9 +11,8 @@ from SystemToolKit import *
 
 class ConfirmAvailablity:
     def BackButtonRun(self):
-            global PagesViewed
-            PagesViewed.pop()
-            self.controller.show_frame(PagesViewed[-1])
+            Config.PagesViewed.pop()
+            self.controller.show_frame(Config.PagesViewed[-1])
 
     def GetMyMatches(self):
         Players = SystemToolKit.readFile(Config.PlayerFile)
@@ -40,6 +39,17 @@ class ConfirmAvailablity:
             self.lblResponce =tk.Label(self,text=self.AvailableMatches[self.TeamID][Data][Config.CurrentUser])
             self.YesButton=tk.Button(self,text="Yes",command = lambda Data =Data:self.Yes(Data))
             self.NoButton = tk.Button(self,text="No",command = lambda Data =Data:self.No(Data))
+
+            self.lblText.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+            self.lblResponceStatus.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+            self.lblResponce.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+            self.YesButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
+            self.NoButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
+            self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
+            self.GetMyMatchesButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
+            self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+
+
             self.lblText.grid(row=j+3,column=0)
             self.YesButton.grid(row=j+3,column=1)
             self.NoButton.grid(row=j+3,column=2)
@@ -47,13 +57,13 @@ class ConfirmAvailablity:
             self.lblResponce.grid(row=j+3,column =4)
     def Yes(self,Data):
         self.AvailableMatches[self.TeamID][Data][Config.CurrentUser] = "Yes"
-        with open("matchAvailablity.json","w")as fp:
+        with open(Config.MatchAvailablityFile,"w")as fp:
 
             json.dump(self.AvailableMatches,fp)
         self.GetMyMatches()
     def No(self,Data):
         self.AvailableMatches[self.TeamID][Data][Config.CurrentUser] = "No"
-        with open("matchAvailablity.json","w")as fp:
+        with open(Config.MatchAvailablityFile,"w")as fp:
 
             json.dump(self.AvailableMatches,fp)
         self.GetMyMatches()
@@ -66,7 +76,7 @@ class ConfirmAvailablity:
                     if k =="Date":
                         if datetime.datetime.strptime(self.AvailableMatches[i][j][k], "%d/%m/%Y") < present:
                             del NewDict[i][j]
-        with open("matchAvailablity.json","w")as fp:
+        with open(Config.MatchAvailablityFile,"w")as fp:
 
             json.dump(NewDict,fp)
 
@@ -78,6 +88,11 @@ class ConfirmAvailablityAdmin(tk.Frame,ConfirmAvailablity):
             self.Title =tk.Label(self,text="Confirm Availablity",font=controller.title_font)
             self.GetMyMatchesButton = tk.Button(self,text="Get My Matches",command = lambda:self.GetMyMatches())
             self.BackButton = tk.Button(self,text="Back",command=lambda:self.BackButtonRun())
+
+            self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
+            self.GetMyMatchesButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
+            self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+
             self.Title.grid(row=0,column =0)
             self.GetMyMatchesButton.grid(row=1,column=0)
             self.BackButton.grid(row=1,column=1)
@@ -92,6 +107,11 @@ class ConfirmAvailablityPlayer(tk.Frame,ConfirmAvailablity):
             self.Title =tk.Label(self,text="Confirm Availablity",font=controller.title_font)
             self.GetMyMatchesButton = tk.Button(self,text="Get My Matches",command = lambda:self.GetMyMatches())
             self.BackButton = tk.Button(self,text="Back",command=lambda:self.BackButtonRun())
+
+            self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
+            self.GetMyMatchesButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
+            self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+
             self.Title.grid(row=0,column =0)
             self.GetMyMatchesButton.grid(row=1,column=0)
             self.BackButton.grid(row=1,column=1)
@@ -106,6 +126,11 @@ class ConfirmAvailablityCoach(tk.Frame,ConfirmAvailablity):
             self.Title =tk.Label(self,text="Confirm Availablity",font=controller.title_font)
             self.GetMyMatchesButton = tk.Button(self,text="Get My Matches",command = lambda:self.GetMyMatches())
             self.BackButton = tk.Button(self,text="Back",command=lambda:self.BackButtonRun())
+
+            self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
+            self.GetMyMatchesButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
+            self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+
             self.Title.grid(row=0,column =0)
             self.GetMyMatchesButton.grid(row=1,column=0)
             self.BackButton.grid(row=1,column=1)
