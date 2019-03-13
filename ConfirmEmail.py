@@ -35,6 +35,11 @@ class ConfirmEmailAdmin(tk.Frame):
         self.lblText =tk.Label(self,text="Please enter in the code sent to your email address")
         self.txtConfirm =ttk.Entry(self)
         self.ConfirmButton=tk.Button(self,text ="Confirm",command=lambda:self.CheckConfirmEmail(Config.UserFile,controller))
+
+        self.title.config(background="#8ABFD9",fg = "#404040",pady="5")
+        self.lblText.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.ConfirmButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+
         self.title.grid(row=0,column=0,columnspan = 2)
         self.lblText.grid(row=1,column=0,columnspan=2)
         self.txtConfirm.grid(row=2,column =0)
@@ -49,6 +54,11 @@ class ConfirmEmailPlayer(tk.Frame):
         self.lblText =tk.Label(self,text="Please enter in the code sent to your email address")
         self.txtConfirm =ttk.Entry(self)
         self.ConfirmButton=tk.Button(self,text ="Confirm",command=lambda:self.CheckConfirmEmail(Config.UserFile,controller))
+
+        self.title.config(background="#8ABFD9",fg = "#404040",pady="5")
+        self.lblText.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.ConfirmButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+
         self.title.grid(row=0,column=0,columnspan = 2)
         self.lblText.grid(row=1,column=0,columnspan=2)
         self.txtConfirm.grid(row=2,column =0)
@@ -63,6 +73,11 @@ class ConfirmEmailCoach(tk.Frame):
         self.lblText =tk.Label(self,text="Please enter in the code sent to your email address")
         self.txtConfirm =ttk.Entry(self)
         self.ConfirmButton=tk.Button(self,text ="Confirm",command=lambda:self.CheckConfirmEmail(Config.UserFile,controller))
+
+        self.title.config(background="#8ABFD9",fg = "#404040",pady="5")
+        self.lblText.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.ConfirmButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+
         self.title.grid(row=0,column=0,columnspan = 2)
         self.lblText.grid(row=1,column=0,columnspan=2)
         self.txtConfirm.grid(row=2,column =0)

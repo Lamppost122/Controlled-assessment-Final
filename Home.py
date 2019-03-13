@@ -8,11 +8,8 @@ import Config
 
 class Home:
     def BackButtonRun(self,controller):
-        global PagesViewed
-        PagesViewed.pop()
-        controller.show_frame(PagesViewed[-1])
-
-
+        Config.PagesViewed.pop()
+        controller.show_frame(Config.PagesViewed[-1])
 
     def on_show_frame(self,controller):
         global CurrentUser
@@ -76,17 +73,28 @@ class HomePlayer(tk.Frame,Home):
         self.GetDataButton =tk.Button(self,text="Get Data",command=lambda:self.on_show_frame(controller))
         self.MatchButton =tk.Button(self,text = "Match Data",command = lambda :controller.show_frame("MatchScreen"))
         self.PlayerStatsButton =tk.Button(self,text="Player Stats",command = lambda :controller.show_frame("PlayerStats"))
-
         self.AdminCommandsButton = tk.Button(self,text = "AdminCommands",command = lambda:controller.show_frame("AdminCommands"))
-        self.AdminCommandsButton.grid(row=3,column =4)
-
         self.AddPlayerButton=tk.Button(self,text="Setup Profile",command = lambda:controller.show_frame("ProfileSetup"))
         self.NewsButton = tk.Button(self,text = "News/Updates",command = lambda:controller.show_frame("News"))
         self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun(controller))
 
-        self.titleProfile.config(background="#f4f8ff",fg = "#485e82",pady="5")
+        self.lblFirstName.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblLastName.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblPhoneNumber.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblAddress.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblPostcode.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblDateOfBirth.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblTeam.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.GetDataButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.MatchButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.AdminCommandsButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.AddPlayerButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.NewsButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.PlayerStatsButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.titleProfile.config(background="#8ABFD9",fg = "#404040",pady="5")
 
-        self.titleProfile.grid(row = 0 ,column = 0 ,columnspan = 2)
+        self.titleProfile.grid(row = 0 ,column = 0 ,columnspan = 3)
         self.lblFirstName.grid(row=1,column=0)
         self.lblLastName.grid(row=2,column=0)
         self.lblPhoneNumber.grid(row=3,column=0)
@@ -95,12 +103,12 @@ class HomePlayer(tk.Frame,Home):
         self.lblDateOfBirth.grid(row=6,column=0)
         self.lblTeam.grid(row=7,column = 0 )
         self.GetDataButton.grid(row=8,column =0)
-        self.MatchButton.grid(row = 3,column = 3)
-
-        self.NewsButton.grid(row=3,column =5)
-        self.BackButton.grid(row=3,column = 6)
-        self.PlayerStatsButton.grid(row=4,column =3)
-        self.AddPlayerButton.grid(row=4,column=4)
+        self.MatchButton.grid(row = 1,column = 3)
+        self.AdminCommandsButton.grid(row=2,column =3)
+        self.NewsButton.grid(row=3,column =3)
+        self.BackButton.grid(row=6,column = 3)
+        self.PlayerStatsButton.grid(row=5,column =3)
+        self.AddPlayerButton.grid(row=4,column=3)
 
 class HomeCoach(tk.Frame,Home):
 
@@ -122,15 +130,28 @@ class HomeCoach(tk.Frame,Home):
         self.PlayerStatsButton =tk.Button(self,text="Player Stats",command = lambda :controller.show_frame("PlayerStats"))
 
         self.AdminCommandsButton = tk.Button(self,text = "AdminCommands",command = lambda:controller.show_frame("AdminCommands"))
-        self.AdminCommandsButton.grid(row=3,column =4)
 
         self.AddPlayerButton=tk.Button(self,text="Setup Profile",command = lambda:controller.show_frame("ProfileSetup"))
         self.NewsButton = tk.Button(self,text = "News/Updates",command = lambda:controller.show_frame("News"))
         self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun(controller))
 
-        self.titleProfile.config(background="#f4f8ff",fg = "#485e82",pady="5")
+        self.lblFirstName.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblLastName.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblPhoneNumber.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblAddress.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblPostcode.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblDateOfBirth.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblTeam.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.GetDataButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.MatchButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.AdminCommandsButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.AddPlayerButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.NewsButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.PlayerStatsButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.titleProfile.config(background="#8ABFD9",fg = "#404040",pady="5")
 
-        self.titleProfile.grid(row = 0 ,column = 0 ,columnspan = 2)
+        self.titleProfile.grid(row = 0 ,column = 0 ,columnspan = 3)
         self.lblFirstName.grid(row=1,column=0)
         self.lblLastName.grid(row=2,column=0)
         self.lblPhoneNumber.grid(row=3,column=0)
@@ -139,12 +160,12 @@ class HomeCoach(tk.Frame,Home):
         self.lblDateOfBirth.grid(row=6,column=0)
         self.lblTeam.grid(row=7,column = 0 )
         self.GetDataButton.grid(row=8,column =0)
-        self.MatchButton.grid(row = 3,column = 3)
-
-        self.NewsButton.grid(row=3,column =5)
-        self.BackButton.grid(row=3,column = 6)
-        self.PlayerStatsButton.grid(row=4,column =3)
-        self.AddPlayerButton.grid(row=4,column=4)
+        self.MatchButton.grid(row = 1,column = 3)
+        self.AdminCommandsButton.grid(row=2,column =3)
+        self.NewsButton.grid(row=3,column =3)
+        self.BackButton.grid(row=6,column = 3)
+        self.PlayerStatsButton.grid(row=5,column =3)
+        self.AddPlayerButton.grid(row=4,column=3)
 
 
 
@@ -174,9 +195,23 @@ class HomeAdmin(tk.Frame,Home):
         self.NewsButton = tk.Button(self,text = "News/Updates",command = lambda:controller.show_frame("News"))
         self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun(controller))
 
-        self.titleProfile.config(background="#f4f8ff",fg = "#485e82",pady="5")
+        self.lblFirstName.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblLastName.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblPhoneNumber.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblAddress.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblPostcode.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblDateOfBirth.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblTeam.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.GetDataButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.MatchButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.AdminCommandsButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.AddPlayerButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.NewsButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.PlayerStatsButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.titleProfile.config(background="#8ABFD9",fg = "#404040",pady="5")
 
-        self.titleProfile.grid(row = 0 ,column = 0 ,columnspan = 2)
+        self.titleProfile.grid(row = 0 ,column = 0 ,columnspan = 3)
         self.lblFirstName.grid(row=1,column=0)
         self.lblLastName.grid(row=2,column=0)
         self.lblPhoneNumber.grid(row=3,column=0)
@@ -185,9 +220,9 @@ class HomeAdmin(tk.Frame,Home):
         self.lblDateOfBirth.grid(row=6,column=0)
         self.lblTeam.grid(row=7,column = 0 )
         self.GetDataButton.grid(row=8,column =0)
-        self.MatchButton.grid(row = 3,column = 3)
-
-        self.NewsButton.grid(row=3,column =5)
-        self.BackButton.grid(row=3,column = 6)
-        self.PlayerStatsButton.grid(row=4,column =3)
-        self.AddPlayerButton.grid(row=4,column=4)
+        self.MatchButton.grid(row = 1,column = 3)
+        self.AdminCommandsButton.grid(row=2,column =3)
+        self.NewsButton.grid(row=3,column =3)
+        self.BackButton.grid(row=6,column = 3)
+        self.PlayerStatsButton.grid(row=5,column =3)
+        self.AddPlayerButton.grid(row=4,column=3)

@@ -4,7 +4,7 @@ from tkinter import font  as tkfont
 from tkinter import messagebox
 from tkinter import ttk
 
-PagesViewed = ["Login"]
+
 from SystemToolKit import *
 from Login import *
 from Register import *
@@ -41,7 +41,7 @@ class SampleApp(tk.Tk):
         global PagesViewed
 
 
-        self.title_font = tkfont.Font(family='ariel', size=18, weight="bold", slant="italic")
+        self.title_font = tkfont.Font(family='ariel', size=22, weight="bold", slant="italic")
         container = tk.Frame(self)
         container.pack(side="top", fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)
@@ -69,7 +69,7 @@ class SampleApp(tk.Tk):
             self.frames[page_name] = frame
             frame.grid(row=0, column=0, sticky="nsew")
 
-        self.show_frame("Login")
+        self.show_frame("MatchScreen")
 
     def show_frame(self, page_name):
         '''Show a frame for the given page name'''
@@ -81,17 +81,17 @@ class SampleApp(tk.Tk):
             page_name=page_name+"Player"
 
         frame = self.frames[page_name]
-        PagesViewed.append(page_name)
+        Config.PagesViewed.append(page_name)
 
         frame.tkraise()
-        frame.tk_setPalette("#f4f8ff")
+        frame.tk_setPalette("#8ABFD9")
         frame.update()
 
 
 
 
 if __name__ == "__main__":
-    #System_init.FileCreation()
+    System_init.FileCreation()
 
     app = SampleApp()
     app.title("Whichurch Hockey Club Team System")

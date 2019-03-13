@@ -11,3 +11,5 @@ BackupListFile = "BackUpList.json"
 BackupDateFile = "BackupDates.json"
 MatchReportFile = "matchReport.json"
 MatchAvailablityFile = "matchAvailablity.json"
+PagesViewed = ["Login"]
+

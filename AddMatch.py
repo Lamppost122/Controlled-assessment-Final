@@ -9,9 +9,8 @@ from Validation import *
 
 class AddMatch:
     def BackButtonRun(self,controller):
-            global PagesViewed
-            PagesViewed.pop()
-            controller.show_frame(PagesViewed[-1])
+            Config.PagesViewed.pop()
+            controller.show_frame(Config.PagesViewed[-1])
 
 
     def AddMatch(self,controller):
