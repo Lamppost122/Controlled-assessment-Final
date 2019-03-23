@@ -7,20 +7,17 @@ from tkinter import ttk
 from Gui import *
 import Config
 from SystemToolKit import *
+
 class EditPlayer:
-    def BackButtonRun(self,controller):
+
+    def BackButtonRun(self):
             Config.PagesViewed.pop()
-            controller.show_frame(Config.PagesViewed[-1])
-
-
+            self.controller.show_previous_frame(Config.PagesViewed[-1])
 
     def GetPlayers(self):
+
         self.orderedList = []
-
-
         self.players = SystemToolKit.readFile(Config.PlayerFile)
-
-
 
         for i ,j in enumerate(self.players):
             self.orderedList.append(j)
@@ -45,7 +42,6 @@ class EditPlayer:
         self.orderedList = list(reversed(self.orderedList))
 
     def Edit_Players(self):
-
 
             count = 0
             error = False
@@ -85,20 +81,33 @@ class EditPlayerAdmin(tk.Frame,EditPlayer):
             tk.Frame.__init__(self, parent)
             self.controller = controller
             self.StartCount = 3
+
+            """ Widget Declearations """
+
             self.Title = tk.Label(self,text = "Edit player details" ,font = controller.title_font)
-            self.lblPlayer = ttk.Label(self,text = "Player: ")
+            self.lblPlayer = tk.Label(self,text = "Player: ")
             self.txtPlayer = ttk.Entry(self)
             self.getPlayerButton = tk.Button(self,text = "Get Players",command = self.GetPlayers)
             self.EditPlayerButton = tk.Button(self,text = "Edit Players",command = self.Edit_Players)
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun(controller))
+            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
 
-            self.Title.config(background="#f4f8ff",fg = "#485e82",pady="5")
+            """ Widget Stylings """
+
+            self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+            self.lblPlayer.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+            self.getPlayerButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+            self.EditPlayerButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+            self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+
+            """ Widget Positions """
+
             self.Title.grid(row =0,column =0,columnspan = 4)
             self.lblPlayer.grid(row =1,column =0)
             self.txtPlayer.grid(row =1,column =1)
             self.getPlayerButton.grid(row =1,column =2)
             self.EditPlayerButton.grid(row =1,column =3)
             self.BackButton.grid(row =1,column = 4)
+
 
 class EditPlayerCoach(tk.Frame,EditPlayer):
 
@@ -106,39 +115,42 @@ class EditPlayerCoach(tk.Frame,EditPlayer):
             tk.Frame.__init__(self, parent)
             self.controller = controller
             self.StartCount = 3
+
+            """ Widget Declearations """
+
             self.Title = tk.Label(self,text = "Edit player details" ,font = controller.title_font)
-            self.lblPlayer = ttk.Label(self,text = "Player: ")
+            self.lblPlayer = tk.Label(self,text = "Player: ")
             self.txtPlayer = ttk.Entry(self)
             self.getPlayerButton = tk.Button(self,text = "Get Players",command = self.GetPlayers)
             self.EditPlayerButton = tk.Button(self,text = "Edit Players",command = self.Edit_Players)
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun(controller))
+            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
 
-            self.Title.config(background="#f4f8ff",fg = "#485e82",pady="5")
+            """ Widget Stylings """
+
+            self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+            self.lblPlayer.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+            self.getPlayerButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+            self.EditPlayerButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+            self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+
+            """ Widget Positions """
+
             self.Title.grid(row =0,column =0,columnspan = 4)
             self.lblPlayer.grid(row =1,column =0)
             self.txtPlayer.grid(row =1,column =1)
             self.getPlayerButton.grid(row =1,column =2)
             self.EditPlayerButton.grid(row =1,column =3)
             self.BackButton.grid(row =1,column = 4)
+
 
 class EditPlayerPlayer(tk.Frame,EditPlayer):
 
         def __init__(self, parent, controller):
             tk.Frame.__init__(self, parent)
             self.controller = controller
-            self.StartCount = 3
-            self.Title = tk.Label(self,text = "Edit player details" ,font = controller.title_font)
-            self.lblPlayer = ttk.Label(self,text = "Player: ")
-            self.txtPlayer = ttk.Entry(self)
-            self.getPlayerButton = tk.Button(self,text = "Get Players",command = self.GetPlayers)
-            self.EditPlayerButton = tk.Button(self,text = "Edit Players",command = self.Edit_Players)
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun(controller))
 
-            self.Title.config(background="#f4f8ff",fg = "#485e82",pady="5")
-            self.Title.grid(row =0,column =0,columnspan = 4)
-            self.lblPlayer.grid(row =1,column =0)
-            self.txtPlayer.grid(row =1,column =1)
-            self.getPlayerButton.grid(row =1,column =2)
-            self.EditPlayerButton.grid(row =1,column =3)
-            self.BackButton.grid(row =1,column = 4)
+            """ Widget Declearations """
 
+            """ Widget Stylings """
+
+            """ Widget Positions """

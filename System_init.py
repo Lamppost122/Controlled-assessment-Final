@@ -5,9 +5,9 @@ import Config
 
 
 class System_init:
+
     @staticmethod
     def FileCreation():
-        print(Config.TeamFile)
         files = [Config.TeamFile,Config.UserFile,Config.PlayerFile,Config.MatchFile,Config.PlayerStatsFile,Config.UpdatesFile,Config.SeasonFile,Config.BackupListFile,Config.BackupDateFile,Config.MatchAvailablityFile,Config.MatchReportFile]
         for i in files:
             if not os.path.isfile(i):
@@ -20,9 +20,6 @@ class System_init:
                     f= open(i,"w+")
                     f.write(seasonData)
                     f.close()
-
-
-
 
                 elif i == Config.BackupListFile:
 

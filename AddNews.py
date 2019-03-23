@@ -10,9 +10,9 @@ import Validation
 
 class AddNews:
 
-    def BackButtonRun(self,controller):
+    def BackButtonRun(self):
             Config.PagesViewed.pop()
-            controller.show_frame(Config.PagesViewed[-1])
+            self.controller.show_previous_frame(Config.PagesViewed[-1])
 
 
     def AddUpdate(self):
@@ -32,13 +32,22 @@ class AddNewsAdmin(tk.Frame,AddNews):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
+
+        """ Widget Declearations """
+
         self.addUpdateButton =tk.Button(self,text = "Add update",command = self.AddUpdate)
         self.lblAddUpdate = tk.Label(self,text = "Enter News/Update bellow",font=controller.title_font)
         self.txtAddUpdate =tk.Text(self,width="50",height = "10")
-        self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun(controller))
+        self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
 
-        self.lblAddUpdate.config(background="#f4f8ff",fg = "#485e82",pady="5")
+        """ Widget Stylings """
+
+        self.lblAddUpdate.config(background="#8ABFD9",fg = "#404040",pady="5")
         self.txtAddUpdate.config(background="white",padx="10")
+        self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.addUpdateButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+
+        """ Widget Positons """
 
         self.lblAddUpdate.grid(row = 0,column =0 )
         self.txtAddUpdate.grid(row = 1,column = 0)
@@ -50,35 +59,23 @@ class AddNewsPlayer(tk.Frame,AddNews):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-        self.addUpdateButton =tk.Button(self,text = "Add update",command = self.AddUpdate)
-        self.lblAddUpdate = tk.Label(self,text = "Enter News/Update bellow",font=controller.title_font)
-        self.txtAddUpdate =tk.Text(self,width="50",height = "10")
-        self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun(controller))
 
-        self.lblAddUpdate.config(background="#f4f8ff",fg = "#485e82",pady="5")
-        self.txtAddUpdate.config(background="white",padx="10")
+        """ Widget Declearations """
 
-        self.lblAddUpdate.grid(row = 0,column =0 )
-        self.txtAddUpdate.grid(row = 1,column = 0)
-        self.addUpdateButton.grid(row=1,column =1)
-        self.BackButton.grid(row =1,column = 2)
+        """ Widget Stlyings """
+
+        """ Widget Positions """
+
 
 class AddNewsCoach(tk.Frame,AddNews):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-        self.addUpdateButton =tk.Button(self,text = "Add update",command = self.AddUpdate)
-        self.lblAddUpdate = tk.Label(self,text = "Enter News/Update bellow",font=controller.title_font)
-        self.txtAddUpdate =tk.Text(self,width="50",height = "10")
-        self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun(controller))
 
-        self.lblAddUpdate.config(background="#f4f8ff",fg = "#485e82",pady="5")
-        self.txtAddUpdate.config(background="white",padx="10")
+        """ Widget Declearations """
 
-        self.lblAddUpdate.grid(row = 0,column =0 )
-        self.txtAddUpdate.grid(row = 1,column = 0)
-        self.addUpdateButton.grid(row=1,column =1)
-        self.BackButton.grid(row =1,column = 2)
+        """ Widget Stlyings """
 
+        """ Widget Positions """
 

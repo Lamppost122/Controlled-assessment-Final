@@ -11,20 +11,27 @@ from AddMatch import *
 import Config
 class MatchReport:
 
-    def BackButtonRun(self,controller):
+    def BackButtonRun(self):
             Config.PagesViewed.pop()
-            controller.show_frame(Config.PagesViewed[-1])
-
+            self.controller.show_previous_frame(Config.PagesViewed[-1])
 
 
     def AddPlayer(self):
         self.count +=1
+
+        """ Widget Declearations """
+
         self.txtFirstName=ttk.Entry(self)
         self.txtLastName = ttk.Entry(self)
         self.txtGoal = ttk.Entry(self)
         self.txtGreen = ttk.Entry(self)
         self.txtYellow = ttk.Entry(self)
         self.txtRed = ttk.Entry(self)
+
+        """ Widget Stylings """
+
+        """ Widget Positions """
+
         self.txtFirstName.grid(row = self.count, column  =0 )
         self.txtLastName.grid(row = self.count,column = 1)
         self.txtGoal.grid(row = self.count, column  =2 )
@@ -40,14 +47,11 @@ class MatchReport:
             self.count-=1
 
 
-
-
     def get_Match_Report_Data(self):
         data = []
         matchData = []
         matchReport = {}
         error = False
-
 
         for i,j in enumerate(self.grid_slaves()):
             if int(j.grid_info()["row"]) >= self.StartCount:
@@ -86,12 +90,6 @@ class MatchReport:
                         else:
                             error =True
 
-
-
-
-
-
-
                 except AttributeError:
                     pass
         if error == False:
@@ -103,6 +101,7 @@ class MatchReport:
             matchReport = SystemToolKit.readFile(Config.MatchReportFile)
             matchReportID = uuid.uuid4()
             matchReport[matchReportID] = matchReport
+
     def getMatchID(self,Date,Team):
 
          matches = SystemToolKit.readFile(Config.MatchFile)
@@ -118,6 +117,7 @@ class MatchReport:
         for i in players:
             if players[i]["First name"] ==  FirstName and players[i]["Last name"] == LastName:
                 return i
+
     def win_Status(self,ClubScore ,OppositonScore):
         if ClubScore > OppositonScore:
             return "Win"
@@ -125,7 +125,9 @@ class MatchReport:
             return "Draw"
         else:
             return "Loss"
+
     def Match_Data( self,MatchID,ClubScore,OppositonScore,winStatus):
+
         matchData = {
         "matchID" : MatchID,
         "ClubScore" : ClubScore,
@@ -144,6 +146,7 @@ class MatchReport:
         }
 
         return PlayerData
+
     def Player_stats_update(self,matchReport):
 
 
@@ -269,6 +272,9 @@ class MatchReportAdmin(tk.Frame, MatchReport):
         self.controller = controller
         self.count = 5
         self.StartCount = self.count +1
+
+        """ Widget Declearations """
+
         self.Title = tk.Label(self, text="Match Report", font=controller.title_font)
         self.lblTeam = tk.Label(self,text = "Team Number : ")
         self.lblDate = tk.Label(self,text = "Date :")
@@ -280,7 +286,7 @@ class MatchReportAdmin(tk.Frame, MatchReport):
         self.AddRowButton = tk.Button(self,text = "Add Row",command= self.AddPlayer )
         self.SubmitButton = tk.Button(self,text = "Submit",command = self.submit)
         self.ImportButton = tk.Button(self,text="Import Team",command = lambda: self.ImportTeam())
-        self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun(controller))
+        self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
         self.lblFirstName = tk.Label(self,text = "FirstName")
         self.lblLastName = tk.Label(self,text = "Last Name")
         self.lblGoal = tk.Label(self,text="Goals")
@@ -292,6 +298,8 @@ class MatchReportAdmin(tk.Frame, MatchReport):
         self.lblOpposition = tk.Label(self,text = "Opposition")
         self.WhichchurchScore = ttk.Entry(self)
         self.oppositionScore = ttk.Entry(self)
+
+        """ Widget Stylings """
 
         self.lblImport.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
         self.lblTeam.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
@@ -311,6 +319,8 @@ class MatchReportAdmin(tk.Frame, MatchReport):
         self.lblWhichurch.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
         self.lblOpposition.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
         self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+
+        """ Widget Positiona """
 
         self.Title.grid(row = 0,column = 0,columnspan = 8)
         self.lblTeam.grid(row = 1, column = 0)
@@ -344,6 +354,9 @@ class MatchReportCoach(tk.Frame, MatchReport):
         self.controller = controller
         self.count = 5
         self.StartCount = self.count +1
+
+        """ Widget Declearations """
+
         self.Title = tk.Label(self, text="Match Report", font=controller.title_font)
         self.lblTeam = tk.Label(self,text = "Team Number : ")
         self.lblDate = tk.Label(self,text = "Date :")
@@ -355,7 +368,7 @@ class MatchReportCoach(tk.Frame, MatchReport):
         self.AddRowButton = tk.Button(self,text = "Add Row",command= self.AddPlayer )
         self.SubmitButton = tk.Button(self,text = "Submit",command = self.submit)
         self.ImportButton = tk.Button(self,text="Import Team",command = lambda: self.ImportTeam())
-        self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun(controller))
+        self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
         self.lblFirstName = tk.Label(self,text = "FirstName")
         self.lblLastName = tk.Label(self,text = "Last Name")
         self.lblGoal = tk.Label(self,text="Goals")
@@ -367,6 +380,8 @@ class MatchReportCoach(tk.Frame, MatchReport):
         self.lblOpposition = tk.Label(self,text = "Opposition")
         self.WhichchurchScore = ttk.Entry(self)
         self.oppositionScore = ttk.Entry(self)
+
+        """ Widget Stylings """
 
         self.lblImport.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
         self.lblTeam.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
@@ -386,6 +401,8 @@ class MatchReportCoach(tk.Frame, MatchReport):
         self.lblWhichurch.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
         self.lblOpposition.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
         self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+
+        """ Widget Positions """
 
         self.Title.grid(row = 0,column = 0,columnspan = 8)
         self.lblTeam.grid(row = 1, column = 0)
@@ -417,73 +434,12 @@ class MatchReportPlayer(tk.Frame, MatchReport):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-        self.count = 5
-        self.StartCount = self.count +1
-        self.Title = tk.Label(self, text="Match Report", font=controller.title_font)
-        self.lblTeam = tk.Label(self,text = "Team Number : ")
-        self.lblDate = tk.Label(self,text = "Date :")
-        self.lblImport = tk.Label(self,text = "Import Team:")
-        self.txtImport = ttk.Entry(self)
-        self.txtTeam = ttk.Entry(self)
-        self.txtDate = ttk.Entry(self)
-        self.RemoveRowButton = tk.Button(self,text="Remove row",command = self.RemovePlayer)
-        self.AddRowButton = tk.Button(self,text = "Add Row",command= self.AddPlayer )
-        self.SubmitButton = tk.Button(self,text = "Submit",command = self.submit)
-        self.ImportButton = tk.Button(self,text="Import Team",command = lambda: self.ImportTeam())
-        self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun(controller))
-        self.lblFirstName = tk.Label(self,text = "FirstName")
-        self.lblLastName = tk.Label(self,text = "Last Name")
-        self.lblGoal = tk.Label(self,text="Goals")
-        self.lblGreenCard = tk.Label(self,text="Green Card")
-        self.lblYellowCard = tk.Label(self,text= "Yellow Card")
-        self.lblRedCard = tk.Label(self,text= "Red Card")
-        self.lblScore = tk.Label(self,text="Score: ")
-        self.lblWhichurch =  tk.Label(self,text="Whitchchurch")
-        self.lblOpposition = tk.Label(self,text = "Opposition")
-        self.WhichchurchScore = ttk.Entry(self)
-        self.oppositionScore = ttk.Entry(self)
 
-        self.lblImport.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-        self.lblTeam.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-        self.lblDate.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-        self.RemoveRowButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
-        self.AddRowButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
-        self.SubmitButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
-        self.ImportButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
-        self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
-        self.lblFirstName.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-        self.lblLastName.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-        self.lblGoal.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-        self.lblGreenCard.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-        self.lblYellowCard.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-        self.lblRedCard.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-        self.lblScore.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-        self.lblWhichurch.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-        self.lblOpposition.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-        self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+        """ Widget Declearations """
 
-        self.Title.grid(row = 0,column = 0,columnspan = 8)
-        self.lblTeam.grid(row = 1, column = 0)
-        self.lblDate.grid(row = 1, column = 2)
-        self.txtTeam.grid(row = 1, column = 1)
-        self.txtDate.grid(row = 1, column = 3)
-        self.lblScore.grid(row = 3, column = 0)
-        self.lblWhichurch.grid(row = 2, column = 1)
-        self.lblOpposition.grid(row = 2, column = 2)
-        self.WhichchurchScore.grid(row = 3, column = 1)
-        self.oppositionScore.grid(row = 3, column = 2)
-        self.lblFirstName.grid(row = 4, column = 0)
-        self.lblLastName.grid(row= 4,column = 1)
-        self.lblGoal.grid(row = 4, column =2)
-        self.lblGreenCard.grid(row = 4 ,column  = 3)
-        self.lblYellowCard.grid(row =4, column = 4)
-        self.lblRedCard.grid(row= 4 ,column = 5 )
-        self.AddRowButton.grid(row= 4,column = 6)
-        self.RemoveRowButton.grid(row=4 ,column = 7)
-        self.SubmitButton.grid(row =4 ,column =8)
-        self.lblImport.grid(row=1,column = 4)
-        self.txtImport.grid(row = 1,column = 5)
-        self.ImportButton.grid(row=1,column= 6)
-        self.AddPlayer()
-        self.BackButton.grid(row =1,column = 7)
+        """ Widget Stylings """
+
+        """ Widget Positions """
+
+
 

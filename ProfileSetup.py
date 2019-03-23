@@ -8,9 +8,8 @@ import Config
 class ProfileSetup:
 
     def BackButtonRun(self):
-        global PagesViewed
-        PagesViewed.pop()
-        controller.show_frame(PagesViewed[-1])
+        Config.PagesViewed.pop()
+        self.controller.show_previous_frame(Config.PagesViewed[-1])
 
 
     def getPlayerData(self):
@@ -20,8 +19,6 @@ class ProfileSetup:
         address = self.txtAddress.get()
         postCode = self.txtPostcode.get()
         DOB = self.txtDateOfBirth.get()
-
-
 
         return firstName , lastName, phoneNumber, address, postCode, DOB
 
@@ -58,8 +55,7 @@ class ProfileSetupPlayer(tk.Frame,ProfileSetup):
         tk.Frame.__init__(self, parent)
         self.controller = controller
 
-        self.BackButton= tk.Button(self, text="Back",command=self.BackButtonRun)
-
+        """ Widget Declearations """
 
         self.lblFirstName= tk.Label(self,text=" First Name :")
         self.lblLastName= tk.Label(self,text=" Last Name :")
@@ -73,10 +69,10 @@ class ProfileSetupPlayer(tk.Frame,ProfileSetup):
         self.txtAddress = ttk.Entry(self)
         self.txtPostcode = ttk.Entry(self)
         self.txtDateOfBirth = ttk.Entry(self)
-
-
         self.SubmitButton= tk.Button(self, text="Submit",command=lambda: self.addNewPlayer(controller) )
-        self.BackButton= tk.Button(self, text="Back",command=lambda: controller.show_frame("Login"))
+        self.BackButton= tk.Button(self, text="Back",command=self.BackButtonRun)
+
+        """ Widget Stylings """
 
         self.lblFirstName.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
         self.lblLastName.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
@@ -87,7 +83,7 @@ class ProfileSetupPlayer(tk.Frame,ProfileSetup):
         self.SubmitButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
         self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
 
-
+        """ Widget Positions """
 
         self.lblFirstName.grid(row=1,column=0)
         self.lblLastName.grid(row=2,column=0)
@@ -110,9 +106,10 @@ class ProfileSetupCoach(tk.Frame,ProfileSetup):
         tk.Frame.__init__(self, parent)
         self.controller = controller
 
+        """ Widget Declearations """
+
+        self.SubmitButton= tk.Button(self, text="Submit",command=lambda: self.addNewPlayer(controller) )
         self.BackButton= tk.Button(self, text="Back",command=self.BackButtonRun)
-
-
         self.lblFirstName= tk.Label(self,text=" First Name :")
         self.lblLastName= tk.Label(self,text=" Last Name :")
         self.lblPhoneNumber= tk.Label(self,text=" Phone Number :")
@@ -126,6 +123,8 @@ class ProfileSetupCoach(tk.Frame,ProfileSetup):
         self.txtPostcode = ttk.Entry(self)
         self.txtDateOfBirth = ttk.Entry(self)
 
+        """ Widget Stylings """
+
         self.lblFirstName.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
         self.lblLastName.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
         self.lblPhoneNumber.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
@@ -135,9 +134,7 @@ class ProfileSetupCoach(tk.Frame,ProfileSetup):
         self.SubmitButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
         self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
 
-
-        self.SubmitButton= tk.Button(self, text="Submit",command=lambda: self.addNewPlayer(controller) )
-        self.BackButton= tk.Button(self, text="Back",command=lambda: controller.show_frame("Login"))
+        """ Widget Positions """
 
         self.lblFirstName.grid(row=1,column=0)
         self.lblLastName.grid(row=2,column=0)
@@ -160,9 +157,9 @@ class ProfileSetupAdmin(tk.Frame,ProfileSetup):
         tk.Frame.__init__(self, parent)
         self.controller = controller
 
+        """ Widget Declearations """
+
         self.BackButton= tk.Button(self, text="Back",command=self.BackButtonRun)
-
-
         self.lblFirstName= tk.Label(self,text=" First Name :")
         self.lblLastName= tk.Label(self,text=" Last Name :")
         self.lblPhoneNumber= tk.Label(self,text=" Phone Number :")
@@ -175,10 +172,9 @@ class ProfileSetupAdmin(tk.Frame,ProfileSetup):
         self.txtAddress = ttk.Entry(self)
         self.txtPostcode = ttk.Entry(self)
         self.txtDateOfBirth = ttk.Entry(self)
-
-
         self.SubmitButton= tk.Button(self, text="Submit",command=lambda: self.addNewPlayer(controller) )
-        self.BackButton= tk.Button(self, text="Back",command=lambda: controller.show_frame("Login"))
+
+        """ Widget Stylings """
 
         self.lblFirstName.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
         self.lblLastName.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
@@ -188,6 +184,8 @@ class ProfileSetupAdmin(tk.Frame,ProfileSetup):
         self.lblDateOfBirth.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
         self.SubmitButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
         self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+
+        """ Widget Positions """
 
         self.lblFirstName.grid(row=1,column=0)
         self.lblLastName.grid(row=2,column=0)

@@ -1,6 +1,9 @@
-import sys, os, json
+import sys
+import os
+import json
 
 class SystemToolKit:
+
     @staticmethod
     def readFile(FileName):
         Data = ""

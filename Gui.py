@@ -3,8 +3,6 @@ import tkinter as tk
 from tkinter import font  as tkfont
 from tkinter import messagebox
 from tkinter import ttk
-
-
 from SystemToolKit import *
 from Login import *
 from Register import *
@@ -38,8 +36,6 @@ class SampleApp(tk.Tk):
 
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
-        global PagesViewed
-
 
         self.title_font = tkfont.Font(family='ariel', size=22, weight="bold", slant="italic")
         container = tk.Frame(self)
@@ -49,7 +45,7 @@ class SampleApp(tk.Tk):
 
         self.frames = {}
         for F in (LoginAdmin,LoginPlayer,LoginCoach, RegisterAdmin,RegisterPlayer
-        ,RegisterCoach,ProfileSetupPlayer,HomeCoach,HomePlayer,HomeAdmin
+        ,RegisterCoach,ProfileSetupPlayer,ProfileSetupCoach,ProfileSetupAdmin,HomeCoach,HomePlayer,HomeAdmin
         ,AddMatchPlayer,AddMatchCoach,AddMatchAdmin,MatchScreenPlayer
         ,MatchScreenCoach,MatchScreenAdmin,AdminCommandsAdmin,AdminCommandsPlayer
         ,AdminCommandsCoach,RemoveMatchPlayer,RemoveMatchCoach,RemoveMatchAdmin
@@ -69,19 +65,35 @@ class SampleApp(tk.Tk):
             self.frames[page_name] = frame
             frame.grid(row=0, column=0, sticky="nsew")
 
-        self.show_frame("MatchScreen")
+        self.show_frame("Login")
 
     def show_frame(self, page_name):
-        '''Show a frame for the given page name'''
+        """Show a frame for the given page name"""
+
+        Config.PagesViewed.append(page_name)
         if Config.AccessLevel == "Admin":
             page_name=page_name+"Admin"
-        elif Config.AccessLevel == "Coach":
+        elif Config.AccessLevel == "Coach/Captin":
+            page_name=page_name+"Coach"
+        else:
+            page_name=page_name+"Player"
+        frame = self.frames[page_name]
+
+        frame.tkraise()
+        frame.tk_setPalette("#8ABFD9")
+        frame.update()
+
+    def show_previous_frame(self, page_name):
+        """Show a frame for the given page name but does not record the frame as a Pages Viewed"""
+
+        if Config.AccessLevel == "Admin":
+            page_name=page_name+"Admin"
+        elif Config.AccessLevel == "Coach/Captin":
             page_name=page_name+"Coach"
         else:
             page_name=page_name+"Player"
 
         frame = self.frames[page_name]
-        Config.PagesViewed.append(page_name)
 
         frame.tkraise()
         frame.tk_setPalette("#8ABFD9")
@@ -92,6 +104,7 @@ class SampleApp(tk.Tk):
 
 if __name__ == "__main__":
     System_init.FileCreation()
+
 
     app = SampleApp()
     app.title("Whichurch Hockey Club Team System")
