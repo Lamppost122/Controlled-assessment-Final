@@ -11,12 +11,15 @@ from SystemToolKit import *
 class PlayerStats:
     def BackButtonRun(self):
         Config.PagesViewed.pop()
-        controller.show_frame(Config.PagesViewed[-1])
+        self.controller.show_previous_frame(Config.PagesViewed[-1])
 
     def GetPlayersStats(self):
         Data = SystemToolKit.readFile(Config.PlayerStatsFile)
         TeamID =AddMatch.getTeamId(self.txtTeamNumber.get())
         TeamData = Data[TeamID]
+
+        """ Widget Declearations """
+
         self.lblPlayerName =tk.Label(self,text="Player Name")
         self.lblLifeTimeGoals =tk.Label(self,text="Life time goals")
         self.lblLifeTimeGreenCards =tk.Label(self,text="Life time green cards")
@@ -28,6 +31,23 @@ class PlayerStats:
         self.lblSeasonGreenCards =tk.Label(self,text="Season green cards")
         self.lblSeasonYellowCards =tk.Label(self,text="Season yellow cards")
         self.lblSeasonRedCards =tk.Label(self,text="Season red cards")
+
+        """ Widget Stylings """
+
+        self.lblPlayerName.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblLifeTimeGoals.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblLifeTimeGreenCards.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblLifeTimeYellowCards.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblLifeTimeRedCards.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblLifeTimeGames.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblSeasonGoals.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblSeasonGames.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblSeasonGreenCards.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblSeasonYellowCards.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblSeasonRedCards.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+
+        """ Widget Positions """
+
         self.lblPlayerName.grid(row=3, column =0)
         self.lblSeasonGoals.grid(row=3, column =1)
         self.lblLifeTimeGoals.grid(row=3, column =2)
@@ -41,6 +61,9 @@ class PlayerStats:
         self.lblLifeTimeRedCards.grid(row=3, column =10)
 
         for j,i in enumerate(TeamData):
+
+            """ Widget Declearations """
+
             self.lblPlayerName =tk.Label(self,text=self.GetPlayerName(i))
             self.lblLifeTimeGoals =tk.Label(self,text=TeamData[i]["Life time goals"])
             self.lblLifeTimeGreenCards =tk.Label(self,text=TeamData[i]["Life time green cards"])
@@ -52,6 +75,23 @@ class PlayerStats:
             self.lblSeasonGreenCards =tk.Label(self,text=TeamData[i]["Season green cards"])
             self.lblSeasonYellowCards =tk.Label(self,text=TeamData[i]["Season yellow cards"])
             self.lblSeasonRedCards =tk.Label(self,text=TeamData[i]["Season red cards"])
+
+            """ Widget Stylings """
+
+            self.lblPlayerName.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+            self.lblLifeTimeGoals.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+            self.lblLifeTimeGreenCards.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+            self.lblLifeTimeYellowCards.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+            self.lblLifeTimeRedCards.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+            self.lblLifeTimeGames.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+            self.lblSeasonGoals.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+            self.lblSeasonGames.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+            self.lblSeasonGreenCards.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+            self.lblSeasonYellowCards.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+            self.lblSeasonRedCards.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+
+            """ Widget Positions """
+
             self.lblPlayerName.grid(row=j+4, column =0)
             self.lblSeasonGoals.grid(row=j+4, column =1)
             self.lblLifeTimeGoals.grid(row=j+4, column =2)
@@ -74,11 +114,24 @@ class PlayerStatsAdmin(tk.Frame,PlayerStats):
         def __init__(self, parent, controller):
             tk.Frame.__init__(self, parent)
             self.controller = controller
+
+            """ Widget Declearations """
+
             self.Title=tk.Label(self,text="Players Stats",font=controller.title_font)
             self.lblTeamNumber = tk.Label(self,text="Team Number: ")
             self.txtTeamNumber = tk.Entry(self)
             self.GetPlayersButton =tk.Button(self,text="Get Player Stats",command=lambda:self.GetPlayersStats())
             self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+
+            """ Widget Stylings """
+
+            self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+            self.lblTeamNumber.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+            self.GetPlayersButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+            self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+
+            """ Widget Positions """
+
             self.Title.grid(row=0,column =0)
             self.lblTeamNumber.grid(row=1,column=0)
             self.txtTeamNumber.grid(row=1,column =1)
@@ -90,11 +143,24 @@ class PlayerStatsPlayer(tk.Frame,PlayerStats):
         def __init__(self, parent, controller):
             tk.Frame.__init__(self, parent)
             self.controller = controller
+
+            """ Widget Declearations """
+
             self.Title=tk.Label(self,text="Players Stats",font=controller.title_font)
             self.lblTeamNumber = tk.Label(self,text="Team Number: ")
             self.txtTeamNumber = tk.Entry(self)
             self.GetPlayersButton =tk.Button(self,text="Get Player Stats",command=lambda:self.GetPlayersStats())
             self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+
+            """ Widget Stylings """
+
+            self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+            self.lblTeamNumber.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+            self.GetPlayersButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+            self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+
+            """ Widget Positions """
+
             self.Title.grid(row=0,column =0)
             self.lblTeamNumber.grid(row=1,column=0)
             self.txtTeamNumber.grid(row=1,column =1)
@@ -107,11 +173,24 @@ class PlayerStatsCoach(tk.Frame,PlayerStats):
         def __init__(self, parent, controller):
             tk.Frame.__init__(self, parent)
             self.controller = controller
+
+            """ Widget Declearations """
+
             self.Title=tk.Label(self,text="Players Stats",font=controller.title_font)
             self.lblTeamNumber = tk.Label(self,text="Team Number: ")
             self.txtTeamNumber = tk.Entry(self)
             self.GetPlayersButton =tk.Button(self,text="Get Player Stats",command=lambda:self.GetPlayersStats())
             self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+
+            """ Widget Stylings """
+
+            self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+            self.lblTeamNumber.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+            self.GetPlayersButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+            self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+
+            """ Widget Positions """
+
             self.Title.grid(row=0,column =0)
             self.lblTeamNumber.grid(row=1,column=0)
             self.txtTeamNumber.grid(row=1,column =1)

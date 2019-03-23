@@ -7,12 +7,9 @@ from Gui import *
 import Config
 
 class RemoveTeam:
-    def BackButtonRun(self,controller):
+    def BackButtonRun(self):
         Config.PagesViewed.pop()
-        controller.show_frame(Config.PagesViewed[-1])
-
-
-
+        self.controller.show_previous_frame(Config.PagesViewed[-1])
 
     def GetTeam(self):
         self.TeamList.delete(0,tk.END)
@@ -22,7 +19,6 @@ class RemoveTeam:
             self.orderedList.append(item)
             text = self.teams[item]["Team Number"]
             self.TeamList.insert(tk.END,text)
-
 
     def RemoveTeam(self):
         del self.teams[self.orderedList[self.TeamList.index(tk.ANCHOR)]]
@@ -36,52 +32,68 @@ class RemoveTeamAdmin(tk.Frame,RemoveTeam):
         def __init__(self, parent, controller):
             tk.Frame.__init__(self, parent)
             self.controller = controller
-            self.Title = ttk.Label(self,text = "Remove Team" ,font = controller.title_font)
-            self.getTeamButton = ttk.Button(self,text = "Get Teams",command = self.GetTeam)
+
+            """ Widget Declearations """
+
+            self.Title = tk.Label(self,text = "Remove Team" ,font = controller.title_font)
+            self.getTeamButton = tk.Button(self,text = "Get Teams",command = self.GetTeam)
             self.TeamList = tk.Listbox(self)
-            b = ttk.Button(self, text="Remove Team",command=self.RemoveTeam )
-            self.BackButton= ttk.Button(self, text="Back",command=lambda:self.BackButtonRun(controller))
-            b.grid(row = 2,column = 4)
+            b = tk.Button(self, text="Remove Team",command=self.RemoveTeam )
+            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
 
+            """ Widget Styings """
 
-            self.Title.grid(row = 0,column = 0,columnspan = 3)
-            self.getTeamButton.grid(row= 1 , column = 2)
-            self.TeamList.grid(row = 2,column = 0,columnspan = 3)
-            self.BackButton.grid(row =2,column = 3)
+            self.getTeamButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+            b.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+            self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+            self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+
+            """ Widget Positions """
+
+            b.grid(row = 2,column = 1)
+            self.Title.grid(row = 0,column = 0,columnspan = 2)
+            self.getTeamButton.grid(row= 1 , column = 0)
+            self.TeamList.grid(row = 2,column = 0)
+            self.BackButton.grid(row =2,column = 2)
 
 class RemoveTeamCoach(tk.Frame,RemoveTeam):
 
         def __init__(self, parent, controller):
             tk.Frame.__init__(self, parent)
             self.controller = controller
-            self.Title = ttk.Label(self,text = "Remove Team" ,font = controller.title_font)
-            self.getTeamButton = ttk.Button(self,text = "Get Teams",command = self.GetTeam)
+
+            """ Widget Declearations """
+
+            self.Title = tk.Label(self,text = "Remove Team" ,font = controller.title_font)
+            self.getTeamButton = tk.Button(self,text = "Get Teams",command = self.GetTeam)
             self.TeamList = tk.Listbox(self)
-            b = ttk.Button(self, text="Remove Team",command=self.RemoveTeam )
-            self.BackButton= ttk.Button(self, text="Back",command=lambda:self.BackButtonRun(controller))
-            b.grid(row = 2,column = 4)
+            b = tk.Button(self, text="Remove Team",command=self.RemoveTeam )
+            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
 
+            """ Widget Stylings """
 
-            self.Title.grid(row = 0,column = 0,columnspan = 3)
-            self.getTeamButton.grid(row= 1 , column = 2)
-            self.TeamList.grid(row = 2,column = 0,columnspan = 3)
-            self.BackButton.grid(row =2,column = 3)
+            self.getTeamButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+            b.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+            self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+            self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+
+            """ Widget Positions """
+
+            b.grid(row = 2,column = 1)
+            self.Title.grid(row = 0,column = 0,columnspan = 2)
+            self.getTeamButton.grid(row= 1 , column = 0)
+            self.TeamList.grid(row = 2,column = 0)
+            self.BackButton.grid(row =2,column = 2)
+
 
 class RemoveTeamPlayer(tk.Frame,RemoveTeam):
 
         def __init__(self, parent, controller):
             tk.Frame.__init__(self, parent)
             self.controller = controller
-            self.Title = ttk.Label(self,text = "Remove Team" ,font = controller.title_font)
-            self.getTeamButton = ttk.Button(self,text = "Get Teams",command = self.GetTeam)
-            self.TeamList = tk.Listbox(self)
-            b = ttk.Button(self, text="Remove Team",command=self.RemoveTeam )
-            self.BackButton= ttk.Button(self, text="Back",command=lambda:self.BackButtonRun(controller))
-            b.grid(row = 2,column = 4)
 
+            """ Widget Declearations """
 
-            self.Title.grid(row = 0,column = 0,columnspan = 3)
-            self.getTeamButton.grid(row= 1 , column = 2)
-            self.TeamList.grid(row = 2,column = 0,columnspan = 3)
-            self.BackButton.grid(row =2,column = 3)
+            """ Widget Stylings """
 
+            """ Widget Positions """

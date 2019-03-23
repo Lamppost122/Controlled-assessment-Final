@@ -9,18 +9,21 @@ from tkinter import  messagebox
 from tkinter import ttk
 from SystemToolKit import *
 from Gui import *
+from Validation import *
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEText import MIMEText
 import random
 import  Config
 
 class Register:
 
-    def register(self,controller):
+    def registers(self):
         self.getRegisterData()
         error = self.addNewUser()
         if error == False:
             self.sendEmailConformation()
-            messagebox.showinfo("Messgae","Thank you for registring with us. You will need to confirm your email")
-            controller.show_frame("Login")
+            messagebox.showinfo("Message","Thank you for registring with us. You will need to confirm your email")
+            self.controller.show_frame("Login")
 
 
     def getRegisterData(self):
@@ -86,9 +89,11 @@ class RegisterAdmin(tk.Frame,Register):
         tk.Frame.__init__(self, parent)
         self.controller = controller
 
+        """ Widget Declearations """
+
         self.Title = tk.Label(self, text="Please fill in your details", font=controller.title_font)
         self.loginButton = tk.Button(self, text="Login",command=lambda: controller.show_frame("Login") )
-        self.registerButton = tk.Button(self, text="Register",command=lambda: self.register(controller))
+        self.registerButton = tk.Button(self, text="Register",command=lambda: self.registers())
         self.lblUsername = tk.Label(self,text="Username: ")
         self.lblPassword = tk.Label(self,text="Password: ")
         self.lblConfirmUsername = tk.Label(self,text="Confirm Username: ")
@@ -105,6 +110,8 @@ class RegisterAdmin(tk.Frame,Register):
         self.var.set(options[0])
         self.cmbAccessLevel = tk.OptionMenu(self, self.var,*options)
 
+        """ Widget Stylings """
+
         self.txtPassword.config(width="20",show="*")
         self.txtConfirmPassword.config(width="20",show="*")
         self.lblUsername.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
@@ -116,6 +123,7 @@ class RegisterAdmin(tk.Frame,Register):
         self.registerButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
         self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
 
+        """ Widget Positions """
 
         self.txtUsername.grid(row=1,column = 1)
         self.txtConfirmUsername.grid(row=2,column = 1)
@@ -139,9 +147,11 @@ class RegisterCoach(tk.Frame,Register):
         tk.Frame.__init__(self, parent)
         self.controller = controller
 
+        """ Widget Declearations """
+
         self.Title = tk.Label(self, text="Please fill in your details", font=controller.title_font)
         self.loginButton = tk.Button(self, text="Login",command=lambda: controller.show_frame("Login") )
-        self.registerButton = tk.Button(self, text="Register",command=lambda: self.register(controller))
+        self.registerButton = tk.Button(self, text="Register",command=lambda: self.registers())
         self.lblUsername = tk.Label(self,text="Username: ")
         self.lblPassword = tk.Label(self,text="Password: ")
         self.lblConfirmUsername = tk.Label(self,text="Confirm Username: ")
@@ -156,8 +166,9 @@ class RegisterCoach(tk.Frame,Register):
         self.var = tk.StringVar()
         options = ["Player","Coach/Captin","Admin"]
         self.var.set(options[0])
-
         self.cmbAccessLevel = tk.OptionMenu(self, self.var,*options)
+
+        """ Widget Stylings """
 
         self.txtPassword.config(width="20",show="*")
         self.txtConfirmPassword.config(width="20",show="*")
@@ -170,6 +181,8 @@ class RegisterCoach(tk.Frame,Register):
         self.loginButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
         self.registerButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
         self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+
+        """ Widget Positions """
 
         self.txtUsername.grid(row=1,column = 1)
         self.txtConfirmUsername.grid(row=2,column = 1)
@@ -193,9 +206,11 @@ class RegisterPlayer(tk.Frame,Register):
         tk.Frame.__init__(self, parent)
         self.controller = controller
 
+        """ Widget Declearations """
+
         self.Title = tk.Label(self, text="Please fill in your details", font=controller.title_font)
         self.loginButton = tk.Button(self, text="Login",command=lambda: controller.show_frame("Login") )
-        self.registerButton = tk.Button(self, text="Register",command=lambda: self.register(controller))
+        self.registerButton = tk.Button(self, text="Register",command= lambda:self.registers())
         self.lblUsername = tk.Label(self,text="Username: ")
         self.lblPassword = tk.Label(self,text="Password: ")
         self.lblConfirmUsername = tk.Label(self,text="Confirm Username: ")
@@ -212,6 +227,8 @@ class RegisterPlayer(tk.Frame,Register):
         self.var.set(options[0])
         self.cmbAccessLevel = tk.OptionMenu(self, self.var,*options)
 
+        """ Widget Stylings """
+
         self.txtPassword.config(width="20",show="*")
         self.txtConfirmPassword.config(width="20",show="*")
         self.lblUsername.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
@@ -223,6 +240,8 @@ class RegisterPlayer(tk.Frame,Register):
         self.loginButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
         self.registerButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
         self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+
+        """ Widget Positions """
 
         self.txtUsername.grid(row=1,column = 1)
         self.txtConfirmUsername.grid(row=2,column = 1)
@@ -239,4 +258,5 @@ class RegisterPlayer(tk.Frame,Register):
         self.Title.grid(row=0,column = 0,columnspan=2)
         self.lblAccessLevel.grid(row=6,column =0 )
         self.cmbAccessLevel.grid(row=6,column = 1)
+
 
