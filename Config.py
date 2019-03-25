@@ -16,3 +16,6 @@ BackupListFile = "BackUpList.json"
 BackupDateFile = "BackupDates.json"
 MatchReportFile = "matchReport.json"
 MatchAvailablityFile = "matchAvailablity.json"
+
+EmailAddress = "ComputerScienceTest1@gmail.com"
+EmailPassword = "Password1@"

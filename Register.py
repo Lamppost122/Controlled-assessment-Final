@@ -77,8 +77,8 @@ class Register:
         text = msg.as_string()
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
-        server.login("ComputerScienceTest1@gmail.com", "Password1@")
-        server.sendmail("ComputerScienceTest1@gmail.com", self.Email, text)
+        server.login(Config.EmailAddress, Config.EmailPassword)
+        server.sendmail(Config.EmailAddress, self.Email, text)
         server.quit()
 
 
