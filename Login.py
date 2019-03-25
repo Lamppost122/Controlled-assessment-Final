@@ -32,7 +32,7 @@ class Login:
                     break
 
             elif (j+1) == len(users):
-                messagebox.showinfo("Message","Username or password incorrect")
+                messagebox.showinfo("Message","Username or Password incorrect")
         if len(users) == 0:
             messagebox.showinfo("Message","No users installed")
 

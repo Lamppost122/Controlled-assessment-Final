@@ -55,7 +55,7 @@ class SendAvailablityCheck:
     def ConnectToSever(self):
         self.server = smtplib.SMTP('smtp.gmail.com', 587)
         self.server.starttls()
-        self.server.login("ComputerScienceTest1@gmail.com", "Password1@")
+        self.server.login(Config.EmailAddress, Config.EmailPassword)
 
     def DiscconectToServer(self):
         self.server.quit()
@@ -65,7 +65,7 @@ class SendAvailablityCheck:
         msg['Subject'] = "Match Availablity"
         msg.attach(MIMEText(Text, 'html'))
         text = msg.as_string()
-        self.server.sendmail("ComputerScienceTest1@gmail.com",Email, text)
+        self.server.sendmail(Config.EmailAddress,Email, text)
 
 
     def getEmailList(self):
