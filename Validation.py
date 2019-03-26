@@ -192,14 +192,28 @@ class Validation:
         else:
             return True
 
-    @staticmethod
+@staticmethod
     def Username(Username):
         Data= SystemToolKit.readFile(Config.UserFile)
-        for i in Data:
-            if Data[i]["Username"] == Username:
-                messagebox.showinfo("Invalid Data","Username is already in use")
-                return False
-        return True
+        if Username != "":
+
+                rule = re.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,30}$")
+                if  rule.search(Username):
+
+                    for i in Data:
+                        if Data[i]["Username"] == Username:
+                            messagebox.showinfo("Invalid Data","Username is already in use")
+                            return False
+                    return True
+                else:
+                    messagebox.showinfo("Invalid Data","Username should:\n Contain at least 1 number \n Contain Both upper and lower case letters \n be between 6 and 30 characters")
+                    return False
+
+
+        else:
+            messagebox.showinfo("Invalid Data","Username is should not be left blank")
+            return False
+
 
     @staticmethod
     def Password(Password):
