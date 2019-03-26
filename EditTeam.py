@@ -15,16 +15,23 @@ class EditTeam:
 
     def SaveTeam(self):
         Team = SystemToolKit.readFile(Config.TeamFile)
-
-        TeamId = uuid.uuid4()
         Data = {}
         for i ,j in enumerate(self.TeamPlayers):
             Data[i] = j
         Data["Team Number"] = self.txtTeamNumber.get()
-        Team[str(TeamId)] = Data
+
+        for k in Team:
+            if Team[k]["Team Number"]==self.txtTeamNumber.get():
+                Team[k] = Data
+                break
+            if k ==len(Team):
+                TeamId = uuid.uuid4()
+                Team[str(TeamId)] = Data
+
 
         with open(Config.TeamFile,"w") as fp:
             json.dump(Team,fp)
+        self.controller.show_frame("Home")
 
 
 
