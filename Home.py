@@ -13,6 +13,17 @@ class Home:
         self.controller.show_previous_frame(Config.PagesViewed[-1])
 
     def on_show_frame(self):
+        try:
+            self.lblDataFirstName.grid_forget()
+            self.lblDataLastName.grid_forget()
+            self.lblDataPhoneNumber.grid_forget()
+            self.lblDataAddress.grid_forget()
+            self.lblDataPostcode.grid_forget()
+            self.lblDataDateOfBirth.grid_forget()
+            self.lblDataTeam.grid_forget()
+        except AttributeError:
+            pass
+
 
         player = SystemToolKit.readFile(Config.PlayerFile)
         team = SystemToolKit.readFile(Config.TeamFile)
