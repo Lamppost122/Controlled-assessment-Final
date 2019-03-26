@@ -21,11 +21,12 @@ class RemoveTeam:
             self.TeamList.insert(tk.END,text)
 
     def RemoveTeam(self):
-        del self.teams[self.orderedList[self.TeamList.index(tk.ANCHOR)]]
-        self.orderedList.pop(self.TeamList.index(tk.ANCHOR))
-        self.TeamList.delete(tk.ANCHOR)
-        with open(Config.TeamFile,"w+")as fp:
-            json.dump(self.teams,fp)
+        if len(self.teams) != 0:
+            del self.teams[self.orderedList[self.TeamList.index(tk.ANCHOR)]]
+            self.orderedList.pop(self.TeamList.index(tk.ANCHOR))
+            self.TeamList.delete(tk.ANCHOR)
+            with open(Config.TeamFile,"w+")as fp:
+                json.dump(self.teams,fp)
 
 class RemoveTeamAdmin(tk.Frame,RemoveTeam):
 

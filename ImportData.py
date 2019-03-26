@@ -97,5 +97,3 @@ class ImportDataPlayer(tk.Frame,ImportData):
             """ Widget Stylings """
 
             """ Widget Positions """
-
-

@@ -15,46 +15,68 @@ class AddTeam :
         Team = SystemToolKit.readFile(Config.TeamFile)
 
         TeamId = uuid.uuid4()
-        Data = {}
-        for i ,j in enumerate(self.TeamPlayers):
-            Data[i] = j
-        Data["Team Number"] = self.txtTeamNumber.get()
-        Team[str(TeamId)] = Data
+        if Validation.newTeam(self.txtTeamNumber.get()) == True:
+            Data = {}
+            for i ,j in enumerate(self.TeamPlayers):
+                Data[i] = j
+            Data["Team Number"] = self.txtTeamNumber.get()
+            Team[str(TeamId)] = Data
 
-        with open(Config.TeamFile,"w") as fp:
-            json.dump(Team,fp)
-        self.controller.show_frame("Home")
+            with open(Config.TeamFile,"w") as fp:
+                json.dump(Team,fp)
+            self.controller.show_frame("Home")
 
     def GetPlayer(self):
-        self.PlayerList.delete(0,tk.END)
+        Duplicates =False
         data =self.txtPlayer.get()
         if Validation.PresentsCheck(data) == True:
             data = data.lower()
             self.allPlayers = SystemToolKit.readFile(Config.PlayerFile)
             for i,j in enumerate(self.allPlayers):
                 if self.allPlayers[j]["First name"].lower() == data or self.allPlayers[j]["Last name"].lower() == data or self.allPlayers[j]["First name"].lower() + " " + self.allPlayers[j]["Last name"].lower() == data:
+                    for i in self.orderedList:
+                        if i == j:
+                            Duplicates = True
+                    for k in self.TeamPlayers:
+                        if k == j:
+                            Duplicates = True
 
-                    self.orderedList.append(j)
-                    text = str(self.allPlayers[j]["First name"]) + " " + str(self.allPlayers[j]["Last name"])
-                    self.PlayerList.insert(tk.END,text)
+                    if Duplicates == False:
+                        self.orderedList.append(j)
+
+                    else:
+                        Duplicates = False
+
+        self.updateListboxes()
+
+
+
+    def updateListboxes(self):
+        self.TeamList.delete(0, tk.END)
+        self.PlayerList.delete(0, tk.END)
+        for i in self.orderedList:
+            text = str(self.allPlayers[i]["First name"]) + " " + str(self.allPlayers[i]["Last name"])
+            self.PlayerList.insert(tk.END,text)
+        for j in self.TeamPlayers:
+            text = str(self.allPlayers[j]["First name"]) + " " + str(self.allPlayers[j]["Last name"])
+            self.TeamList.insert(tk.END,text)
+
 
     def MovePlayer(self):
         if self.PlayerList.index(tk.ANCHOR) < len(self.orderedList):
             j = self.orderedList[self.PlayerList.index(tk.ANCHOR)]
-            text = str(self.allPlayers[j]["First name"]) + " " + str(self.allPlayers[j]["Last name"])
             self.TeamPlayers.append(j)
-            self.orderedList.pop()
-            self.TeamList.insert(tk.END,text)
-            self.PlayerList.delete(tk.ANCHOR)
+            self.orderedList.remove(j)
+            self.updateListboxes()
+
 
     def RemovePlayer(self):
         if self.TeamList.index(tk.ANCHOR) < len(self.TeamPlayers):
             j = self.TeamPlayers[self.TeamList.index(tk.ANCHOR)]
-            text = str(self.allPlayers[j]["First name"]) + " " + str(self.allPlayers[j]["Last name"])
             self.orderedList.append(j)
-            self.TeamPlayers.pop()
-            self.PlayerList.insert(tk.END,text)
-            self.TeamList.delete(tk.ANCHOR)
+            self.TeamPlayers.remove(j)
+            self.updateListboxes()
+
 
 
 class AddTeamCoach(tk.Frame,AddTeam):

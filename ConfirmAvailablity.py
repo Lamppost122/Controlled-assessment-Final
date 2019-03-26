@@ -163,6 +163,3 @@ class ConfirmAvailablityCoach(tk.Frame,ConfirmAvailablity):
             self.BackButton.grid(row=1,column=1)
             self.AvailableMatches = SystemToolKit.readFile(Config.MatchAvailablityFile)
             self.ClearMatches()
-
-
-

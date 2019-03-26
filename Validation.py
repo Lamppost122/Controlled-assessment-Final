@@ -100,7 +100,7 @@ class Validation:
 
     @staticmethod
     def TeamNumber(TeamNumber):
-        if PhoneNumber =="":
+        if TeamNumber =="":
             messagebox.showinfo("Invalid Data","Team Number is empty")
             return False
         else:
@@ -187,12 +187,12 @@ class Validation:
     @staticmethod
     def PresentsCheck(Data):
         if Data == "":
-            messagebox.showinfo("Missing Data")
+            messagebox.showinfo("Missing Data","Field Cannot be left blank")
             return False
         else:
             return True
 
-@staticmethod
+    @staticmethod
     def Username(Username):
         Data= SystemToolKit.readFile(Config.UserFile)
         if Username != "":
@@ -214,7 +214,6 @@ class Validation:
             messagebox.showinfo("Invalid Data","Username is should not be left blank")
             return False
 
-
     @staticmethod
     def Password(Password):
 
@@ -232,5 +231,24 @@ class Validation:
                 messagebox.showinfo("Invalid Data","Email is already in use")
                 return False
         return True
+
+    @staticmethod
+    def newTeam(TeamNumber):
+        if TeamNumber !="":
+            try:
+                TeamNumber = int(TeamNumber)
+                if TeamNumber <99:
+                    return True
+                else:
+                    messagebox.showinfo("Invalid Data","Team number is too large(>99)")
+                    return False
+            except ValueError:
+                messagebox.showinfo("Invalid Data","Team number entered is not a number")
+                return False
+        else:
+            messagebox.showinfo("Invalid Data","Team number cannot be left blank")
+            return False
+
+
 
 

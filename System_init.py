@@ -11,7 +11,7 @@ class System_init:
         files = [Config.TeamFile,Config.UserFile,Config.PlayerFile,Config.MatchFile,Config.PlayerStatsFile,Config.UpdatesFile,Config.SeasonFile,Config.BackupListFile,Config.BackupDateFile,Config.MatchAvailablityFile,Config.MatchReportFile]
         for i in files:
             if not os.path.isfile(i):
-                if i == Config.Season:
+                if i == Config.SeasonFile:
                     present =datetime.datetime.now()
                     currentYear =present.year
                     if datetime.datetime(currentYear,9,1) >present:
@@ -39,5 +39,3 @@ class System_init:
         with open(Config.BackupListFile,"w")as fp:
             json.dump(data,fp)
         print("New File Create with name : "+ Config.BackupListFile)
-
-
