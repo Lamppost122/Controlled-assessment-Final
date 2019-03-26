@@ -10,8 +10,8 @@ from tkinter import ttk
 from SystemToolKit import *
 from Gui import *
 from Validation import *
-from email.MIMEMultipart import MIMEMultipart
-from email.MIMEText import MIMEText
+##from email.MIMEMultipart import MIMEMultipart
+##from email.MIMEText import MIMEText
 import random
 import  Config
 
@@ -45,23 +45,31 @@ class Register:
         users={}
         error = False
         if Validation.Username(self.username)==True and Validation.Password(self.password)==True and Validation.Email(self.Email) == True:
-            if self.username == self.confirmUsername and self.password == self.confirmPassword :
+            if self.username == self.confirmUsername:
+                if self.password == self.confirmPassword :
 
-                users = SystemToolKit.readFile(Config.UserFile)
-                salt = uuid.uuid4().hex
-                hashed_password = hashlib.sha512(self.password.encode('utf-8') + salt.encode('utf-8')).hexdigest()
-                userID = str(uuid.uuid4())
-                data["Username"] = self.username
-                data["Password"] = hashed_password
-                data["Salt"] = salt
-                data["Email"] = self.Email
-                data["AccessLevel"] = self.accessLevel
-                data["ValidEmail"] = self.ValidEmail
-                data["Confirmation code"] = self.confirmationCode
-                users[userID] = data
-                with open(Config.UserFile, 'w+') as fp:
-                    json.dump(users, fp)
+                    users = SystemToolKit.readFile(Config.UserFile)
+                    salt = uuid.uuid4().hex
+                    hashed_password = hashlib.sha512(self.password.encode('utf-8') + salt.encode('utf-8')).hexdigest()
+                    userID = str(uuid.uuid4())
+                    data["Username"] = self.username
+                    data["Password"] = hashed_password
+                    data["Salt"] = salt
+                    data["Email"] = self.Email
+                    data["AccessLevel"] = self.accessLevel
+                    data["ValidEmail"] = self.ValidEmail
+                    data["Confirmation code"] = self.confirmationCode
+                    users[userID] = data
+                    with open(Config.UserFile, 'w+') as fp:
+                        json.dump(users, fp)
+                else:
+                    messagebox.showinfo("Invalid Data","Password and confirm Password do not match ")
+                    error = True
+            else:
+                messagebox.showinfo("Invalid Data","Username and confirm username do not match")
+                error = True
         else:
+            print("x")
             error = True
         return error
 
@@ -258,5 +266,3 @@ class RegisterPlayer(tk.Frame,Register):
         self.Title.grid(row=0,column = 0,columnspan=2)
         self.lblAccessLevel.grid(row=6,column =0 )
         self.cmbAccessLevel.grid(row=6,column = 1)
-
-

@@ -6,7 +6,7 @@ from tkinter import ttk
 from Gui import *
 from SystemToolKit import *
 import Config
-import Validation
+from Validation import *
 
 class AddNews:
 
@@ -25,6 +25,7 @@ class AddNews:
             updates[index] = {"Data":self.txtAddUpdate.get("1.0",'end-1c'),"Date":str(datetime.date.today())}
             with open(Config.UpdatesFile,"w") as fp:
                     json.dump(updates,fp)
+            self.controller.show_frame("Home")
 
 
 class AddNewsAdmin(tk.Frame,AddNews):
@@ -78,4 +79,3 @@ class AddNewsCoach(tk.Frame,AddNews):
         """ Widget Stlyings """
 
         """ Widget Positions """
-

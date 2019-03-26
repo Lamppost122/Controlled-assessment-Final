@@ -440,6 +440,3 @@ class MatchReportPlayer(tk.Frame, MatchReport):
         """ Widget Stylings """
 
         """ Widget Positions """
-
-
-

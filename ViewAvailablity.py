@@ -109,4 +109,3 @@ class ViewAvailablityPlayer(tk.Frame,ViewAvailablity):
             """ Widget Stylings """
 
             """ Widget Positions """
-

@@ -169,7 +169,3 @@ class BackUpCoach(tk.Frame,BackUp):
 
             """ Widget Positions """
 
-
-
-
-

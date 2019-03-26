@@ -5,66 +5,103 @@ from tkinter import messagebox
 from tkinter import ttk
 from SystemToolKit import *
 from Gui import *
-import Validation
+from Validation import *
 import Config
 class EditTeam:
 
-        def BackButtonRun(self):
-            Config.PagesViewed.pop()
-            self.controller.show_previous_frame(Config.PagesViewed[-1])
+    def BackButtonRun(self):
+        Config.PagesViewed.pop()
+        self.controller.show_previous_frame(Config.PagesViewed[-1])
 
-        def SaveTeam(self):
-            Team = SystemToolKit.readFile(Config.TeamFile)
+    def SaveTeam(self):
+        Team = SystemToolKit.readFile(Config.TeamFile)
 
-            TeamId = uuid.uuid4()
-            Data = {}
-            for i ,j in enumerate(self.TeamPlayers):
-                Data[i] = j
-            Data["Team Number"] = self.txtTeamNumber.get()
-            Team[str(TeamId)] = Data
+        TeamId = uuid.uuid4()
+        Data = {}
+        for i ,j in enumerate(self.TeamPlayers):
+            Data[i] = j
+        Data["Team Number"] = self.txtTeamNumber.get()
+        Team[str(TeamId)] = Data
 
-            with open(Config.TeamFile,"w") as fp:
-                json.dump(Team,fp)
+        with open(Config.TeamFile,"w") as fp:
+            json.dump(Team,fp)
 
-        def GetPlayer(self):
-            self.PlayerList.delete(0,tk.END)
-            data =self.txtPlayer.get()
-            if Validation.PresentsCheck(data) == True:
-                data = data.lower()
-                for i,j in enumerate(self.allPlayers):
-                    if self.allPlayers[j]["First name"].lower() == data or self.allPlayers[j]["Last name"].lower() == data or self.allPlayers[j]["First name"].lower() + " " + self.allPlayers[j]["Last name"].lower() == data:
 
-                        self.orderedList.append(j)
-                        text = str(self.allPlayers[j]["First name"]) + " " + str(self.allPlayers[j]["Last name"])
-                        self.PlayerList.insert(tk.END,text)
 
-        def GetTeam(self):
-            if Validation.TeamNumber(self.txtTeamNumber.get()) ==True:
-                for i, j in enumerate(self.team):
-                    if self.team[j]["Team Number"] == self.txtTeamNumber.get():
-                        for k,l in enumerate(self.allPlayers):
+    def GetTeam(self):
+        Duplicates =False
+        if Validation.TeamNumber(self.txtTeamNumber.get()) ==True:
+            for i, j in enumerate(self.team):
+                if self.team[j]["Team Number"] == self.txtTeamNumber.get():
+                    for k,l in enumerate(self.allPlayers):
+                        for m in self.orderedList:
+                            if m == self.team[j][str(k)]:
+                                Duplicates = True
+                        for n in self.TeamPlayers:
+                            if n == self.team[j][str(k)]:
+                                Duplicates = True
+
+                        if Duplicates == False:
                             self.TeamPlayers.append(self.team[j][str(k)])
-                            text = str(self.allPlayers[self.team[j][str(k)]]["First name"]) + " " + str(self.allPlayers[self.team[j][str(k)]]["Last name"])
-                            self.TeamList.insert(tk.END,text)
+
+                        else:
+                            Duplicates = False
+
+        self.updateListboxes()
 
 
-        def MovePlayer(self):
-            if self.PlayerList.index(tk.ANCHOR) < len(self.orderedList):
-                j = self.orderedList[self.PlayerList.index(tk.ANCHOR)]
-                text = str(self.allPlayers[j]["First name"]) + " " + str(self.allPlayers[j]["Last name"])
-                self.TeamPlayers.append(j)
-                self.orderedList.pop()
-                self.TeamList.insert(tk.END,text)
-                self.PlayerList.delete(tk.ANCHOR)
 
-        def RemovePlayer(self):
-            if self.TeamList.index(tk.ANCHOR) < len(self.TeamPlayers):
-                j = self.TeamPlayers[self.TeamList.index(tk.ANCHOR)]
-                text = str(self.allPlayers[j]["First name"]) + " " + str(self.allPlayers[j]["Last name"])
-                self.orderedList.append(j)
-                self.TeamPlayers.pop()
-                self.PlayerList.insert(tk.END,text)
-                self.TeamList.delete(tk.ANCHOR)
+    def GetPlayer(self):
+        Duplicates =False
+        data =self.txtPlayer.get()
+        if Validation.PresentsCheck(data) == True:
+            data = data.lower()
+            self.allPlayers = SystemToolKit.readFile(Config.PlayerFile)
+            for i,j in enumerate(self.allPlayers):
+                if self.allPlayers[j]["First name"].lower() == data or self.allPlayers[j]["Last name"].lower() == data or self.allPlayers[j]["First name"].lower() + " " + self.allPlayers[j]["Last name"].lower() == data:
+                    for i in self.orderedList:
+                        if i == j:
+                            Duplicates = True
+                    for k in self.TeamPlayers:
+                        if k == j:
+                            Duplicates = True
+
+                    if Duplicates == False:
+                        self.orderedList.append(j)
+
+                    else:
+                        Duplicates = False
+
+        self.updateListboxes()
+
+
+
+    def updateListboxes(self):
+        self.TeamList.delete(0, tk.END)
+        self.PlayerList.delete(0, tk.END)
+        for i in self.orderedList:
+            text = str(self.allPlayers[i]["First name"]) + " " + str(self.allPlayers[i]["Last name"])
+            self.PlayerList.insert(tk.END,text)
+        for j in self.TeamPlayers:
+            text = str(self.allPlayers[j]["First name"]) + " " + str(self.allPlayers[j]["Last name"])
+            self.TeamList.insert(tk.END,text)
+
+
+    def MovePlayer(self):
+        if self.PlayerList.index(tk.ANCHOR) < len(self.orderedList):
+            j = self.orderedList[self.PlayerList.index(tk.ANCHOR)]
+            self.TeamPlayers.append(j)
+            self.orderedList.remove(j)
+            self.updateListboxes()
+
+
+    def RemovePlayer(self):
+        if self.TeamList.index(tk.ANCHOR) < len(self.TeamPlayers):
+            j = self.TeamPlayers[self.TeamList.index(tk.ANCHOR)]
+            self.orderedList.append(j)
+            self.TeamPlayers.remove(j)
+            self.updateListboxes()
+
 
 class EditTeamAdmin(tk.Frame,EditTeam):
 

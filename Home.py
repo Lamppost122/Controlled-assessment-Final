@@ -12,7 +12,7 @@ class Home:
         Config.PagesViewed.pop()
         self.controller.show_previous_frame(Config.PagesViewed[-1])
 
-    def on_show_frame(self):
+    def GetData(self):
         try:
             self.lblDataFirstName.grid_forget()
             self.lblDataLastName.grid_forget()
@@ -85,7 +85,7 @@ class HomePlayer(tk.Frame,Home):
         self.lblPostcode= tk.Label(self,text=" Postcode :")
         self.lblDateOfBirth= tk.Label(self,text=" Date of Birth :")
         self.lblTeam = tk.Label(self,text=" Team :")
-        self.GetDataButton =tk.Button(self,text="Get Data",command=lambda:self.on_show_frame())
+        self.GetDataButton =tk.Button(self,text="Get Data",command=lambda:self.GetData())
         self.MatchButton =tk.Button(self,text = "Match Data",command = lambda :controller.show_frame("MatchScreen"))
         self.AddPlayerButton=tk.Button(self,text="Setup Profile",command = lambda:controller.show_frame("ProfileSetup"))
         self.NewsButton = tk.Button(self,text = "News/Updates",command = lambda:controller.show_frame("News"))
@@ -139,7 +139,7 @@ class HomeCoach(tk.Frame,Home):
         self.lblPostcode= tk.Label(self,text=" Postcode :")
         self.lblDateOfBirth= tk.Label(self,text=" Date of Birth :")
         self.lblTeam = tk.Label(self,text=" Team :")
-        self.GetDataButton =tk.Button(self,text="Get Data",command=lambda:self.on_show_frame())
+        self.GetDataButton =tk.Button(self,text="Get Data",command=lambda:self.GetData())
         self.MatchButton =tk.Button(self,text = "Match Data",command = lambda :controller.show_frame("MatchScreen"))
         self.PlayerStatsButton =tk.Button(self,text="Player Stats",command = lambda :controller.show_frame("PlayerStats"))
         self.AdminCommandsButton = tk.Button(self,text = "AdminCommands",command = lambda:controller.show_frame("AdminCommands"))
@@ -201,7 +201,7 @@ class HomeAdmin(tk.Frame,Home):
         self.lblPostcode= tk.Label(self,text=" Postcode :")
         self.lblDateOfBirth= tk.Label(self,text=" Date of Birth :")
         self.lblTeam = tk.Label(self,text=" Team :")
-        self.GetDataButton =tk.Button(self,text="Get Data",command=lambda:self.on_show_frame())
+        self.GetDataButton =tk.Button(self,text="Get Data",command=lambda:self.GetData())
         self.MatchButton =tk.Button(self,text = "Match Data",command = lambda :controller.show_frame("MatchScreen"))
         self.PlayerStatsButton =tk.Button(self,text="Player Stats",command = lambda :controller.show_frame("PlayerStats"))
         self.AdminCommandsButton = tk.Button(self,text = "AdminCommands",command = lambda:controller.show_frame("AdminCommands"))

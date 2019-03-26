@@ -150,4 +150,3 @@ class LoginCoach(tk.Frame,Login):
         self.lblPassword.grid(row=2,column=0)
         self.txtUsername.grid(row=1,column = 1)
         self.txtPassword.grid(row=2,column = 1)
-
