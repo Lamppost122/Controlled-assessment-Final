@@ -4,6 +4,7 @@ from tkinter import font  as tkfont
 from tkinter import messagebox
 from tkinter import ttk
 from Gui import *
+from AddMatch import *
 import Config
 from SystemToolKit import *
 import Validation
@@ -17,8 +18,39 @@ class EditMatch:
     def GetMatches(self):
 
         self.orderedList = []
+        self.teamMatches = []
         matches =SystemToolKit.readFile(Config.MatchFile)
-        self.teamMatches = matches[self.txtTeam.get()]
+        teamID = AddMatch.getTeamId(self.txtTeam.get())
+
+        """ Widget Declearations """
+        self.lblOpposition=tk.Label(self,text="Opposition")
+        self.lblDate =tk.Label(self,text="Date")
+        self.lblTime =tk.Label(self,text="Time")
+        self.lblLocation =tk.Label(self,text="Location")
+
+        """ Widget Stylings """
+
+        self.lblOpposition.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblDate.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblTime.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblLocation.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+
+        """ Widget Positions """
+
+        self.lblOpposition.grid(row = self.StartCount-1, column  =0 )
+        self.lblDate.grid(row = self.StartCount-1, column  =1 )
+        self.lblTime.grid(row = self.StartCount-1, column  =2 )
+        self.lblLocation.grid(row = self.StartCount-1, column  =3 )
+
+
+
+
+        for i in matches:
+            if i == teamID:
+                for j in matches[i]:
+
+                    self.teamMatches.append(matches[i][j])
+
 
         for i ,j in enumerate(self.teamMatches):
             self.orderedList.append(j)
@@ -39,10 +71,13 @@ class EditMatch:
             self.txtTime.grid(row = self.StartCount+i, column  =2 )
             self.txtLocation.grid(row = self.StartCount + i, column  =3 )
 
-            self.txtOpposition.insert(0,self.teamMatches[j]["Opposition"])
-            self.txtDate.insert(0,self.teamMatches[j]["Date"])
-            self.txtTime.insert(0,self.teamMatches[j]["Time"])
-            self.txtLocation.insert(0,self.teamMatches[j]["Location"])
+
+
+
+            self.txtOpposition.insert(0,str(j["Opposition"]))
+            self.txtDate.insert(0,str(j["Date"]))
+            self.txtTime.insert(0,str(j["Time"]))
+            self.txtLocation.insert(0,str(j["Location"]))
 
         self.orderedList = list(reversed(self.orderedList))
 
@@ -81,7 +116,7 @@ class EditMatchAdmin(tk.Frame,EditMatch):
         def __init__(self, parent, controller):
             tk.Frame.__init__(self, parent)
             self.controller = controller
-            self.StartCount = 2
+            self.StartCount = 3
 
             """ Widget Declearations """
 
@@ -114,7 +149,7 @@ class EditMatchCoach(tk.Frame,EditMatch):
         def __init__(self, parent, controller):
             tk.Frame.__init__(self, parent)
             self.controller = controller
-            self.StartCount = 2
+            self.StartCount = 3
 
             """ Widget Declearations """
 
