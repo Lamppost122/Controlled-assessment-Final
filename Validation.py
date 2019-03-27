@@ -61,7 +61,7 @@ class Validation:
             messagebox.showinfo("Invalid Data","Address is empty")
             return False
         else:
-            rule = re.compile(r'^\d+\s[A-z]+\s[A-z]')
+            rule = re.compile("[A-Za-z0-9'\.\-\s\,]")
             if not rule.search(Address):
                 messagebox.showinfo("Invalid Data","The Address you have added does not match the necessary criteria")
                 return False
