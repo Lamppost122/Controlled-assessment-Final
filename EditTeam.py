@@ -35,49 +35,35 @@ class EditTeam:
 
 
 
+
     def GetTeam(self):
-        Duplicates =False
+
         if Validation.TeamNumber(self.txtTeamNumber.get()) ==True:
             for i, j in enumerate(self.team):
                 if self.team[j]["Team Number"] == self.txtTeamNumber.get():
-                    for k,l in enumerate(self.allPlayers):
-                        for m in self.orderedList:
-                            if m == self.team[j][str(k)]:
-                                Duplicates = True
-                        for n in self.TeamPlayers:
-                            if n == self.team[j][str(k)]:
-                                Duplicates = True
+                    for k,l in enumerate(self.team[j]):
+                        if self.team[j][l] in self.allPlayers.keys():
+                            if self.team[j][l] not in self.TeamPlayers and self.team[j][l] not in self.orderedList:
+                                self.TeamPlayers.append(self.team[j][l])
 
-                        if Duplicates == False:
-                            self.TeamPlayers.append(self.team[j][str(k)])
-
-                        else:
-                            Duplicates = False
 
         self.updateListboxes()
 
 
 
     def GetPlayer(self):
-        Duplicates =False
+
         data =self.txtPlayer.get()
         if Validation.PresentsCheck(data) == True:
             data = data.lower()
             self.allPlayers = SystemToolKit.readFile(Config.PlayerFile)
             for i,j in enumerate(self.allPlayers):
                 if self.allPlayers[j]["First name"].lower() == data or self.allPlayers[j]["Last name"].lower() == data or self.allPlayers[j]["First name"].lower() + " " + self.allPlayers[j]["Last name"].lower() == data:
-                    for i in self.orderedList:
-                        if i == j:
-                            Duplicates = True
-                    for k in self.TeamPlayers:
-                        if k == j:
-                            Duplicates = True
 
-                    if Duplicates == False:
+                    if j not in self.orderesList and j not in self.TeamPlayers:
                         self.orderedList.append(j)
 
-                    else:
-                        Duplicates = False
+
 
         self.updateListboxes()
 
