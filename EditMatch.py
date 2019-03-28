@@ -7,7 +7,7 @@ from Gui import *
 from AddMatch import *
 import Config
 from SystemToolKit import *
-import Validation
+from Validation import *
 
 class EditMatch:
     def BackButtonRun(self):
@@ -42,18 +42,29 @@ class EditMatch:
         self.lblTime.grid(row = self.StartCount-1, column  =2 )
         self.lblLocation.grid(row = self.StartCount-1, column  =3 )
 
-
+        try:
+            self.txtOpposition.grid_forget()
+            self.txtDate.grid_forget()
+            self.txtTime.grid_forget()
+            self.txtLocation.grid_forget()
+        except AttributeError:
+            pass
 
 
         for i in matches:
             if i == teamID:
                 for j in matches[i]:
 
-                    self.teamMatches.append(matches[i][j])
+                    if j not in self.orderedList :
+
+                        self.teamMatches.append(matches[i][j])
+                        self.orderedList.append(j)
+
+
 
 
         for i ,j in enumerate(self.teamMatches):
-            self.orderedList.append(j)
+
 
             """ Widget Declearations """
 
@@ -78,38 +89,52 @@ class EditMatch:
             self.txtDate.insert(0,str(j["Date"]))
             self.txtTime.insert(0,str(j["Time"]))
             self.txtLocation.insert(0,str(j["Location"]))
+        self.orderedList =list(reversed(self.orderedList))
 
-        self.orderedList = list(reversed(self.orderedList))
+
+
 
     def Edit_Match(self):
 
         count = 0
         error =False
         data = []
+        with open(Config.MatchFile,"r") as fp:
+            MatchTeamData = json.load(fp)
+        MatchData = MatchTeamData[AddMatch.getTeamId(self.txtTeam.get())]
 
         for i,j in enumerate(self.grid_slaves()):
+
             if int(j.grid_info()["row"]) >= self.StartCount:
 
-                try:
-
                     data.append(j.get())
+
+
                     if len(data) == 4 :
                         data =  list(reversed(data))
-                        if Validation.Opposition(data[0]) == True and Validation.Address(data[3])==True and Validation.Time(data[2])==True and Validation.Date(data[1])==True:
-                            self.teamMatches[self.orderedList[count]]["Opposition"] = data[0]
-                            self.teamMatches[self.orderedList[count]]["Location"] = data[3]
-                            self.teamMatches[self.orderedList[count]]["Time"] = data[2]
-                            self.teamMatches[self.orderedList[count]]["Date"] = data[1]
-                            count +=1
-                            data = []
-                        else:
-                            error =True
 
-                except :AttributeError
 
-        if error == False:
-            with open(Config.MatchFile, 'w') as fp:
-                json.dump(self.teamMatches,fp)
+                        if count<len(self.orderedList):
+                            if Validation.Opposition(data[0]) == True and Validation.Address(data[3])==True and Validation.Time(data[2])==True and Validation.Date(data[1])==True:
+
+                                MatchData[self.orderedList[count]] = {"Opposition":data[0],"Location":data[3],"Time":data[2],"Date":data[1]}
+
+                                count +=1
+                                data = []
+
+                            else:
+                                error =True
+
+
+
+
+        MatchTeamData[AddMatch.getTeamId(self.txtTeam.get())] =MatchData
+
+
+        with open(Config.MatchFile,"w") as fp:
+            json.dump(MatchTeamData,fp)
+        self.controller.show_frame("Home")
+
 
 class EditMatchAdmin(tk.Frame,EditMatch):
 
