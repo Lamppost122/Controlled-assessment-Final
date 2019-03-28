@@ -60,7 +60,7 @@ class EditTeam:
             for i,j in enumerate(self.allPlayers):
                 if self.allPlayers[j]["First name"].lower() == data or self.allPlayers[j]["Last name"].lower() == data or self.allPlayers[j]["First name"].lower() + " " + self.allPlayers[j]["Last name"].lower() == data:
 
-                    if j not in self.orderesList and j not in self.TeamPlayers:
+                    if j not in self.orderedList and j not in self.TeamPlayers:
                         self.orderedList.append(j)
 
 
