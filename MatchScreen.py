@@ -67,7 +67,7 @@ class MatchScreenAdmin(tk.Frame,MatchScreen):
         self.ConfirmAvailablityButton =tk.Button(self,text = "Confirm Availablity",command = lambda:controller.show_frame("ConfirmAvailablity"))
         self.CheckAvailablityButton =tk.Button(self,text="Check Availablity",command = lambda:controller.show_frame("SendAvailablityCheck"))
         self.ViewAvailablityButton =tk.Button(self,text = "View Availability",command = lambda:controller.show_frame("ViewAvailablity"))
-        self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+        self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
         self.MatchReportButton =tk.Button(self,text="Match Report",command = lambda:controller.show_frame("MatchReport") )
 
         """ Widget Stylings """
@@ -111,7 +111,7 @@ class MatchScreenCoach(tk.Frame,MatchScreen):
         self.ConfirmAvailablityButton =tk.Button(self,text = "Confirm Availablity",command = lambda:controller.show_frame("ConfirmAvailablity"))
         self.CheckAvailablityButton =tk.Button(self,text="Check Availablity",command = lambda:controller.show_frame("SendAvailablityCheck"))
         self.ViewAvailablityButton =tk.Button(self,text = "View Availability",command = lambda:controller.show_frame("ViewAvailablity"))
-        self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+        self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
         self.MatchReportButton =tk.Button(self,text="Match Report",command = lambda:controller.show_frame("MatchReport") )
 
         """ Widget Stylings """
@@ -153,7 +153,7 @@ class MatchScreenPlayer(tk.Frame,MatchScreen):
         self.GetTeamMatchesButton = tk.Button(self,text = "Get Team Matches",command=self.get_Team_Matches)
         self.GetMyMatchesButton =tk.Button(self,text = "Get My Matches",command =lambda :self.GetMyMatches())
         self.ConfirmAvailablityButton =tk.Button(self,text = "Confirm Availablity",command = lambda:controller.show_frame("ConfirmAvailablity"))
-        self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+        self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
         """ Widget Stylings """
 

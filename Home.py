@@ -89,7 +89,7 @@ class HomePlayer(tk.Frame,Home):
         self.MatchButton =tk.Button(self,text = "Match Data",command = lambda :controller.show_frame("MatchScreen"))
         self.AddPlayerButton=tk.Button(self,text="Setup Profile",command = lambda:controller.show_frame("ProfileSetup"))
         self.NewsButton = tk.Button(self,text = "News/Updates",command = lambda:controller.show_frame("News"))
-        self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+        self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
         """ Widget Stylings """
 
@@ -145,7 +145,7 @@ class HomeCoach(tk.Frame,Home):
         self.AdminCommandsButton = tk.Button(self,text = "AdminCommands",command = lambda:controller.show_frame("AdminCommands"))
         self.AddPlayerButton=tk.Button(self,text="Setup Profile",command = lambda:controller.show_frame("ProfileSetup"))
         self.NewsButton = tk.Button(self,text = "News/Updates",command = lambda:controller.show_frame("News"))
-        self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+        self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
         """ Widget Stylings """
 
@@ -207,7 +207,7 @@ class HomeAdmin(tk.Frame,Home):
         self.AdminCommandsButton = tk.Button(self,text = "AdminCommands",command = lambda:controller.show_frame("AdminCommands"))
         self.AddPlayerButton=tk.Button(self,text="Setup Profile",command = lambda:controller.show_frame("ProfileSetup"))
         self.NewsButton = tk.Button(self,text = "News/Updates",command = lambda:controller.show_frame("News"))
-        self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+        self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
         """ Widget Stylings """
 

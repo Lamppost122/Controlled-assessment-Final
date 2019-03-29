@@ -7,7 +7,7 @@ from Gui import *
 from SystemToolKit import *
 import datetime
 from datetime import date
-from AddMatch import *
+from SystemToolKit import *
 import Config
 class MatchReport:
 
@@ -106,7 +106,7 @@ class MatchReport:
 
          matches = SystemToolKit.readFile(Config.MatchFile)
 
-         TeamID =AddMatch.getTeamId(Team)
+         TeamID =SystemToolKit.getTeamId(Team)
          for i in matches[TeamID]:
             if matches[TeamID][i]["Date"] ==  Date :
                 return i
@@ -151,7 +151,7 @@ class MatchReport:
 
 
         allPlayersData = SystemToolKit.readFile(Config.PlayerStatsFile)
-        TeamID = AddMatch.getTeamId(self.txtTeam.get())
+        TeamID = SystemToolKit.getTeamId(self.txtTeam.get())
         try:
             playersData= allPlayersData[TeamID]
 
@@ -286,7 +286,7 @@ class MatchReportAdmin(tk.Frame, MatchReport):
         self.AddRowButton = tk.Button(self,text = "Add Row",command= self.AddPlayer )
         self.SubmitButton = tk.Button(self,text = "Submit",command = self.submit)
         self.ImportButton = tk.Button(self,text="Import Team",command = lambda: self.ImportTeam())
-        self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+        self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
         self.lblFirstName = tk.Label(self,text = "FirstName")
         self.lblLastName = tk.Label(self,text = "Last Name")
         self.lblGoal = tk.Label(self,text="Goals")
@@ -368,7 +368,7 @@ class MatchReportCoach(tk.Frame, MatchReport):
         self.AddRowButton = tk.Button(self,text = "Add Row",command= self.AddPlayer )
         self.SubmitButton = tk.Button(self,text = "Submit",command = self.submit)
         self.ImportButton = tk.Button(self,text="Import Team",command = lambda: self.ImportTeam())
-        self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+        self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
         self.lblFirstName = tk.Label(self,text = "FirstName")
         self.lblLastName = tk.Label(self,text = "Last Name")
         self.lblGoal = tk.Label(self,text="Goals")

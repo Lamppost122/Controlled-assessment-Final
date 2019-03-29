@@ -118,7 +118,7 @@ class EditTeamAdmin(tk.Frame,EditTeam):
             self.PlayerList = tk.Listbox(self)
             self.TeamList = tk.Listbox(self)
             b = tk.Button(self, text="Move Player",command=self.MovePlayer )
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
             self.RemovePlayerButton = tk.Button(self,text= "Remove Player",command = self.RemovePlayer)
             self.SaveButton = tk.Button(self,text = "Save",command = self.SaveTeam)
 
@@ -178,7 +178,7 @@ class EditTeamCoach(tk.Frame,EditTeam):
             self.PlayerList = tk.Listbox(self)
             self.TeamList = tk.Listbox(self)
             b = tk.Button(self, text="Move Player",command=self.MovePlayer )
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
             self.RemovePlayerButton = tk.Button(self,text= "Remove Player",command = self.RemovePlayer)
             self.SaveButton = tk.Button(self,text = "Save",command = self.SaveTeam)
 

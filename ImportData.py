@@ -55,7 +55,7 @@ class ImportDataAdmin(tk.Frame,ImportData):
             self.Title = tk.Label(self,text="Import Data",font= controller.title_font)
             self.txtFileName =ttk.Entry(self)
             self.importButton =tk.Button(self,text ="Import")
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
             """ Widget Styligns """
 

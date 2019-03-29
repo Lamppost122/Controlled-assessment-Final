@@ -10,11 +10,10 @@ import Config
 
 class BackUp:
 
-    def BackButtonRun(self):
-        Config.PagesViewed.pop()
-        self.controller.show_previous_frame(Config.PagesViewed[-1])
-
     def writeToScreen(self,FileName):
+        """
+        Writes a json file of backups to the PastBackUpdList Widget
+        """
         self.PastBackupsList.delete(0,tk.END)
         with open(FileName)as fp:
             Data = json.load(fp)
@@ -22,6 +21,10 @@ class BackUp:
             self.PastBackupsList.insert(0,i)
 
     def createBackUp(self,FileName):
+        """
+        Creates a new set of backup and updates the BackupListFile
+
+        """
         with open(FileName)as fp:
             Data = json.load(fp)
         today = datetime.datetime.today()
@@ -56,12 +59,20 @@ class BackUp:
             json.dump(Data,fp)
 
     def Child(self,FileName):
+        """
+        Convers a child backup file name to a parent backup file name
+        Returns a Parent File name(String)
+        """
         SplitName = FileName.split(".")
         SplitName.insert(1,"-Parent")
         NewName = SplitName[0]+ SplitName[1]+ "."+SplitName[2]
         return NewName
 
     def Parent(self,FileName):
+        """
+        Converts a Parent backup file name to a grandparent backup file name
+        returns a Grandparent file name(String)
+        """
         SplitName = FileName.split(".")
         DoubleSplitName = []
         for i in SplitName:
@@ -71,6 +82,11 @@ class BackUp:
         return NewName
 
     def GrandParent(self,FileName):
+        """
+        Converts a Grandparent backup File Name to a post-Grandparent Backup File Name
+        returns a post-Grandparent Backup File Name(string)
+
+        """
         SplitName = FileName.split(".")
         DoubleSplitName = []
         for i in SplitName:
@@ -82,16 +98,24 @@ class BackUp:
         return NewName
 
     def RecoveryName(self,FileName):
+        """
+        Converts a Backup File name to a child Backup file name
+        returns a child Backup file name(String)
+        """
 
-            SplitName = FileName.split(".")
-            DoubleSplitName = []
-            for i in SplitName:
-                DoubleSplitName.append(i.split("-"))
-            NewName = str(DoubleSplitName[0][0])+"."+ str(DoubleSplitName[1][0])
-            return NewName
+        SplitName = FileName.split(".")
+        DoubleSplitName = []
+        for i in SplitName:
+            DoubleSplitName.append(i.split("-"))
+        NewName = str(DoubleSplitName[0][0])+"."+ str(DoubleSplitName[1][0])
+        return NewName
 
 
     def RecoverBackUp(self,FileName):
+        """
+        Search the Backup file list and converts a choosen backup file to a current file
+        Updates the Backup file list
+        """
         with open(FileName)as fp:
             Data = json.load(fp)
 
@@ -113,6 +137,10 @@ class BackUp:
 class BackUpAdmin(tk.Frame,BackUp):
 
         def __init__(self, parent, controller):
+            """
+            Initalises a frame instance of BackUp At Admin Access Level
+
+            """
             tk.Frame.__init__(self, parent)
             self.controller = controller
 
@@ -123,7 +151,7 @@ class BackUpAdmin(tk.Frame,BackUp):
             self.getBackupListButton = tk.Button(self,text="Get Back Ups",command = lambda: self.writeToScreen(Config.BackupListFile))
             self.createBackUpButton = tk.Button(self,text="Create Back up",command =lambda: self.createBackUp(Config.BackupListFile))
             self.recoverBackUpButton = tk.Button(self,text="Recover Back up",command =lambda: self.RecoverBack(Config.BackupListFile))
-            self.BackButton = tk.Button(self,text = "Back",command = lambda:self.BackButtonRun())
+            self.BackButton = tk.Button(self,text = "Back",command = lambda:SystemToolKit.BackButtonRun(controller))
 
             """ Widget Stylings """
 
@@ -147,6 +175,10 @@ class BackUpAdmin(tk.Frame,BackUp):
 class BackUpPlayer(tk.Frame,BackUp):
 
         def __init__(self, parent, controller):
+            """
+            Initalises a frame instance of BackUp At Player Access Level
+
+            """
             tk.Frame.__init__(self, parent)
             self.controller = controller
 
@@ -160,6 +192,10 @@ class BackUpPlayer(tk.Frame,BackUp):
 class BackUpCoach(tk.Frame,BackUp):
 
         def __init__(self, parent, controller):
+            """
+            Initalises a frame instance of BackUp At Coach Access Level
+
+            """
             tk.Frame.__init__(self, parent)
             self.controller = controller
 

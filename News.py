@@ -41,7 +41,7 @@ class NewsAdmin(tk.Frame,News):
         """ Widget Declearations """
 
         self.Title = tk.Label(self,text ="News/Updates",font = controller.title_font)
-        self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+        self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
         """ Widget Stylings """
 
@@ -64,7 +64,7 @@ class NewsCoach(tk.Frame,News):
         """ Widget Declearations """
 
         self.Title = tk.Label(self,text ="News/Updates",font = controller.title_font)
-        self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+        self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
         """ Widget Stylings """
 
@@ -86,7 +86,7 @@ class NewsPlayer(tk.Frame,News):
         """ Widget Declearations """
 
         self.Title = tk.Label(self,text ="News/Updates",font = controller.title_font)
-        self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+        self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
         """ Widget Stylings """
 

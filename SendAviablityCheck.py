@@ -5,7 +5,7 @@ from tkinter import messagebox
 from tkinter import ttk
 from Gui import *
 from MatchScreen import *
-from AddMatch import *
+from SystemToolKit import *
 import Config
 import Validation
 class SendAvailablityCheck:
@@ -49,7 +49,7 @@ class SendAvailablityCheck:
         self.DiscconectToServer()
         self.UpdateAvailablityFile()
         messagebox.showinfo("Message","All Emails Sent")
-        self.BackButtonRun()
+        SystemToolKit.BackButtonRun(controller)
 
 
     def ConnectToSever(self):
@@ -91,7 +91,7 @@ class SendAvailablityCheck:
 
         for i in self.TeamPlayers:
             MatchAvailablityData[i] = "None"
-        TeamId = AddMatch.getTeamId(self.txtTeamNumber.get())
+        TeamId = SystemToolKit.getTeamId(self.txtTeamNumber.get())
         Teams = Matches[TeamId]
 
         MatchAvailablityData["Date"] =self.matches[self.orderedList[self.MatchList.index(tk.ANCHOR)]]["Date"]
@@ -113,7 +113,7 @@ class SendAvailablityCheckAdmin(tk.Frame,SendAvailablityCheck):
             self.Title =tk.Label(self,text="Send aviablibilty Check",font=controller.title_font)
             self.TeamList = tk.Listbox(self)
             self.GetTeamButton = tk.Button(self,text = "Get Data",command = self.GetData)
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
             self.SendEmailButton= tk.Button(self, text="Send All Emails",command=lambda:self.SendEmailToAll())
             self.lblPlayers = tk.Label(self,text="Players:")
             self.lblMatches = tk.Label(self,text="Matches:")
@@ -158,7 +158,7 @@ class SendAvailablityCheckCoach(tk.Frame,SendAvailablityCheck):
             self.Title =tk.Label(self,text="Send aviablibilty Check",font=controller.title_font)
             self.TeamList = tk.Listbox(self)
             self.GetTeamButton = tk.Button(self,text = "Get Data",command = self.GetData)
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
             self.SendEmailButton= tk.Button(self, text="Send All Emails",command=lambda:self.SendEmailToAll())
             self.lblPlayers = tk.Label(self,text="Players:")
             self.lblMatches = tk.Label(self,text="Matches:")

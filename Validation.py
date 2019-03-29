@@ -121,15 +121,15 @@ class Validation:
         else:
             try:
                 if TimeState == "Future":
-                    if datetime.datetime.now() < datetime.strptime(Date, '%d/%m/%Y'):
-                        datetime.strptime(dateOfBirth, '%d/%m/%Y')
+                    if datetime.datetime.now() < datetime.datetime.strptime(Date, '%d/%m/%Y'):
+                        datetime.datetime.strptime(Date, '%d/%m/%Y')
                         return True
                     else:
                         messagebox.showinfo("Invalid Data","The date you have added is in the past")
                         return False
                 elif TimeState == "Past":
-                    if datetime.datetime.now() > datetime.strptime(Date, '%d/%m/%Y'):
-                        datetime.strptime(Date, '%d/%m/%Y')
+                    if datetime.datetime.now() > datetime.datetime.strptime(Date, '%d/%m/%Y'):
+                        datetime.datetime.strptime(Date, '%d/%m/%Y')
                         return True
                     else:
                         messagebox.showinfo("Invalid Data","The date you have added is in the future")

@@ -89,7 +89,7 @@ class EditPlayerAdmin(tk.Frame,EditPlayer):
             self.txtPlayer = ttk.Entry(self)
             self.getPlayerButton = tk.Button(self,text = "Get Players",command = self.GetPlayers)
             self.EditPlayerButton = tk.Button(self,text = "Edit Players",command = self.Edit_Players)
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
             """ Widget Stylings """
 
@@ -123,7 +123,7 @@ class EditPlayerCoach(tk.Frame,EditPlayer):
             self.txtPlayer = ttk.Entry(self)
             self.getPlayerButton = tk.Button(self,text = "Get Players",command = self.GetPlayers)
             self.EditPlayerButton = tk.Button(self,text = "Edit Players",command = self.Edit_Players)
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
             """ Widget Stylings """
 

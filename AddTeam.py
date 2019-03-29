@@ -7,11 +7,14 @@ from Gui import *
 import Config
 
 class AddTeam :
-    def BackButtonRun(self):
-        Config.PagesViewed.pop()
-        self.controller.show_previous_frame(Config.PagesViewed[-1])
 
     def SaveTeam(self):
+        """
+        Adds the current team to the Team File
+        Validates the Team Number
+        Calls the Home Frame
+
+        """
         Team = SystemToolKit.readFile(Config.TeamFile)
 
         TeamId = uuid.uuid4()
@@ -27,21 +30,20 @@ class AddTeam :
             self.controller.show_frame("Home")
 
     def GetPlayer(self):
-        Duplicates =False
+        """
+        Searchs for players in the player file by First Name, Last Name and (First Name + Last Name)
+        If Not a duplicate will add these results to the orderedList Class Variable
+        Calls a Listbox Update
+
+        """
+
         data =self.txtPlayer.get()
         if Validation.PresentsCheck(data) == True:
             data = data.lower()
             self.allPlayers = SystemToolKit.readFile(Config.PlayerFile)
             for i,j in enumerate(self.allPlayers):
                 if self.allPlayers[j]["First name"].lower() == data or self.allPlayers[j]["Last name"].lower() == data or self.allPlayers[j]["First name"].lower() + " " + self.allPlayers[j]["Last name"].lower() == data:
-                    for i in self.orderedList:
-                        if i == j:
-                            Duplicates = True
-                    for k in self.TeamPlayers:
-                        if k == j:
-                            Duplicates = True
-
-                    if Duplicates == False:
+                    if j not in self.orderedList and j not in self.TeamPlayers:
                         self.orderedList.append(j)
 
                     else:
@@ -52,6 +54,10 @@ class AddTeam :
 
 
     def updateListboxes(self):
+        """
+        Updates the TeamList and PlayerList with the current contents of orderedList and TeamPlayers respectively
+
+        """
         self.TeamList.delete(0, tk.END)
         self.PlayerList.delete(0, tk.END)
         for i in self.orderedList:
@@ -63,6 +69,11 @@ class AddTeam :
 
 
     def MovePlayer(self):
+        """
+        Switches a player instance from orderedList to TeamPlayer
+        Calls a Listbox Update
+
+        """
         if self.PlayerList.index(tk.ANCHOR) < len(self.orderedList):
             j = self.orderedList[self.PlayerList.index(tk.ANCHOR)]
             self.TeamPlayers.append(j)
@@ -71,6 +82,11 @@ class AddTeam :
 
 
     def RemovePlayer(self):
+        """
+        Switches a player instance from TeamPlayer to orderedList
+        Calls a Listbox Update
+
+        """
         if self.TeamList.index(tk.ANCHOR) < len(self.TeamPlayers):
             j = self.TeamPlayers[self.TeamList.index(tk.ANCHOR)]
             self.orderedList.append(j)
@@ -82,6 +98,10 @@ class AddTeam :
 class AddTeamCoach(tk.Frame,AddTeam):
 
         def __init__(self, parent, controller):
+            """
+            Initalises a frame instance of Add Team At Coach Access Level
+
+            """
             tk.Frame.__init__(self, parent)
             self.controller = controller
             self.TeamPlayers = []
@@ -100,7 +120,7 @@ class AddTeamCoach(tk.Frame,AddTeam):
             self.PlayerList = tk.Listbox(self)
             self.TeamList = tk.Listbox(self)
             b = tk.Button(self, text="Move Player",command=self.MovePlayer )
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
             self.RemovePlayerButton = tk.Button(self,text= "Remove Player",command = self.RemovePlayer)
             self.SaveButton = tk.Button(self,text = "Save",command = self.SaveTeam)
 
@@ -138,6 +158,10 @@ class AddTeamCoach(tk.Frame,AddTeam):
 class AddTeamAdmin(tk.Frame,AddTeam):
 
         def __init__(self, parent, controller):
+            """
+            Initalises a frame instance of Add Team At Admin Access Level
+
+            """
             tk.Frame.__init__(self, parent)
             self.controller = controller
             self.TeamPlayers = []
@@ -156,7 +180,7 @@ class AddTeamAdmin(tk.Frame,AddTeam):
             self.PlayerList = tk.Listbox(self)
             self.TeamList = tk.Listbox(self)
             b = tk.Button(self, text="Move Player",command=self.MovePlayer )
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
             self.RemovePlayerButton = tk.Button(self,text= "Remove Player",command = self.RemovePlayer)
             self.SaveButton = tk.Button(self,text = "Save",command = self.SaveTeam)
 
@@ -193,6 +217,10 @@ class AddTeamAdmin(tk.Frame,AddTeam):
 class AddTeamPlayer(tk.Frame,AddTeam):
 
         def __init__(self, parent, controller):
+            """
+            Initalises a frame instance of Add Team At Player Access Level
+
+            """
             tk.Frame.__init__(self, parent)
             self.controller = controller
 

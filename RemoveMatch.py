@@ -46,7 +46,7 @@ class RemoveMatchAdmin(tk.Frame,RemoveMatch):
             self.getMatchesButton = tk.Button(self,text = "Get Matches",command = self.GetMatches)
             self.MatchList = tk.Listbox(self)
             b = tk.Button(self, text="Remove  Match",command=self.RemoveMatch )
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
             """ Widget Stylings """
 
@@ -80,7 +80,7 @@ class RemoveMatchCoach(tk.Frame,RemoveMatch):
             self.getMatchesButton = tk.Button(self,text = "Get Matches",command = self.GetMatches)
             self.MatchList = tk.Listbox(self)
             b = tk.Button(self, text="Remove  Match",command=self.RemoveMatch )
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
             """ Widget Stylings """
 
