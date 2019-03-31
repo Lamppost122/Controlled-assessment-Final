@@ -4,7 +4,7 @@ from tkinter import font  as tkfont
 from tkinter import messagebox
 from tkinter import ttk
 from Gui import *
-from AddMatch import *
+from SystemToolKit import *
 import Config
 from SystemToolKit import *
 from Validation import *
@@ -20,7 +20,7 @@ class EditMatch:
         self.orderedList = []
         self.teamMatches = []
         matches =SystemToolKit.readFile(Config.MatchFile)
-        teamID = AddMatch.getTeamId(self.txtTeam.get())
+        teamID = SystemToolKit.getTeamId(self.txtTeam.get())
 
         """ Widget Declearations """
         self.lblOpposition=tk.Label(self,text="Opposition")
@@ -101,7 +101,7 @@ class EditMatch:
         data = []
         with open(Config.MatchFile,"r") as fp:
             MatchTeamData = json.load(fp)
-        MatchData = MatchTeamData[AddMatch.getTeamId(self.txtTeam.get())]
+        MatchData = MatchTeamData[SystemToolKit.getTeamId(self.txtTeam.get())]
 
         for i,j in enumerate(self.grid_slaves()):
 
@@ -115,7 +115,7 @@ class EditMatch:
 
 
                         if count<len(self.orderedList):
-                            if Validation.Opposition(data[0]) == True and Validation.Address(data[3])==True and Validation.Time(data[2])==True and Validation.Date(data[1])==True:
+                            if Validation.Opposition(data[0]) == True and Validation.Address(data[3])==True and Validation.Time(data[2])==True and Validation.Date(data[1],"Future")==True:
 
                                 MatchData[self.orderedList[count]] = {"Opposition":data[0],"Location":data[3],"Time":data[2],"Date":data[1]}
 
@@ -126,14 +126,14 @@ class EditMatch:
                                 error =True
 
 
+        if error == False:
+
+            MatchTeamData[SystemToolKit.getTeamId(self.txtTeam.get())] =MatchData
 
 
-        MatchTeamData[AddMatch.getTeamId(self.txtTeam.get())] =MatchData
-
-
-        with open(Config.MatchFile,"w") as fp:
-            json.dump(MatchTeamData,fp)
-        self.controller.show_frame("Home")
+            with open(Config.MatchFile,"w") as fp:
+                json.dump(MatchTeamData,fp)
+            self.controller.show_frame("Home")
 
 
 class EditMatchAdmin(tk.Frame,EditMatch):
@@ -150,7 +150,7 @@ class EditMatchAdmin(tk.Frame,EditMatch):
             self.txtTeam = ttk.Entry(self)
             self.getMatchesButton = tk.Button(self,text = "Get Matches",command = self.GetMatches)
             self.EditMatchButton = tk.Button(self,text = "Edit Matches",command = self.Edit_Match)
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
             """ Widget Stylings """
 
@@ -183,7 +183,7 @@ class EditMatchCoach(tk.Frame,EditMatch):
             self.txtTeam = ttk.Entry(self)
             self.getMatchesButton = tk.Button(self,text = "Get Matches",command = self.GetMatches)
             self.EditMatchButton = tk.Button(self,text = "Edit Matches",command = self.Edit_Match)
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
             """ Widget Stylings """
 

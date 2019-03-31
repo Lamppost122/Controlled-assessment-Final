@@ -5,7 +5,7 @@ from tkinter import messagebox
 from tkinter import ttk
 from Gui import *
 from Config import *
-from AddMatch import *
+from SystemToolKit import *
 from SystemToolKit import *
 
 class ViewAvailablity:
@@ -21,7 +21,7 @@ class ViewAvailablity:
                 match =SystemToolKit.readFile(Config.MatchFile)
 
 
-                TeamID = AddMatch.getTeamId(self.txtTeamNumber.get())
+                TeamID = SystemToolKit.getTeamId(self.txtTeamNumber.get())
                 matches = matchPlayers[TeamID]
                 count = 0
                 for Data in matches:
@@ -52,7 +52,7 @@ class ViewAvailablityAdmin(tk.Frame,ViewAvailablity):
             self.lblTeamNumber = tk.Label(self,text="Team Number: ")
             self.txtTeamNumber = ttk.Entry(self)
             self.GetPlayersButton =tk.Button(self,text="Get Player Status",command=lambda:self.GetPlayers())
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
             """ Widget Stylings """
 
@@ -81,7 +81,7 @@ class ViewAvailablityCoach(tk.Frame,ViewAvailablity):
             self.lblTeamNumber = tk.Label(self,text="Team Number: ")
             self.txtTeamNumber = ttk.Entry(self)
             self.GetPlayersButton =tk.Button(self,text="Get Player Status",command=lambda:self.GetPlayers())
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
             """ Widget Stylings """
 

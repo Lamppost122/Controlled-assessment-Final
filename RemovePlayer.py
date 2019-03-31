@@ -7,9 +7,6 @@ from Gui import *
 import Config
 
 class RemovePlayer:
-    def BackButtonRun(self):
-        Config.PagesViewed.pop()
-        self.controller.show_previous_frame(Config.PagesViewed[-1])
 
     def GetPlayer(self):
 
@@ -47,7 +44,7 @@ class RemovePlayerAdmin(tk.Frame,RemovePlayer):
             self.getPlayerButton = tk.Button(self,text = "Get Player",command = self.GetPlayer)
             self.PlayerList = tk.Listbox(self)
             b = tk.Button(self, text="Remove  Player",command=self.RemovePlayer )
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
             """ Widget Stylings """
 
@@ -93,7 +90,7 @@ class RemovePlayerCoach(tk.Frame,RemovePlayer):
             self.getPlayerButton = tk.Button(self,text = "Get Player",command = self.GetPlayer)
             self.PlayerList = tk.Listbox(self)
             b = tk.Button(self, text="Remove  Player",command=self.RemovePlayer )
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
             """ Widget Stylings """
 

@@ -5,41 +5,46 @@ from tkinter import messagebox
 from tkinter import ttk
 from Gui import *
 from MatchScreen import *
-from AddMatch import *
+from SystemToolKit import *
 import Config
-import Validation
-class SendAvailablityCheck:
-    def BackButtonRun(self):
-        Config.PagesViewed.pop()
-        self.controller.show_previous_frame(Config.PagesViewed[-1])
+from Validation import *
 
+class SendAvailablityCheck:
 
     def GetData(self):
-        if Validaion.TeamNumber( self.txtTeamNumber.get()) == True:
+        if Validation.TeamNumber( self.txtTeamNumber.get()) == True:
             self.GetTeam()
             self.GetMatches()
+            self.UpdateListboxes()
 
     def GetTeam(self):
-        self.TeamList.delete(0,tk.END)
-
-        for i, j in enumerate(self.team):
-            if self.team[j]["Team Number"] == self.txtTeamNumber.get():
-                for k,l in enumerate(self.allPlayers):
-                    self.TeamPlayers.append(self.team[j][str(k)])
-                    text = str(self.allPlayers[self.team[j][str(k)]]["First name"]) + " " + str(self.allPlayers[self.team[j][str(k)]]["Last name"])
-
-                    self.TeamList.insert(tk.END,text)
-            break
+        if Validation.TeamNumber(self.txtTeamNumber.get()) ==True:
+            for i, j in enumerate(self.team):
+                if self.team[j]["Team Number"] == self.txtTeamNumber.get():
+                    for k,l in enumerate(self.team[j]):
+                        if self.team[j][l] in self.allPlayers.keys():
+                            if self.team[j][l] not in self.TeamPlayers and self.team[j][l] not in self.orderedList:
+                                self.TeamPlayers.append(self.team[j][l])
 
     def GetMatches(self):
         self.MatchList.delete(0,tk.END)
         self.teamMatches = SystemToolKit.readFile(Config.MatchFile)
-        self.matches = self.teamMatches[MatchScreen.GetTeamID(self.txtTeamNumber.get())]
-        self.orderedList = []
-        for item in self.matches:
-            self.orderedList.append(item)
-            text = str(self.txtTeamNumber.get()) +" vs " +self.matches[item]["Opposition"]+" on " +self.matches[item]["Date"]
+        self.matches = self.teamMatches[SystemToolKit.getTeamId(self.txtTeamNumber.get())]
+
+
+
+    def UpdateListboxes(self):
+        self.MatchList.delete(0,tk.END)
+        self.TeamList.delete(0,tk.END)
+        for i in self.matches:
+            text = str(self.txtTeamNumber.get()) +" vs " +self.matches[i]["Opposition"]+" on " +self.matches[i]["Date"]
             self.MatchList.insert(tk.END,text)
+        for j in self.TeamPlayers:
+            text = str(self.allPlayers[j]["First name"]) + " " + str(self.allPlayers[j]["Last name"])
+            self.TeamList.insert(tk.END,text)
+
+
+
 
     def SendEmailToAll(self):
         self.ConnectToSever()
@@ -49,7 +54,7 @@ class SendAvailablityCheck:
         self.DiscconectToServer()
         self.UpdateAvailablityFile()
         messagebox.showinfo("Message","All Emails Sent")
-        self.BackButtonRun()
+        SystemToolKit.BackButtonRun(controller)
 
 
     def ConnectToSever(self):
@@ -91,7 +96,7 @@ class SendAvailablityCheck:
 
         for i in self.TeamPlayers:
             MatchAvailablityData[i] = "None"
-        TeamId = AddMatch.getTeamId(self.txtTeamNumber.get())
+        TeamId = SystemToolKit.getTeamId(self.txtTeamNumber.get())
         Teams = Matches[TeamId]
 
         MatchAvailablityData["Date"] =self.matches[self.orderedList[self.MatchList.index(tk.ANCHOR)]]["Date"]
@@ -113,7 +118,7 @@ class SendAvailablityCheckAdmin(tk.Frame,SendAvailablityCheck):
             self.Title =tk.Label(self,text="Send aviablibilty Check",font=controller.title_font)
             self.TeamList = tk.Listbox(self)
             self.GetTeamButton = tk.Button(self,text = "Get Data",command = self.GetData)
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
             self.SendEmailButton= tk.Button(self, text="Send All Emails",command=lambda:self.SendEmailToAll())
             self.lblPlayers = tk.Label(self,text="Players:")
             self.lblMatches = tk.Label(self,text="Matches:")
@@ -158,7 +163,7 @@ class SendAvailablityCheckCoach(tk.Frame,SendAvailablityCheck):
             self.Title =tk.Label(self,text="Send aviablibilty Check",font=controller.title_font)
             self.TeamList = tk.Listbox(self)
             self.GetTeamButton = tk.Button(self,text = "Get Data",command = self.GetData)
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
             self.SendEmailButton= tk.Button(self, text="Send All Emails",command=lambda:self.SendEmailToAll())
             self.lblPlayers = tk.Label(self,text="Players:")
             self.lblMatches = tk.Label(self,text="Matches:")

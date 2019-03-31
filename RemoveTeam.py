@@ -40,7 +40,7 @@ class RemoveTeamAdmin(tk.Frame,RemoveTeam):
             self.getTeamButton = tk.Button(self,text = "Get Teams",command = self.GetTeam)
             self.TeamList = tk.Listbox(self)
             b = tk.Button(self, text="Remove Team",command=self.RemoveTeam )
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
             """ Widget Styings """
 
@@ -69,7 +69,7 @@ class RemoveTeamCoach(tk.Frame,RemoveTeam):
             self.getTeamButton = tk.Button(self,text = "Get Teams",command = self.GetTeam)
             self.TeamList = tk.Listbox(self)
             b = tk.Button(self, text="Remove Team",command=self.RemoveTeam )
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
             """ Widget Stylings """
 
