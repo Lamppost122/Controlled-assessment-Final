@@ -6,16 +6,19 @@ from tkinter import messagebox
 from tkinter import ttk
 from Gui import *
 import Config
-from AddMatch import *
+from SystemToolKit import *
 from SystemToolKit import *
 
 class ConfirmAvailablity:
+    def DisplayMyMatches(self):
+        """Displays a series of match to be discided on(Yes/No) to the user """
+        MyMatches = self.GetMyMatches()
+        self.writeToScreen(MyMatches)
 
-    def BackButtonRun(self):
-            Config.PagesViewed.pop()
-            self.controller.show_previous_frame(Config.PagesViewed[-1])
+
 
     def GetMyMatches(self):
+        """returns the current players matches to be confirmed(dict)"""
 
         Players = SystemToolKit.readFile(Config.PlayerFile)
         team = SystemToolKit.readFile(Config.TeamFile)
@@ -27,9 +30,11 @@ class ConfirmAvailablity:
                 if team[i][j] == str(Config.CurrentUser):
                     teamNumber =team[i]["Team Number"]
 
-        self.TeamID = AddMatch.getTeamId(teamNumber)
+        self.TeamID = SystemToolKit.getTeamId(teamNumber)
         MyMatches = self.AvailableMatches[self.TeamID]
 
+    def writeToScreen(self,MyMatches):
+        """Displayer a series of match on the frame"""
         for j,Data in enumerate(MyMatches):
 
             Text =matches[self.TeamID][Data]["Date"]+" at "+matches[self.TeamID][Data]["Time"]+" against "+ matches[self.TeamID][Data]["Opposition"]+"\n The Location is " + matches[self.TeamID][Data]["Location"]
@@ -62,18 +67,21 @@ class ConfirmAvailablity:
             self.lblResponce.grid(row=j+3,column =4)
 
     def Yes(self,Data):
+        """Updates the MatchAvialablity file with the players responce in the affermative"""
         self.AvailableMatches[self.TeamID][Data][Config.CurrentUser] = "Yes"
         with open(Config.MatchAvailablityFile,"w")as fp:
             json.dump(self.AvailableMatches,fp)
-        self.GetMyMatches()
+        self.DisplayMyMatches()
 
     def No(self,Data):
+        """Updates the MatchAvialablity file with the players responce in the Negative"""
         self.AvailableMatches[self.TeamID][Data][Config.CurrentUser] = "No"
         with open(Config.MatchAvailablityFile,"w")as fp:
             json.dump(self.AvailableMatches,fp)
-        self.GetMyMatches()
+        self.DisplayMyMatches()
 
     def ClearMatches(self):
+        """Removes matches from the Match Availablity file that have already been played"""
         present = datetime.datetime.now()
         NewDict = self.AvailableMatches
         for i in list(self.AvailableMatches):
@@ -89,14 +97,18 @@ class ConfirmAvailablity:
 class ConfirmAvailablityAdmin(tk.Frame,ConfirmAvailablity):
 
         def __init__(self, parent, controller):
+            """
+            Initalises a frame instance of ConfirmAvailablity At Admin Access Level
+
+            """
             tk.Frame.__init__(self, parent)
             self.controller = controller
 
             """ Widget Declearations """
 
             self.Title =tk.Label(self,text="Confirm Availablity",font=controller.title_font)
-            self.GetMyMatchesButton = tk.Button(self,text="Get My Matches",command = lambda:self.GetMyMatches())
-            self.BackButton = tk.Button(self,text="Back",command=lambda:self.BackButtonRun())
+            self.GetMyMatchesButton = tk.Button(self,text="Get My Matches",command = lambda:self.DisplayMyMatches())
+            self.BackButton = tk.Button(self,text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
             """ Widget Stylings """
 
@@ -115,14 +127,18 @@ class ConfirmAvailablityAdmin(tk.Frame,ConfirmAvailablity):
 class ConfirmAvailablityPlayer(tk.Frame,ConfirmAvailablity):
 
         def __init__(self, parent, controller):
+            """
+            Initalises a frame instance of ConfirmAvailablity At Player Access Level
+
+            """
             tk.Frame.__init__(self, parent)
             self.controller = controller
 
             """ Widget Declearations """
 
             self.Title =tk.Label(self,text="Confirm Availablity",font=controller.title_font)
-            self.GetMyMatchesButton = tk.Button(self,text="Get My Matches",command = lambda:self.GetMyMatches())
-            self.BackButton = tk.Button(self,text="Back",command=lambda:self.BackButtonRun())
+            self.GetMyMatchesButton = tk.Button(self,text="Get My Matches",command = lambda:self.DisplayMyMatches())
+            self.BackButton = tk.Button(self,text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
             """ Widget Stylings """
 
@@ -141,14 +157,18 @@ class ConfirmAvailablityPlayer(tk.Frame,ConfirmAvailablity):
 class ConfirmAvailablityCoach(tk.Frame,ConfirmAvailablity):
 
         def __init__(self, parent, controller):
+            """
+            Initalises a frame instance of ConfirmAvailablity At Coach Access Level
+
+            """
             tk.Frame.__init__(self, parent)
             self.controller = controller
 
             """ Widget Declearations """
 
             self.Title =tk.Label(self,text="Confirm Availablity",font=controller.title_font)
-            self.GetMyMatchesButton = tk.Button(self,text="Get My Matches",command = lambda:self.GetMyMatches())
-            self.BackButton = tk.Button(self,text="Back",command=lambda:self.BackButtonRun())
+            self.GetMyMatchesButton = tk.Button(self,text="Get My Matches",command = lambda:self.DisplayMyMatches())
+            self.BackButton = tk.Button(self,text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
             """ Widget Stylings """
 

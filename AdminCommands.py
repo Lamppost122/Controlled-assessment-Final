@@ -7,14 +7,16 @@ from Gui import *
 import Config
 
 class AdminCommands:
+    pass
 
-    def BackButtonRun(self):
-            Config.PagesViewed.pop()
-            self.controller.show_previous_frame(Config.PagesViewed[-1])
 
 class AdminCommandsAdmin(tk.Frame,AdminCommands):
 
         def __init__(self, parent, controller):
+            """
+            Initalises a frame instance of AdminCommands At Admin Access Level
+
+            """
             tk.Frame.__init__(self, parent)
             self.controller = controller
 
@@ -36,7 +38,7 @@ class AdminCommandsAdmin(tk.Frame,AdminCommands):
             self.EditTeamButton = tk.Button(self,text="Edit Team",command = lambda: controller.show_frame("EditTeam"))
             self.AddUpdateButton = tk.Button(self,text="Add Update",command = lambda: controller.show_frame("AddNews"))
             self.BackUpButton = tk.Button(self,text="BackUp",command = lambda: controller.show_frame("BackUp"))
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
             self.ImportDataButton = tk.Button(self,text="Import Data",command = lambda: controller.show_frame("ImportData"))
             self.lblImportData = tk.Label(self,text="Import Data")
 
@@ -87,6 +89,10 @@ class AdminCommandsAdmin(tk.Frame,AdminCommands):
 class AdminCommandsCoach(tk.Frame,AdminCommands):
 
         def __init__(self, parent, controller):
+            """
+            Initalises a frame instance of AdminCommands At Coach Access Level
+
+            """
             tk.Frame.__init__(self, parent)
             self.controller = controller
 
@@ -104,7 +110,7 @@ class AdminCommandsCoach(tk.Frame,AdminCommands):
             self.AddTeamButton = tk.Button(self,text="Add Team",command = lambda: controller.show_frame("AddTeam"))
             self.RemoveTeamButton = tk.Button(self,text="Remove Team",command = lambda: controller.show_frame("RemoveTeam"))
             self.EditTeamButton = tk.Button(self,text="Edit Team",command = lambda: controller.show_frame("EditTeam"))
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
             """ Widget Stylings """
 
@@ -141,6 +147,10 @@ class AdminCommandsCoach(tk.Frame,AdminCommands):
 class AdminCommandsPlayer(tk.Frame,AdminCommands):
 
         def __init__(self, parent, controller):
+            """
+            Initalises a frame instance of AdminCommands At Player Access Level
+
+            """
             tk.Frame.__init__(self, parent)
             self.controller = controller
 

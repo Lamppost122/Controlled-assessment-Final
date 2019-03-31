@@ -5,7 +5,7 @@ from tkinter import messagebox
 from tkinter import ttk
 from Gui import *
 import Config
-from AddMatch import *
+from SystemToolKit import *
 from SystemToolKit import *
 
 class PlayerStats:
@@ -15,7 +15,7 @@ class PlayerStats:
 
     def GetPlayersStats(self):
         Data = SystemToolKit.readFile(Config.PlayerStatsFile)
-        TeamID =AddMatch.getTeamId(self.txtTeamNumber.get())
+        TeamID =SystemToolKit.getTeamId(self.txtTeamNumber.get())
         TeamData = Data[TeamID]
 
         """ Widget Declearations """
@@ -121,7 +121,7 @@ class PlayerStatsAdmin(tk.Frame,PlayerStats):
             self.lblTeamNumber = tk.Label(self,text="Team Number: ")
             self.txtTeamNumber = tk.Entry(self)
             self.GetPlayersButton =tk.Button(self,text="Get Player Stats",command=lambda:self.GetPlayersStats())
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
             """ Widget Stylings """
 
@@ -150,7 +150,7 @@ class PlayerStatsPlayer(tk.Frame,PlayerStats):
             self.lblTeamNumber = tk.Label(self,text="Team Number: ")
             self.txtTeamNumber = tk.Entry(self)
             self.GetPlayersButton =tk.Button(self,text="Get Player Stats",command=lambda:self.GetPlayersStats())
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
             """ Widget Stylings """
 
@@ -180,7 +180,7 @@ class PlayerStatsCoach(tk.Frame,PlayerStats):
             self.lblTeamNumber = tk.Label(self,text="Team Number: ")
             self.txtTeamNumber = tk.Entry(self)
             self.GetPlayersButton =tk.Button(self,text="Get Player Stats",command=lambda:self.GetPlayersStats())
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
             """ Widget Stylings """
 

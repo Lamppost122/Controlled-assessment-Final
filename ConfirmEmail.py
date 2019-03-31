@@ -11,6 +11,10 @@ import Config
 class ConfirmEmail:
 
     def CheckConfirmEmail(self):
+        """
+        Checks to see if the data in txtConfirm matches the Confirmation code for that user on record
+        If so the ValidEmail Status is updated to True
+         """
 
         with open(Config.UserFile)as fp:
             Data = json.load(fp)
@@ -28,6 +32,10 @@ class ConfirmEmail:
 class ConfirmEmailAdmin(tk.Frame,ConfirmEmail):
 
     def __init__(self, parent, controller):
+        """
+        Initalises a frame instance of ConfirmEmail At Admin Access Level
+
+        """
         tk.Frame.__init__(self, parent)
         self.controller = controller
 
@@ -54,6 +62,10 @@ class ConfirmEmailAdmin(tk.Frame,ConfirmEmail):
 class ConfirmEmailPlayer(tk.Frame,ConfirmEmail):
 
     def __init__(self, parent, controller):
+        """
+        Initalises a frame instance of ConfirmEmail At Player Access Level
+
+        """
         tk.Frame.__init__(self, parent)
         self.controller = controller
 
@@ -80,6 +92,10 @@ class ConfirmEmailPlayer(tk.Frame,ConfirmEmail):
 class ConfirmEmailCoach(tk.Frame,ConfirmEmail):
 
     def __init__(self, parent, controller):
+        """
+        Initalises a frame instance of ConfirmEmail At Coach Access Level
+
+        """
         tk.Frame.__init__(self, parent)
         self.controller = controller
 

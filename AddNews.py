@@ -10,12 +10,13 @@ from Validation import *
 
 class AddNews:
 
-    def BackButtonRun(self):
-            Config.PagesViewed.pop()
-            self.controller.show_previous_frame(Config.PagesViewed[-1])
-
-
     def AddUpdate(self):
+        """
+        Adds the current onscreen update to the Update File
+        Validates with a presences check
+        Calls the Home Frame
+
+        """
         if Validation.PresentsCheck( self.txtAddUpdate.get("1.0",'end-1c')) == True:
             updates = SystemToolKit.readFile(Config.UpdatesFile)
             index = 0
@@ -31,6 +32,10 @@ class AddNews:
 class AddNewsAdmin(tk.Frame,AddNews):
 
     def __init__(self, parent, controller):
+        """
+        Initalises a frame instance of Add News At Admin Access Level
+
+        """
         tk.Frame.__init__(self, parent)
         self.controller = controller
 
@@ -39,7 +44,7 @@ class AddNewsAdmin(tk.Frame,AddNews):
         self.addUpdateButton =tk.Button(self,text = "Add update",command = self.AddUpdate)
         self.lblAddUpdate = tk.Label(self,text = "Enter News/Update bellow",font=controller.title_font)
         self.txtAddUpdate =tk.Text(self,width="50",height = "10")
-        self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+        self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
         """ Widget Stylings """
 
@@ -58,6 +63,10 @@ class AddNewsAdmin(tk.Frame,AddNews):
 class AddNewsPlayer(tk.Frame,AddNews):
 
     def __init__(self, parent, controller):
+        """
+        Initalises a frame instance of Add News At Player Access Level
+
+        """
         tk.Frame.__init__(self, parent)
         self.controller = controller
 
@@ -71,6 +80,10 @@ class AddNewsPlayer(tk.Frame,AddNews):
 class AddNewsCoach(tk.Frame,AddNews):
 
     def __init__(self, parent, controller):
+        """
+        Initalises a frame instance of Add News At Coach Access Level
+
+        """
         tk.Frame.__init__(self, parent)
         self.controller = controller
 

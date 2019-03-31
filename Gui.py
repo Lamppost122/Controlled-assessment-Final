@@ -32,6 +32,8 @@ from ViewAvailablity import *
 from PlayerStats import *
 import Config
 
+
+
 class SampleApp(tk.Tk):
 
     def __init__(self, *args, **kwargs):

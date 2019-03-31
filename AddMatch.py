@@ -6,28 +6,49 @@ from tkinter import ttk
 from Gui import *
 import Config
 from Validation import *
+from SystemToolKit import *
 
 class AddMatch:
+    """
+    Methods:
+        AddMatch
+        getTeamMatches
+        getMatchData
 
-    def BackButtonRun(self):
-            Config.PagesViewed.pop()
-            self.controller.show_previous_frame(Config.PagesViewed[-1])
+
+
+    """
+
 
     def AddMatch(self):
 
-        Team , Location, Time, Date, Opposition = self.getMatchData()
+        """
+        Adds the current match on the screen to the Match File.
+
+        Validates the following fields:
+            Team Number
+            Location
+            Time
+            Date
+            Opposition
+
+        Calls the Home Frame
+
+        """
+
+        self.getMatchData()
         data = {}
 
-        if Validation.TeamNumber(Team)==True and Validation.Address(Location)==True and Validation.Time(Time) == True and Validation.Date(Date)== True and Validation.Opposition(Opposition)==True:
+        if Validation.TeamNumber(self.Team)==True and Validation.Address(self.Location)==True and Validation.Time(self.Time) == True and Validation.Date(self.Date,"Future")== True and Validation.Opposition(self.Opposition)==True:
 
             match = SystemToolKit.readFile(Config.MatchFile)
-            TeamId = self.getTeamId(Team)
+            TeamId = SystemToolKit.getTeamId(self.Team)
             teamMatches = self.getTeamMatches(match,TeamId)
             matchID = str(uuid.uuid4())
-            data["Opposition"] = Opposition
-            data["Location"] = Location
-            data["Time"] = Time
-            data["Date"] = Date
+            data["Opposition"] = self.Opposition
+            data["Location"] = self.Location
+            data["Time"] = self.Time
+            data["Date"] = self.Date
             teamMatches[matchID] = data
             match[TeamId] = teamMatches
 
@@ -35,31 +56,40 @@ class AddMatch:
                 json.dump(match, fp)
             self.controller.show_frame("Home")
 
-    @staticmethod
-    def getTeamId(TeamNumber):
-        Teams = SystemToolKit.readFile(Config.TeamFile)
-        for i in Teams:
-            if Teams[i]["Team Number"] == TeamNumber:
-                return i
+
 
     def getTeamMatches(self,match,TeamId):
+        """Searches a Match File for a teams matches and returns a Dict """
         for i in match :
             if i == TeamId :
                 return match[TeamId]
         return {}
 
     def getMatchData(self):
-        Team =self.txtTeam.get()
-        Location = self.txtLocation.get()
-        Time = self.txtTime.get()
-        Date = self.txtDate.get()
-        Opposition = self.txtOpposition.get()
-        return Team , Location, Time, Date, Opposition
+        """
+        Declares/Updates the Class Variables:
+            Team
+            Location
+            Time
+            Date
+            Opposition
+        To be equal to there on screen textboxes
+             """
+        self.Team =self.txtTeam.get()
+        self.Location = self.txtLocation.get()
+        self.Time = self.txtTime.get()
+        self.Date = self.txtDate.get()
+        self.Opposition = self.txtOpposition.get()
+
 
 
 class AddMatchCoach(tk.Frame,AddMatch):
 
         def __init__(self, parent, controller):
+            """
+            Initalises a frame instance of Add Match At Coach Access Level
+
+            """
             tk.Frame.__init__(self, parent)
             self.controller = controller
 
@@ -77,7 +107,7 @@ class AddMatchCoach(tk.Frame,AddMatch):
             self.txtDate = ttk.Entry(self)
             self.txtOpposition = ttk.Entry(self)
             self.AddMatchButton = tk.Button(self,text="Add Match",command = lambda:self.AddMatch())
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
             """ Widget Stylings """
 
@@ -111,7 +141,12 @@ class AddMatchCoach(tk.Frame,AddMatch):
 class AddMatchAdmin(tk.Frame,AddMatch):
 
         def __init__(self, parent, controller):
+            """
+            Initalises a frame instance of Add Match At Player Access Level
+
+            """
             tk.Frame.__init__(self, parent)
+
             self.controller = controller
 
             """ Widget Declearations """
@@ -128,7 +163,7 @@ class AddMatchAdmin(tk.Frame,AddMatch):
             self.txtDate = ttk.Entry(self)
             self.txtOpposition = ttk.Entry(self)
             self.AddMatchButton = tk.Button(self,text="Add Match",command = lambda:self.AddMatch())
-            self.BackButton= tk.Button(self, text="Back",command=lambda:self.BackButtonRun())
+            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
             """ Widget Stylings """
 
@@ -161,7 +196,12 @@ class AddMatchAdmin(tk.Frame,AddMatch):
 class AddMatchPlayer(tk.Frame,AddMatch):
 
         def __init__(self, parent, controller):
+            """
+            Initalises a frame instance of Add Match At Player Access Level
+
+            """
             tk.Frame.__init__(self, parent)
+
             self.controller = controller
 
             """ Widget Declearations """
