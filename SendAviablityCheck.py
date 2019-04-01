@@ -8,6 +8,9 @@ from MatchScreen import *
 from SystemToolKit import *
 import Config
 from Validation import *
+import smtplib
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEText import MIMEText
 
 class SendAvailablityCheck:
 
@@ -18,6 +21,7 @@ class SendAvailablityCheck:
             self.UpdateListboxes()
 
     def GetTeam(self):
+        self.TeamPlayers = []
         if Validation.TeamNumber(self.txtTeamNumber.get()) ==True:
             for i, j in enumerate(self.team):
                 if self.team[j]["Team Number"] == self.txtTeamNumber.get():
@@ -27,9 +31,12 @@ class SendAvailablityCheck:
                                 self.TeamPlayers.append(self.team[j][l])
 
     def GetMatches(self):
+        self.orderedList = []
         self.MatchList.delete(0,tk.END)
         self.teamMatches = SystemToolKit.readFile(Config.MatchFile)
         self.matches = self.teamMatches[SystemToolKit.getTeamId(self.txtTeamNumber.get())]
+        for i in self.matches:
+            self.orderedList.append(i)
 
 
 
@@ -46,7 +53,7 @@ class SendAvailablityCheck:
 
 
 
-    def SendEmailToAll(self):
+    def SendEmailToAll(self,controller):
         self.ConnectToSever()
         Text = self.getText()
         for i in self.getEmailList():
@@ -62,8 +69,10 @@ class SendAvailablityCheck:
         self.server.starttls()
         self.server.login(Config.EmailAddress, Config.EmailPassword)
 
+
     def DiscconectToServer(self):
         self.server.quit()
+
 
     def SendEmail(self,Email,Text):
         msg = MIMEMultipart()
@@ -73,39 +82,45 @@ class SendAvailablityCheck:
         self.server.sendmail(Config.EmailAddress,Email, text)
 
 
+
     def getEmailList(self):
         EmailList=[]
         for i in self.TeamPlayers:
-            for j in self.allUsers:
-                EmailList.append(self.allUsers[i]["Email"])
+            EmailList.append(self.allUsers[i]["Email"])
 
         return EmailList
 
     def getText(self):
         try:
+
             Data = self.matches[self.orderedList[self.MatchList.index(tk.ANCHOR)]]
-            text = "Are you able to play on "+Data["Date"]+"at "+Data["Time"]+" against "+ Data["Opposition"]+"\n The Location is " + Data["Location"]
+            text = "Are you able to play on "+Data["Date"]+" at "+Data["Time"]+" against "+ Data["Opposition"]+"\n The Location is " + Data["Location"]
             return text
         except IndexError:
             messagebox.showinfo("Message","No Match referenced")
 
     def UpdateAvailablityFile(self):
-        Matches = SystemToolKit.readFile(Config.MatchAvailablityFile)
+        TeamData = SystemToolKit.readFile(Config.MatchAvailablityFile)
 
-        MatchAvailablityData = {}
 
+        PlayerData = {}
         for i in self.TeamPlayers:
-            MatchAvailablityData[i] = "None"
+            PlayerData[i] = "None"
+        PlayerData["Date"] =self.matches[self.orderedList[self.MatchList.index(tk.ANCHOR)]]["Date"]
+
+        MatchId = self.orderedList[self.MatchList.index(tk.ANCHOR)]
         TeamId = SystemToolKit.getTeamId(self.txtTeamNumber.get())
-        Teams = Matches[TeamId]
 
-        MatchAvailablityData["Date"] =self.matches[self.orderedList[self.MatchList.index(tk.ANCHOR)]]["Date"]
-        Teams[self.orderedList[self.MatchList.index(tk.ANCHOR)]] = MatchAvailablityData
+        try:
+             MatchData =TeamData[TeamId]
+        except KeyError:
+            MatchData = {}
 
-        Matches[TeamId]=Teams
+        MatchData[MatchId] = PlayerData
+        TeamData[TeamId] = MatchData
 
         with open(Config.MatchAvailablityFile,"w+")as fp:
-            json.dump(Matches,fp)
+            json.dump(TeamData,fp)
 
 class SendAvailablityCheckAdmin(tk.Frame,SendAvailablityCheck):
 
@@ -119,7 +134,7 @@ class SendAvailablityCheckAdmin(tk.Frame,SendAvailablityCheck):
             self.TeamList = tk.Listbox(self)
             self.GetTeamButton = tk.Button(self,text = "Get Data",command = self.GetData)
             self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
-            self.SendEmailButton= tk.Button(self, text="Send All Emails",command=lambda:self.SendEmailToAll())
+            self.SendEmailButton= tk.Button(self, text="Send All Emails",command=lambda:self.SendEmailToAll(controller))
             self.lblPlayers = tk.Label(self,text="Players:")
             self.lblMatches = tk.Label(self,text="Matches:")
             self.MatchList = tk.Listbox(self)
@@ -133,6 +148,7 @@ class SendAvailablityCheckAdmin(tk.Frame,SendAvailablityCheck):
             self.SendEmailButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
             self.lblPlayers.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
             self.lblMatches.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+            self.MatchList.config(width="40")
 
             """ Widget Positions """
 
@@ -164,7 +180,7 @@ class SendAvailablityCheckCoach(tk.Frame,SendAvailablityCheck):
             self.TeamList = tk.Listbox(self)
             self.GetTeamButton = tk.Button(self,text = "Get Data",command = self.GetData)
             self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
-            self.SendEmailButton= tk.Button(self, text="Send All Emails",command=lambda:self.SendEmailToAll())
+            self.SendEmailButton= tk.Button(self, text="Send All Emails",command=lambda:self.SendEmailToAll(controller))
             self.lblPlayers = tk.Label(self,text="Players:")
             self.lblMatches = tk.Label(self,text="Matches:")
             self.MatchList = tk.Listbox(self)
@@ -178,6 +194,7 @@ class SendAvailablityCheckCoach(tk.Frame,SendAvailablityCheck):
             self.SendEmailButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 10, 'bold'),padx=5)
             self.lblPlayers.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
             self.lblMatches.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+            self.MatchList.config(width="40")
 
             """ Widget Positions """
 

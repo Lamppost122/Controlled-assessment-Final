@@ -20,7 +20,8 @@ class Login:
         for j,i in enumerate(users):
             userHash = users[i]["Password"]
             salt = users[i]["Salt"]
-            if self.checkPassword(userHash,password,salt) == True:
+            TestUsername = users[i]["Username"]
+            if self.checkPassword(userHash,password,salt) == True and self.checkUsername(username,TestUsername) == True:
                 Config.CurrentUser = i
 
                 Config.AccessLevel = users[i]["AccessLevel"]
@@ -39,6 +40,12 @@ class Login:
     @staticmethod
     def checkPassword(userHash,password,salt):
         if userHash  == hashlib.sha512(password.encode('utf-8') + salt.encode('utf-8')).hexdigest():
+            return True
+        else:
+            return False
+    @staticmethod
+    def checkUsername(username,TestUserName):
+        if username == TestUserName:
             return True
         else:
             return False

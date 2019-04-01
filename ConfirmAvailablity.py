@@ -20,24 +20,38 @@ class ConfirmAvailablity:
     def GetMyMatches(self):
         """returns the current players matches to be confirmed(dict)"""
 
-        Players = SystemToolKit.readFile(Config.PlayerFile)
-        team = SystemToolKit.readFile(Config.TeamFile)
-        matches = SystemToolKit.readFile(Config.MatchFile)
+        self.Players = SystemToolKit.readFile(Config.PlayerFile)
+        self.team = SystemToolKit.readFile(Config.TeamFile)
+        self.matches = SystemToolKit.readFile(Config.MatchFile)
+        self.AvailableMatches = SystemToolKit.readFile(Config.MatchAvailablityFile)
         teamNumber = ""
 
-        for k,i in enumerate(team):
-            for j in team[i]:
-                if team[i][j] == str(Config.CurrentUser):
-                    teamNumber =team[i]["Team Number"]
+        for k,i in enumerate(self.team):
+            for j in self.team[i]:
+                if self.team[i][j] == str(Config.CurrentUser):
+                    teamNumber =self.team[i]["Team Number"]
 
         self.TeamID = SystemToolKit.getTeamId(teamNumber)
+
         MyMatches = self.AvailableMatches[self.TeamID]
+        return MyMatches
 
     def writeToScreen(self,MyMatches):
         """Displayer a series of match on the frame"""
+        try:
+            for i in self.grid_slaves():
+                if int(i.grid_info()["row"]) >= self.StartCount:
+                    i.grid_forget()
+
+        except AttributeError:
+            pass
+
         for j,Data in enumerate(MyMatches):
 
-            Text =matches[self.TeamID][Data]["Date"]+" at "+matches[self.TeamID][Data]["Time"]+" against "+ matches[self.TeamID][Data]["Opposition"]+"\n The Location is " + matches[self.TeamID][Data]["Location"]
+
+
+
+            Text =self.matches[self.TeamID][Data]["Date"]+" at "+self.matches[self.TeamID][Data]["Time"]+" against "+ self.matches[self.TeamID][Data]["Opposition"]+"\n The Location is " + self.matches[self.TeamID][Data]["Location"]
 
             """ Widget Declearations """
 
@@ -60,13 +74,14 @@ class ConfirmAvailablity:
 
             """ Widget Positions """
 
-            self.lblText.grid(row=j+3,column=0)
-            self.YesButton.grid(row=j+3,column=1)
-            self.NoButton.grid(row=j+3,column=2)
-            self.lblResponceStatus.grid(row=j+3,column=3)
-            self.lblResponce.grid(row=j+3,column =4)
+            self.lblText.grid(row=j+self.StartCount,column=0)
+            self.YesButton.grid(row=j+self.StartCount,column=1)
+            self.NoButton.grid(row=j+self.StartCount,column=2)
+            self.lblResponceStatus.grid(row=j+self.StartCount,column=3)
+            self.lblResponce.grid(row=j+self.StartCount,column =4)
 
     def Yes(self,Data):
+
         """Updates the MatchAvialablity file with the players responce in the affermative"""
         self.AvailableMatches[self.TeamID][Data][Config.CurrentUser] = "Yes"
         with open(Config.MatchAvailablityFile,"w")as fp:
@@ -82,6 +97,7 @@ class ConfirmAvailablity:
 
     def ClearMatches(self):
         """Removes matches from the Match Availablity file that have already been played"""
+        self.AvailableMatches = SystemToolKit.readFile(Config.MatchAvailablityFile)
         present = datetime.datetime.now()
         NewDict = self.AvailableMatches
         for i in list(self.AvailableMatches):
@@ -103,6 +119,7 @@ class ConfirmAvailablityAdmin(tk.Frame,ConfirmAvailablity):
             """
             tk.Frame.__init__(self, parent)
             self.controller = controller
+            self.StartCount = 3
 
             """ Widget Declearations """
 
@@ -121,7 +138,7 @@ class ConfirmAvailablityAdmin(tk.Frame,ConfirmAvailablity):
             self.Title.grid(row=0,column =0)
             self.GetMyMatchesButton.grid(row=1,column=0)
             self.BackButton.grid(row=1,column=1)
-            self.AvailableMatches = SystemToolKit.readFile(Config.MatchAvailablityFile)
+
             self.ClearMatches()
 
 class ConfirmAvailablityPlayer(tk.Frame,ConfirmAvailablity):
@@ -133,6 +150,7 @@ class ConfirmAvailablityPlayer(tk.Frame,ConfirmAvailablity):
             """
             tk.Frame.__init__(self, parent)
             self.controller = controller
+            self.StartCount = 3
 
             """ Widget Declearations """
 
@@ -151,7 +169,7 @@ class ConfirmAvailablityPlayer(tk.Frame,ConfirmAvailablity):
             self.Title.grid(row=0,column =0)
             self.GetMyMatchesButton.grid(row=1,column=0)
             self.BackButton.grid(row=1,column=1)
-            self.AvailableMatches = SystemToolKit.readFile(Config.MatchAvailablityFile)
+
             self.ClearMatches()
 
 class ConfirmAvailablityCoach(tk.Frame,ConfirmAvailablity):
@@ -163,6 +181,7 @@ class ConfirmAvailablityCoach(tk.Frame,ConfirmAvailablity):
             """
             tk.Frame.__init__(self, parent)
             self.controller = controller
+            self.StartCount = 3
 
             """ Widget Declearations """
 
@@ -181,5 +200,5 @@ class ConfirmAvailablityCoach(tk.Frame,ConfirmAvailablity):
             self.Title.grid(row=0,column =0)
             self.GetMyMatchesButton.grid(row=1,column=0)
             self.BackButton.grid(row=1,column=1)
-            self.AvailableMatches = SystemToolKit.readFile(Config.MatchAvailablityFile)
+
             self.ClearMatches()
