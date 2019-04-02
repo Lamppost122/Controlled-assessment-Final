@@ -102,9 +102,9 @@ class BackUp:
         for i in SplitName:
             DoubleSplitName.append(i.split("-"))
         date =datetime.datetime.today()
-        dateFormate =  datetime.datetime.strftime(date,"-%d%B%Y-%H:%M")
+        dateFormate =  datetime.datetime.strftime(date,"-%d%B%Y")
         DoubleSplitName[0][1] = dateFormate
-        print("DoubleSplit[1][0]",str(DoubleSplitName[1][0]))
+
         NewName = str(DoubleSplitName[0][0])+ str(DoubleSplitName[0][1])+"."+ str(DoubleSplitName[1][0])
         return NewName
 
