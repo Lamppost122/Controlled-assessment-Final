@@ -9,18 +9,33 @@ from SystemToolKit import *
 import Config
 from Validation import *
 import smtplib
-from email.MIMEMultipart import MIMEMultipart
-from email.MIMEText import MIMEText
+##from email.MIMEMultipart import MIMEMultipart
+##from email.MIMEText import MIMEText
 
 class SendAvailablityCheck:
+    """
+    Methods:
+        GetData
+        GetTeam
+        GetMatches
+        UpdateListboxes
+        SendEmailToAll
+    Variables:
+        orderedList - A list of playerIds
+        teamMatches - contains a instance of the MatchFile
+        matches - cotans oonly a spacifc teams Matches
+        TeamPlayers - contains instance
+    """
 
     def GetData(self):
+        """ Validates the team number and calls the GetTeam, GetMatches and UpdateListboxes """
         if Validation.TeamNumber( self.txtTeamNumber.get()) == True:
             self.GetTeam()
             self.GetMatches()
             self.UpdateListboxes()
 
     def GetTeam(self):
+        """Adds players into the TeamPlayers List """
         self.TeamPlayers = []
         if Validation.TeamNumber(self.txtTeamNumber.get()) ==True:
             for i, j in enumerate(self.team):
@@ -31,6 +46,7 @@ class SendAvailablityCheck:
                                 self.TeamPlayers.append(self.team[j][l])
 
     def GetMatches(self):
+
         self.orderedList = []
         self.MatchList.delete(0,tk.END)
         self.teamMatches = SystemToolKit.readFile(Config.MatchFile)

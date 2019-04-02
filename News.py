@@ -6,8 +6,16 @@ from tkinter import ttk
 from Gui import *
 import Config
 class News:
+    """
+    Methods:
+        write_News_to_screen
+
+    """
 
     def write_News_to_screen(self):
+        """
+        Adds all updates to the screen
+        """
         updates = SystemToolKit.readFile(Config.UpdatesFile)
         try:
             j.grid_forget()
@@ -34,6 +42,17 @@ class News:
             k.grid(row =2 *(len(updates)-int(i)+self.startCount) + 1,column  =0,columnspan=2)
 
 class NewsAdmin(tk.Frame,News):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        startCount - Contains a integer that relates to the position of generated widgets during the run time
+        Title - Title Label Widget
+        BackButton - Back Button Widget
+        GetUpdatesButton - Get Update Button Widget
+
+    """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -60,6 +79,17 @@ class NewsAdmin(tk.Frame,News):
 
 
 class NewsCoach(tk.Frame,News):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        startCount - Contains a integer that relates to the position of generated widgets during the run time
+        Title - Title Label Widget
+        BackButton - Back Button Widget
+        GetUpdatesButton - Get Update Button Widget
+
+    """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -85,6 +115,17 @@ class NewsCoach(tk.Frame,News):
         self.GetUpdatesButton.grid(row=1,column=0)
 
 class NewsPlayer(tk.Frame,News):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        startCount - Contains a integer that relates to the position of generated widgets during the run time
+        Title - Title Label Widget
+        BackButton - Back Button Widget
+        GetUpdatesButton - Get Update Button Widget
+
+    """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)

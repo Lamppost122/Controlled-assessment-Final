@@ -4,9 +4,29 @@ from tkinter import messagebox
 import Config
 import datetime
 class Validation:
+    """
+    Methods:
+        Firstname
+        Lastname
+        Postcode
+        PhoneNumber
+        Address
+        DateOfBirth
+        TeamNumber
+        Date
+        Time
+        Oppositon
+        Score
+        PresentsCheck
+        Username
+        Passwords
+        NewTeam
+
+    """
 
     @staticmethod
     def FirstName(FirstName):
+        """Validate the first name"""
         if len(FirstName) < 30:
             if FirstName != "":
 
@@ -26,6 +46,7 @@ class Validation:
 
     @staticmethod
     def LastName(LastName):
+        """Validates the Last Name """
         if len(LastName) < 30 :
             if LastName != "":
 
@@ -44,6 +65,7 @@ class Validation:
 
     @staticmethod
     def PhoneNumber(PhoneNumber):
+        """Validate the Phone Numbers"""
         if PhoneNumber =="":
             messagebox.showinfo("Invalid Data","Phone Number is empty")
             return False
@@ -57,6 +79,7 @@ class Validation:
 
     @staticmethod
     def Address(Address):
+        """Validates the Address"""
         if Address =="":
             messagebox.showinfo("Invalid Data","Address is empty")
             return False
@@ -70,6 +93,7 @@ class Validation:
 
     @staticmethod
     def Postcode(Postcode):
+        """Validate the Postcode  """
         if Postcode =="":
             messagebox.showinfo("Invalid Data","Postcode is empty")
             return False
@@ -83,6 +107,7 @@ class Validation:
 
     @staticmethod
     def DateOfBirth(dateOfBirth):
+        """Validates the date of birth"""
         if dateOfBirth =="":
             messagebox.showinfo("Invalid Data","Date of Birth is empty")
             return False
@@ -100,6 +125,7 @@ class Validation:
 
     @staticmethod
     def TeamNumber(TeamNumber):
+        """Validates the Team Number"""
         if TeamNumber =="":
             messagebox.showinfo("Invalid Data","Team Number is empty")
             return False
@@ -115,6 +141,7 @@ class Validation:
 
     @staticmethod
     def Date(Date,TimeState = "None"):
+        """Validates the Date"""
         if Date =="":
             messagebox.showinfo("Invalid Data","Date is empty")
             return False
@@ -144,6 +171,7 @@ class Validation:
 
     @staticmethod
     def Time(Time):
+        """Validates the Time"""
         if Time =="":
             messagebox.showinfo("Invalid Data","Time is empty")
             return False
@@ -157,6 +185,7 @@ class Validation:
 
     @staticmethod
     def Opposition(Opposition):
+        """Validates the opposition"""
         if Opposition =="":
             messagebox.showinfo("Invalid Data","Opposition is empty")
             return False
@@ -169,6 +198,7 @@ class Validation:
 
     @staticmethod
     def Score(Score):
+        """Validates the score"""
         if Score =="":
             messagebox.showinfo("Invalid Data","Score is empty")
             return False
@@ -186,6 +216,7 @@ class Validation:
 
     @staticmethod
     def PresentsCheck(Data):
+        """Checks if the data is blank"""
         if Data == "":
             messagebox.showinfo("Missing Data","Field Cannot be left blank")
             return False
@@ -194,6 +225,7 @@ class Validation:
 
     @staticmethod
     def Username(Username):
+        """Validates the Username"""
         Data= SystemToolKit.readFile(Config.UserFile)
         if Username != "":
 
@@ -216,6 +248,7 @@ class Validation:
 
     @staticmethod
     def Password(Password):
+        """Validates the passwords"""
 
         if re.match("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$", Password):
             return True
@@ -225,6 +258,7 @@ class Validation:
 
     @staticmethod
     def Email(Email):
+        """Validates the email """
         Data= SystemToolKit.readFile(Config.UserFile)
         for i in Data:
             if Data[i]["Email"] == Email:
@@ -234,6 +268,7 @@ class Validation:
 
     @staticmethod
     def newTeam(TeamNumber):
+        """Validates a teamNumber"""
         if TeamNumber !="":
             try:
                 TeamNumber = int(TeamNumber)
@@ -248,7 +283,3 @@ class Validation:
         else:
             messagebox.showinfo("Invalid Data","Team number cannot be left blank")
             return False
-
-
-
-

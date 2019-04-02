@@ -10,13 +10,29 @@ from datetime import date
 from SystemToolKit import *
 import Config
 class MatchReport:
-
-    def BackButtonRun(self):
-            Config.PagesViewed.pop()
-            self.controller.show_previous_frame(Config.PagesViewed[-1])
+    """
+    Methods:
+        AddPlayer
+        RemovePlayers
+        get_Match_Report_Data
+        write_Match_Report
+        getMatchID
+        getPlayerID
+        win_Status
+        Match_Data
+        Player_stats_update
+        Player_Data
+        seasonReset
+        newSeason
+        submit
+        ImportTeam]
+        get_Team
+        Write_to_screen
+    """
 
 
     def AddPlayer(self):
+        """Adds a row to the match report """
         self.count +=1
 
         """ Widget Declearations """
@@ -38,7 +54,9 @@ class MatchReport:
         self.txtGreen.grid(row = self.count, column  =3 )
         self.txtYellow.grid(row = self.count, column  =4 )
         self.txtRed.grid(row = self.count, column  =5 )
+
     def RemovePlayer(self):
+        """ Removes a row from the match report"""
 
         for label in self.grid_slaves():
             if int(label.grid_info()["row"]) > self.count-1 and self.count > self.StartCount :
@@ -48,6 +66,7 @@ class MatchReport:
 
 
     def get_Match_Report_Data(self):
+        """ returns a matchReport(dict)"""
         data = []
         matchData = []
         matchReport = {}
@@ -96,22 +115,26 @@ class MatchReport:
             return matchReport
         else:
             return None
+
     def write_Match_Report(self,matchReport):
+        """Writes a match report to the MatchReportFile """
         if matchReport != None:
             matchReport = SystemToolKit.readFile(Config.MatchReportFile)
             matchReportID = uuid.uuid4()
             matchReport[matchReportID] = matchReport
 
     def getMatchID(self,Date,Team):
+        """Returns a MatchId(string)"""
 
-         matches = SystemToolKit.readFile(Config.MatchFile)
+        matches = SystemToolKit.readFile(Config.MatchFile)
 
-         TeamID =SystemToolKit.getTeamId(Team)
-         for i in matches[TeamID]:
+        TeamID =SystemToolKit.getTeamId(Team)
+        for i in matches[TeamID]:
             if matches[TeamID][i]["Date"] ==  Date :
                 return i
 
     def getPlayerID(self,FirstName,LastName):
+        """Returns a PlayerId(string)"""
 
         players = SystemToolKit.readFile(Config.PlayerFile)
         for i in players:
@@ -119,6 +142,7 @@ class MatchReport:
                 return i
 
     def win_Status(self,ClubScore ,OppositonScore):
+        """ Returns a MatchResult(string)"""
         if ClubScore > OppositonScore:
             return "Win"
         elif ClubScore == OppositonScore:
@@ -127,6 +151,7 @@ class MatchReport:
             return "Loss"
 
     def Match_Data( self,MatchID,ClubScore,OppositonScore,winStatus):
+        """ returns Match Data(dict)"""
 
         matchData = {
         "matchID" : MatchID,
@@ -137,6 +162,7 @@ class MatchReport:
         return matchData
 
     def Player_Data(self,Goal,GreenCards,YellowCards,RedCards):
+        """returns player Data(dict)"""
 
         PlayerData = {
         "Goals": Goal,
@@ -148,6 +174,7 @@ class MatchReport:
         return PlayerData
 
     def Player_stats_update(self,matchReport):
+        """Updates a player stats file """
 
 
         allPlayersData = SystemToolKit.readFile(Config.PlayerStatsFile)
@@ -180,6 +207,7 @@ class MatchReport:
                         json.dump(allPlayersData, fp)
 
     def seasonReset(self):
+        """resests all season records to 0 """
 
         playersData = SystemToolKit.readFile(Config.PlayerStatsFile)
         for data in playersData:
@@ -193,6 +221,7 @@ class MatchReport:
                     json.dump(playersData, fp)
 
     def newSeason(self):
+        """Tests if a season reset is nessaccary """
 
         season = SystemToolKit.readFile(Config.SeasonFile)
 
@@ -207,6 +236,7 @@ class MatchReport:
 
 
     def submit(self):
+        """Calls newsseason,write_Match_Report,Player_stats_update """
         self.newSeason()
         matchReport = self.get_Match_Report_Data()
         self.write_Match_Report(matchReport)
@@ -215,12 +245,14 @@ class MatchReport:
         self.controller.show_frame("Home")
 
     def ImportTeam(self):
+        """Calls get_team and write_to_screen """
         teamNumber = self.txtImport.get()
         team = self.get_Team(teamNumber)
         self.Write_to_screen(team)
 
 
     def get_Team(self,teamNumber):
+        """ returns a list of names"""
         team= SystemToolKit.readFile(Config.TeamFile)
         Players = SystemToolKit.readFile(Config.PlayerFile)
 
@@ -235,6 +267,7 @@ class MatchReport:
         return Names
 
     def Write_to_screen(self,team):
+        """Adds a team into the matchReport """
         counter = 0
         columnFull =False
 
@@ -266,6 +299,38 @@ class MatchReport:
                 except :AttributeError
 
 class MatchReportAdmin(tk.Frame, MatchReport):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        count - Contains a integer that relates to the position of generated widgets during the run time
+        StartCount - Contains a integer that relates to the position of generated widgets during the run time
+        Title - Title Label Widget
+        lblTeam - Team Label Widget
+        lblDate - Date Label Widget
+        lblImport - import Team Label Widget
+        txtImport - Import Team Entry Widget
+        txtTeam - Team Number Entry Widget
+        txtDate - Date Entry Widget
+        RemoveRowButton - Remove Row Button Widget
+        AddRowButton - Add Row Button Widget
+        SubmitButton - Submit Button Widget
+        ImportButton - Import Team Button Widget
+        BackButton - Back Buttoon Widget
+        lblFirstName - First Name Heading Label Widget
+        lblLastName - Last Name Heading Label Widget
+        lblGoal - Goal Heading Label Widget
+        lblGreenCard - Green Card Heading Label Widget
+        lblYellowCard - Yellow Card Heading Label Widget
+        lblRedCard - Red card Heading Label Widget
+        lblScore - Score Heading Label Widget
+        lblWhichurch - Whitchurch Score Label Widget
+        lblOpposition - Opposition Core Label Widget
+        WhichchurchScore - Whitchurch Score Entry Widget
+        oppositionScore - Oppositon Score Entry Widget
+
+    """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -348,6 +413,38 @@ class MatchReportAdmin(tk.Frame, MatchReport):
         self.BackButton.grid(row =1,column = 7)
 
 class MatchReportCoach(tk.Frame, MatchReport):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        count - Contains a integer that relates to the position of generated widgets during the run time
+        StartCount - Contains a integer that relates to the position of generated widgets during the run time
+        Title - Title Label Widget
+        lblTeam - Team Label Widget
+        lblDate - Date Label Widget
+        lblImport - import Team Label Widget
+        txtImport - Import Team Entry Widget
+        txtTeam - Team Number Entry Widget
+        txtDate - Date Entry Widget
+        RemoveRowButton - Remove Row Button Widget
+        AddRowButton - Add Row Button Widget
+        SubmitButton - Submit Button Widget
+        ImportButton - Import Team Button Widget
+        BackButton - Back Buttoon Widget
+        lblFirstName - First Name Heading Label Widget
+        lblLastName - Last Name Heading Label Widget
+        lblGoal - Goal Heading Label Widget
+        lblGreenCard - Green Card Heading Label Widget
+        lblYellowCard - Yellow Card Heading Label Widget
+        lblRedCard - Red card Heading Label Widget
+        lblScore - Score Heading Label Widget
+        lblWhichurch - Whitchurch Score Label Widget
+        lblOpposition - Opposition Core Label Widget
+        WhichchurchScore - Whitchurch Score Entry Widget
+        oppositionScore - Oppositon Score Entry Widget
+
+    """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -430,6 +527,13 @@ class MatchReportCoach(tk.Frame, MatchReport):
         self.BackButton.grid(row =1,column = 7)
 
 class MatchReportPlayer(tk.Frame, MatchReport):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+
+    """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)

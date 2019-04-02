@@ -8,9 +8,11 @@ from tkinter import ttk
 import uuid
 from MatchScreen import *
 class ImportData:
-    def BackButtonRun(self):
-            Config.PagesViewed.pop()
-            self.controller.show_previous_frame(Config.PagesViewed[-1])
+    """
+    Methods:
+        ImportData
+
+    """
 
     def ImportData(FileName,DataFileName):
         with open(DataFileName)as fp:
@@ -45,55 +47,88 @@ class ImportData:
              json.dump(FileData,fp)
 
 class ImportDataAdmin(tk.Frame,ImportData):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        Title - Title Label Widget
+        txtFileName - File Name Header Label Widget
+        importButton - Import Button Widget
+        BackButton - Back button Widget
 
-        def __init__(self, parent, controller):
-            tk.Frame.__init__(self, parent)
-            self.controller = controller
+    """
 
-            """ Widget Declearations """
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
 
-            self.Title = tk.Label(self,text="Import Data",font= controller.title_font)
-            self.txtFileName =ttk.Entry(self)
-            self.importButton =tk.Button(self,text ="Import")
-            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
+        """ Widget Declearations """
 
-            """ Widget Styligns """
+        self.Title = tk.Label(self,text="Import Data",font= controller.title_font)
+        self.txtFileName =ttk.Entry(self)
+        self.importButton =tk.Button(self,text ="Import")
+        self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
-            self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
-            self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
-            self.importButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        """ Widget Styligns """
 
-            """ Widget Positions """
+        self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+        self.importButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
 
-            self.Title.grid(row=0,column=0)
-            self.txtFileName.grid(row=1,column=0)
-            self.importButton.grid(row=1,column=1)
-            self.BackButton.grid(row=1,column=2)
+        """ Widget Positions """
+
+        self.Title.grid(row=0,column=0)
+        self.txtFileName.grid(row=1,column=0)
+        self.importButton.grid(row=1,column=1)
+        self.BackButton.grid(row=1,column=2)
 
 class ImportDataCoach(tk.Frame,ImportData):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        Title - Title Label Widget
+        txtFileName - File Name Header Label Widget
+        importButton - Import Button Widget
+        BackButton - Back button Widget
 
-        def __init__(self, parent, controller):
-            tk.Frame.__init__(self, parent)
-            self.controller = controller
+    """
 
-            """ Widget Declearations """
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
 
-            """ Widget Stylings """
+        """ Widget Declearations """
 
-            """ Widget Positions """
+        """ Widget Stylings """
+
+        """ Widget Positions """
 
 
 
 
 
 class ImportDataPlayer(tk.Frame,ImportData):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        Title - Title Label Widget
+        txtFileName - File Name Header Label Widget
+        importButton - Import Button Widget
+        BackButton - Back button Widget
 
-        def __init__(self, parent, controller):
-            tk.Frame.__init__(self, parent)
-            self.controller = controller
+    """
 
-            """ Widget Declearations """
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
 
-            """ Widget Stylings """
+        """ Widget Declearations """
 
-            """ Widget Positions """
+        """ Widget Stylings """
+
+        """ Widget Positions """

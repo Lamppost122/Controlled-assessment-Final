@@ -9,13 +9,16 @@ import Config
 from Validation import *
 
 class AddNews:
+    """
+    Method:
+        AddUpdate
+    """
 
     def AddUpdate(self):
         """
         Adds the current onscreen update to the Update File
         Validates with a presences check
         Calls the Home Frame
-
         """
         if Validation.PresentsCheck( self.txtAddUpdate.get("1.0",'end-1c')) == True:
             updates = SystemToolKit.readFile(Config.UpdatesFile)
@@ -30,11 +33,21 @@ class AddNews:
 
 
 class AddNewsAdmin(tk.Frame,AddNews):
+    """
+    Method:
+        __init__
+    Variables:
+        controller
+        addUpdateButton - Add Update Button Widget
+        lblAddUpdate - Add Update Label Widget
+        txtAddUpdate - Add Update Entry Widget
+        BackButton -Back Button Widget
+
+    """
 
     def __init__(self, parent, controller):
         """
         Initalises a frame instance of Add News At Admin Access Level
-
         """
         tk.Frame.__init__(self, parent)
         self.controller = controller
@@ -61,11 +74,17 @@ class AddNewsAdmin(tk.Frame,AddNews):
         self.BackButton.grid(row =1,column = 2)
 
 class AddNewsPlayer(tk.Frame,AddNews):
+    """
+    Method:
+        __init__
+    Variables:
+        controller
+
+    """
 
     def __init__(self, parent, controller):
         """
         Initalises a frame instance of Add News At Player Access Level
-
         """
         tk.Frame.__init__(self, parent)
         self.controller = controller
@@ -78,11 +97,17 @@ class AddNewsPlayer(tk.Frame,AddNews):
 
 
 class AddNewsCoach(tk.Frame,AddNews):
+    """
+    Method:
+        __init__
+    Variables:
+        controller
+
+    """
 
     def __init__(self, parent, controller):
         """
         Initalises a frame instance of Add News At Coach Access Level
-
         """
         tk.Frame.__init__(self, parent)
         self.controller = controller

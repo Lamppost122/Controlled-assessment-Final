@@ -8,8 +8,25 @@ import Config
 from Validation import *
 
 class MatchScreen:
+    """
+    Methods:
+        get_Team_Matches
+        GetMyTeam
+        GetMyMatches
+    Variables:
+         lblOpposition - Oppositon Label Widget
+         lblDate - Date Label Widget
+         lblTime - Time Label Widget
+         lblLocation - Locatin Label Widget
+
+
+
+    """
 
     def get_Team_Matches(self):
+         """
+         Adds a teams Matches to the screen
+         """
 
          TeamNumber = self.txtTeamNumber.get()
          if Validation.TeamNumber(TeamNumber)==True:
@@ -76,6 +93,7 @@ class MatchScreen:
 
 
     def GetMyTeam(self):
+        """returns the currrent users team id """
         team = SystemToolKit.readFile(Config.TeamFile)
 
         for k,i in enumerate(team):
@@ -84,6 +102,9 @@ class MatchScreen:
                     return i
 
     def GetMyMatches(self):
+         """
+         Adds the current users Matches to the screen
+         """
          TeamID = self.GetMyTeam()
          Data = SystemToolKit.readFile(Config.MatchFile)
          MatchData = Data[TeamID]
@@ -148,6 +169,24 @@ class MatchScreen:
 
 
 class MatchScreenAdmin(tk.Frame,MatchScreen):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        StartCount - Contains a integer that relates to the position of generated widgets during the run time
+        Title - Title Label Widget
+        lblTeam - Team Label Widget
+        txtTeamNumber - Team Number Entry Widget
+        GetTeamMatchesButton - Get Team Matches Button Widget
+        GetMyMatchesButton  -  Get Current User Matches Button Widget
+        ConfirmAvailablityButton - Confirm Availablity Button Widget
+        CheckAvailablityButton - Check Availablity Button Widget
+        ViewAvailablityButton  - View Availablity Button Widget
+        BackButton - Back Button Widget
+        MatchReportButton - Match Report Button Widget
+
+    """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -193,6 +232,24 @@ class MatchScreenAdmin(tk.Frame,MatchScreen):
         self.ViewAvailablityButton.grid(row=3,column =5)
 
 class MatchScreenCoach(tk.Frame,MatchScreen):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        StartCount - Contains a integer that relates to the position of generated widgets during the run time
+        Title - Title Label Widget
+        lblTeam - Team Label Widget
+        txtTeamNumber - Team Number Entry Widget
+        GetTeamMatchesButton - Get Team Matches Button Widget
+        GetMyMatchesButton  -  Get Current User Matches Button Widget
+        ConfirmAvailablityButton - Confirm Availablity Button Widget
+        CheckAvailablityButton - Check Availablity Button Widget
+        ViewAvailablityButton  - View Availablity Button Widget
+        BackButton - Back Button Widget
+        MatchReportButton - Match Report Button Widget
+
+    """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -237,6 +294,24 @@ class MatchScreenCoach(tk.Frame,MatchScreen):
         self.ViewAvailablityButton.grid(row=3,column =5)
 
 class MatchScreenPlayer(tk.Frame,MatchScreen):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        StartCount - Contains a integer that relates to the position of generated widgets during the run time
+        Title - Title Label Widget
+        lblTeam - Team Label Widget
+        txtTeamNumber - Team Number Entry Widget
+        GetTeamMatchesButton - Get Team Matches Button Widget
+        GetMyMatchesButton  -  Get Current User Matches Button Widget
+        ConfirmAvailablityButton - Confirm Availablity Button Widget
+        CheckAvailablityButton - Check Availablity Button Widget
+        ViewAvailablityButton  - View Availablity Button Widget
+        BackButton - Back Button Widget
+        MatchReportButton - Match Report Button Widget
+
+    """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)

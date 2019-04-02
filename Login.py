@@ -11,8 +11,24 @@ from Gui import *
 import Config
 
 class Login:
+    """
+    Methods:
+        CheckDetails
+        Check Passwords
+        Check Username
+    """
 
     def checkDetails(self):
+        """
+        Searches though the User file for any accounts that can met the login requirements
+        These are:
+            Check Password returns true
+            Check Username returns true
+        If these tests are passed the system then goes on to check if the email used to register the account has been confirmed if not the Confirm Email Frame will be open
+        else the home page will be opened.
+
+
+         """
         username = self.txtUsername.get()
         password = self.txtPassword.get()
         users = SystemToolKit.readFile(Config.UserFile)
@@ -39,18 +55,42 @@ class Login:
 
     @staticmethod
     def checkPassword(userHash,password,salt):
+        """
+        Check if generated password has matches hash on record
+        returns a boolean
+        """
         if userHash  == hashlib.sha512(password.encode('utf-8') + salt.encode('utf-8')).hexdigest():
             return True
         else:
             return False
     @staticmethod
     def checkUsername(username,TestUserName):
+        """
+        Checks if username entered matches the correct username for the current account being checked
+        returns a boolean
+        """
+
         if username == TestUserName:
             return True
         else:
             return False
 
 class LoginAdmin(tk.Frame,Login):
+    """
+    Methods:
+        __init__
+
+    Variable:
+        controller
+        Title - Title Label Widget
+        loginButton -Login Button Widget
+        registerButton  - Register Button Widget
+        lblUsername -  Username Label Widget
+        lblPassword - Password Label Widget
+        txtUsername - Username Entry Widget
+        txtPassword - Password Entry Widget
+
+    """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -87,6 +127,21 @@ class LoginAdmin(tk.Frame,Login):
         self.txtPassword.grid(row=2,column = 1)
 
 class LoginPlayer(tk.Frame,Login):
+    """
+    Methods:
+        __init__
+
+    Variable:
+        controller
+        Title - Title Label Widget
+        loginButton -Login Button Widget
+        registerButton  - Register Button Widget
+        lblUsername -  Username Label Widget
+        lblPassword - Password Label Widget
+        txtUsername - Username Entry Widget
+        txtPassword - Password Entry Widget
+
+    """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -123,6 +178,21 @@ class LoginPlayer(tk.Frame,Login):
         self.txtPassword.grid(row=2,column = 1)
 
 class LoginCoach(tk.Frame,Login):
+    """
+    Methods:
+        __init__
+
+    Variable:
+        controller
+        Title - Title Label Widget
+        loginButton -Login Button Widget
+        registerButton  - Register Button Widget
+        lblUsername -  Username Label Widget
+        lblPassword - Password Label Widget
+        txtUsername - Username Entry Widget
+        txtPassword - Password Entry Widget
+
+    """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)

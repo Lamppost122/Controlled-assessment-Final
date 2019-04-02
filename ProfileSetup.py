@@ -6,13 +6,16 @@ from tkinter import ttk
 from Gui import *
 import Config
 class ProfileSetup:
+    """
+    Methods:
+        getPlayerData
+        addNewPlayers
 
-    def BackButtonRun(self):
-        Config.PagesViewed.pop()
-        self.controller.show_previous_frame(Config.PagesViewed[-1])
 
+    """
 
     def getPlayerData(self):
+        """returns firstName , lastName, phoneNumber, address, postCode, DOB (All strings) """
         firstName = self.txtFirstName.get()
         lastName = self.txtLastName.get()
         phoneNumber = self.txtPhoneNumber.get()
@@ -23,7 +26,8 @@ class ProfileSetup:
         return firstName , lastName, phoneNumber, address, postCode, DOB
 
     def addNewPlayer(self,controller):
-        global CurrentUser
+        """Updates the player file """
+
         firstName , lastName, phoneNumber, address, postCode, DOB = self.getPlayerData()
 
         data = {}
@@ -51,6 +55,28 @@ class ProfileSetup:
 
 class ProfileSetupPlayer(tk.Frame,ProfileSetup):
 
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        lblFirstName - First Name Label Widget
+        lblLastName - Last Name Label Widget
+        lblPhoneNumber Phone number Label Widget
+        lblAddress - Address Label Widget
+        lblPostcode - Postcode Label Widget
+        lblDateOfBirth - Date of Birth Label Widget
+        txtFirstName - First Name Entry Widget
+        txtLastName - Last Name Entry Widget
+        txtPhoneNumber - Phone Number Entry Widget
+        txtAddress - Address Entry Widget
+        txtPostcode - Postcode Entry Widget
+        txtDateOfBirth - Date Of Birth Entry Widget
+        SubmitButton - Submit Button Widget
+        BackButton - Back Button Widget
+
+    """
+
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
@@ -70,7 +96,7 @@ class ProfileSetupPlayer(tk.Frame,ProfileSetup):
         self.txtPostcode = ttk.Entry(self)
         self.txtDateOfBirth = ttk.Entry(self)
         self.SubmitButton= tk.Button(self, text="Submit",command=lambda: self.addNewPlayer(controller) )
-        self.BackButton= tk.Button(self, text="Back",command=self.BackButtonRun)
+        self.BackButton= tk.Button(self, text="Back",command = lambda:SystemToolKit.BackButtonRun(controller))
 
         """ Widget Stylings """
 
@@ -101,6 +127,27 @@ class ProfileSetupPlayer(tk.Frame,ProfileSetup):
         self.BackButton.grid(row=9,column = 0,columnspan = 2)
 
 class ProfileSetupCoach(tk.Frame,ProfileSetup):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        lblFirstName - First Name Label Widget
+        lblLastName - Last Name Label Widget
+        lblPhoneNumber Phone number Label Widget
+        lblAddress - Address Label Widget
+        lblPostcode - Postcode Label Widget
+        lblDateOfBirth - Date of Birth Label Widget
+        txtFirstName - First Name Entry Widget
+        txtLastName - Last Name Entry Widget
+        txtPhoneNumber - Phone Number Entry Widget
+        txtAddress - Address Entry Widget
+        txtPostcode - Postcode Entry Widget
+        txtDateOfBirth - Date Of Birth Entry Widget
+        SubmitButton - Submit Button Widget
+        BackButton - Back Button Widget
+
+    """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -109,7 +156,7 @@ class ProfileSetupCoach(tk.Frame,ProfileSetup):
         """ Widget Declearations """
 
         self.SubmitButton= tk.Button(self, text="Submit",command=lambda: self.addNewPlayer(controller) )
-        self.BackButton= tk.Button(self, text="Back",command=self.BackButtonRun)
+        self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
         self.lblFirstName= tk.Label(self,text=" First Name :")
         self.lblLastName= tk.Label(self,text=" Last Name :")
         self.lblPhoneNumber= tk.Label(self,text=" Phone Number :")
@@ -152,6 +199,27 @@ class ProfileSetupCoach(tk.Frame,ProfileSetup):
         self.BackButton.grid(row=9,column = 0,columnspan = 2)
 
 class ProfileSetupAdmin(tk.Frame,ProfileSetup):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        lblFirstName - First Name Label Widget
+        lblLastName - Last Name Label Widget
+        lblPhoneNumber Phone number Label Widget
+        lblAddress - Address Label Widget
+        lblPostcode - Postcode Label Widget
+        lblDateOfBirth - Date of Birth Label Widget
+        txtFirstName - First Name Entry Widget
+        txtLastName - Last Name Entry Widget
+        txtPhoneNumber - Phone Number Entry Widget
+        txtAddress - Address Entry Widget
+        txtPostcode - Postcode Entry Widget
+        txtDateOfBirth - Date Of Birth Entry Widget
+        SubmitButton - Submit Button Widget
+        BackButton - Back Button Widget
+
+    """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -159,7 +227,7 @@ class ProfileSetupAdmin(tk.Frame,ProfileSetup):
 
         """ Widget Declearations """
 
-        self.BackButton= tk.Button(self, text="Back",command=self.BackButtonRun)
+        self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
         self.lblFirstName= tk.Label(self,text=" First Name :")
         self.lblLastName= tk.Label(self,text=" Last Name :")
         self.lblPhoneNumber= tk.Label(self,text=" Phone Number :")

@@ -10,6 +10,16 @@ import Config
 from SystemToolKit import *
 
 class BackUp:
+    """
+    Methods:
+        writeToScreen
+        createBackUp
+        Child
+        Parent
+        Grandparent
+        RecoveryName
+        RecoverBackup
+    """
 
     def writeToScreen(self,FileName):
         """
@@ -24,7 +34,6 @@ class BackUp:
     def createBackUp(self,FileName):
         """
         Creates a new set of backup and updates the BackupListFile
-
         """
         with open(FileName)as fp:
             Data = json.load(fp)
@@ -43,7 +52,6 @@ class BackUp:
                     NewName=self.Parent(j)
                 if i == "Grandparent":
                     NewName =self.GrandParent(j)
-                print(NewName)
 
                 shutil.copy(j,NewName)
                 Names.append(NewName)
@@ -87,7 +95,6 @@ class BackUp:
         """
         Converts a Grandparent backup File Name to a post-Grandparent Backup File Name
         returns a post-Grandparent Backup File Name(string)
-
         """
 
         SplitName = FileName.split(".")
@@ -139,73 +146,95 @@ class BackUp:
                 json.dump(Data,fp)
 
 class BackUpAdmin(tk.Frame,BackUp):
+    """
+    Method:
+        __init__
+    Variables:
+        controller
+        Title - Title Label Widget
+        PastBackupsList  - Past Back ups Listbox Widget
+        getBackupListButton  - Get BackUp Button Widget
+        createBackUpButton - Create BackUp Button Widget
+        recoverBackUpButton  - Recover BackUp Button Widget
+        BackButton - Back Button Widget
+    """
 
-        def __init__(self, parent, controller):
-            """
-            Initalises a frame instance of BackUp At Admin Access Level
+    def __init__(self, parent, controller):
+        """
+        Initalises a frame instance of BackUp At Admin Access Level
+        """
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
 
-            """
-            tk.Frame.__init__(self, parent)
-            self.controller = controller
+        """ Widget Declearations """
 
-            """ Widget Declearations """
+        self.Title =tk.Label(self,text="BackUps",font = controller.title_font)
+        self.PastBackupsList = tk.Listbox(self)
+        self.getBackupListButton = tk.Button(self,text="Get Back Ups",command = lambda: self.writeToScreen(Config.BackupListFile))
+        self.createBackUpButton = tk.Button(self,text="Create Back up",command =lambda: self.createBackUp(Config.BackupListFile))
+        self.recoverBackUpButton = tk.Button(self,text="Recover Back up",command =lambda: self.RecoverBackUp(Config.BackupListFile))
+        self.BackButton = tk.Button(self,text = "Back",command = lambda:SystemToolKit.BackButtonRun(controller))
 
-            self.Title =tk.Label(self,text="BackUps",font = controller.title_font)
-            self.PastBackupsList = tk.Listbox(self)
-            self.getBackupListButton = tk.Button(self,text="Get Back Ups",command = lambda: self.writeToScreen(Config.BackupListFile))
-            self.createBackUpButton = tk.Button(self,text="Create Back up",command =lambda: self.createBackUp(Config.BackupListFile))
-            self.recoverBackUpButton = tk.Button(self,text="Recover Back up",command =lambda: self.RecoverBackUp(Config.BackupListFile))
-            self.BackButton = tk.Button(self,text = "Back",command = lambda:SystemToolKit.BackButtonRun(controller))
+        """ Widget Stylings """
 
-            """ Widget Stylings """
+        self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+        self.getBackupListButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.createBackUpButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.recoverBackUpButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.PastBackupsList.config(background="white")
 
-            self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
-            self.getBackupListButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
-            self.createBackUpButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
-            self.recoverBackUpButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
-            self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
-            self.PastBackupsList.config(background="white")
+        """ Widget Positions """
 
-            """ Widget Positions """
-
-            self.Title.grid(row = 0,column =0,columnspan=2)
-            self.PastBackupsList.grid(row= 1,column= 0,rowspan=4)
-            self.getBackupListButton.grid(row = 1,column =1)
-            self.createBackUpButton.grid(row=2,column = 1)
-            self.recoverBackUpButton.grid(row=3,column = 1)
-            self.BackButton.grid(row=4,column=1)
+        self.Title.grid(row = 0,column =0,columnspan=2)
+        self.PastBackupsList.grid(row= 1,column= 0,rowspan=4)
+        self.getBackupListButton.grid(row = 1,column =1)
+        self.createBackUpButton.grid(row=2,column = 1)
+        self.recoverBackUpButton.grid(row=3,column = 1)
+        self.BackButton.grid(row=4,column=1)
 
 
 class BackUpPlayer(tk.Frame,BackUp):
+    """
+    Method:
+        __init__
+    Variables:
+        controller
 
-        def __init__(self, parent, controller):
-            """
-            Initalises a frame instance of BackUp At Player Access Level
+    """
 
-            """
-            tk.Frame.__init__(self, parent)
-            self.controller = controller
+    def __init__(self, parent, controller):
+        """
+        Initalises a frame instance of BackUp At Player Access Level
+        """
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
 
-            """ Widget Declearations """
+        """ Widget Declearations """
 
-            """ Widget Stlyings """
+        """ Widget Stlyings """
 
-            """ Widget Positions """
+        """ Widget Positions """
 
 
 class BackUpCoach(tk.Frame,BackUp):
+    """
+    Method:
+        __init__
+    Variables:
+        controller
 
-        def __init__(self, parent, controller):
-            """
-            Initalises a frame instance of BackUp At Coach Access Level
+    """
 
-            """
-            tk.Frame.__init__(self, parent)
-            self.controller = controller
+    def __init__(self, parent, controller):
+        """
+        Initalises a frame instance of BackUp At Coach Access Level
+        """
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
 
-            """ Widget Declearations """
+        """ Widget Declearations """
 
-            """ Widget Stlyings """
+        """ Widget Stlyings """
 
-            """ Widget Positions """
-
+        """ Widget Positions """

@@ -9,11 +9,27 @@ from SystemToolKit import *
 from SystemToolKit import *
 
 class PlayerStats:
-    def BackButtonRun(self):
-        Config.PagesViewed.pop()
-        self.controller.show_previous_frame(Config.PagesViewed[-1])
+    """
+    Methods:
+        GetPlayersStats
+        GetPlayerName
+    Variables:
+        lblPlayerName - Player Names Label Widget
+        lblLifeTimeGoals - Life time Goal Label Widget
+        lblLifeTimeGreenCards - Life time Green Card Label Widget
+        lblLifeTimeYellowCards - Life time Yellow Cards Label Widget
+        lblLifeTimeRedCards - Life time Red Cards Label Widget
+        lblLifeTimeGames - Life time Games Label Widget
+        lblSeasonGoals - Season Goals Label Widget
+        lblSeasonGames - Season Games Label Widget
+        lblSeasonGreenCards - Season Green Cards Label Widget
+        lblSeasonYellowCards - Season Yellow Cards Label Widget
+        lblSeasonRedCards - Season Red Cards Label Widget
+
+    """
 
     def GetPlayersStats(self):
+        """ Adds player Stats to the screen """
         Data = SystemToolKit.readFile(Config.PlayerStatsFile)
         TeamID =SystemToolKit.getTeamId(self.txtTeamNumber.get())
         TeamData = Data[TeamID]
@@ -106,93 +122,132 @@ class PlayerStats:
 
 
     def GetPlayerName(self,PlayerID):
+        """ returns player name(String)"""
         Players =SystemToolKit.readFile(Config.PlayerFile)
         return Players[PlayerID]["First name"]+" "+Players[PlayerID]["Last name"]
 
 class PlayerStatsAdmin(tk.Frame,PlayerStats):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        Title - Title Label Widget
+        lblTeamNumber -Team Number Label widget
+        txtTeamNumber - Team Number Entry Widget
+        GetPlayersButton - Get Player Button Widget
+        BackButton - Back Button Label Widget
 
-        def __init__(self, parent, controller):
-            tk.Frame.__init__(self, parent)
-            self.controller = controller
+    """
 
-            """ Widget Declearations """
 
-            self.Title=tk.Label(self,text="Players Stats",font=controller.title_font)
-            self.lblTeamNumber = tk.Label(self,text="Team Number: ")
-            self.txtTeamNumber = tk.Entry(self)
-            self.GetPlayersButton =tk.Button(self,text="Get Player Stats",command=lambda:self.GetPlayersStats())
-            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
-            """ Widget Stylings """
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
 
-            self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
-            self.lblTeamNumber.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-            self.GetPlayersButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
-            self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        """ Widget Declearations """
 
-            """ Widget Positions """
+        self.Title=tk.Label(self,text="Players Stats",font=controller.title_font)
+        self.lblTeamNumber = tk.Label(self,text="Team Number: ")
+        self.txtTeamNumber = tk.Entry(self)
+        self.GetPlayersButton =tk.Button(self,text="Get Player Stats",command=lambda:self.GetPlayersStats())
+        self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
-            self.Title.grid(row=0,column =0)
-            self.lblTeamNumber.grid(row=1,column=0)
-            self.txtTeamNumber.grid(row=1,column =1)
-            self.GetPlayersButton.grid(row=1,column =2)
-            self.BackButton.grid(row=1,column=3)
+        """ Widget Stylings """
+
+        self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+        self.lblTeamNumber.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.GetPlayersButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+
+        """ Widget Positions """
+
+        self.Title.grid(row=0,column =0)
+        self.lblTeamNumber.grid(row=1,column=0)
+        self.txtTeamNumber.grid(row=1,column =1)
+        self.GetPlayersButton.grid(row=1,column =2)
+        self.BackButton.grid(row=1,column=3)
 
 class PlayerStatsPlayer(tk.Frame,PlayerStats):
 
-        def __init__(self, parent, controller):
-            tk.Frame.__init__(self, parent)
-            self.controller = controller
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        Title - Title Label Widget
+        lblTeamNumber -Team Number Label widget
+        txtTeamNumber - Team Number Entry Widget
+        GetPlayersButton - Get Player Button Widget
+        BackButton - Back Button Label Widget
 
-            """ Widget Declearations """
+    """
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
 
-            self.Title=tk.Label(self,text="Players Stats",font=controller.title_font)
-            self.lblTeamNumber = tk.Label(self,text="Team Number: ")
-            self.txtTeamNumber = tk.Entry(self)
-            self.GetPlayersButton =tk.Button(self,text="Get Player Stats",command=lambda:self.GetPlayersStats())
-            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
+        """ Widget Declearations """
 
-            """ Widget Stylings """
+        self.Title=tk.Label(self,text="Players Stats",font=controller.title_font)
+        self.lblTeamNumber = tk.Label(self,text="Team Number: ")
+        self.txtTeamNumber = tk.Entry(self)
+        self.GetPlayersButton =tk.Button(self,text="Get Player Stats",command=lambda:self.GetPlayersStats())
+        self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
-            self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
-            self.lblTeamNumber.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-            self.GetPlayersButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
-            self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        """ Widget Stylings """
 
-            """ Widget Positions """
+        self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+        self.lblTeamNumber.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.GetPlayersButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
 
-            self.Title.grid(row=0,column =0)
-            self.lblTeamNumber.grid(row=1,column=0)
-            self.txtTeamNumber.grid(row=1,column =1)
-            self.GetPlayersButton.grid(row=1,column =2)
-            self.BackButton.grid(row=1,column=3)
+        """ Widget Positions """
+
+        self.Title.grid(row=0,column =0)
+        self.lblTeamNumber.grid(row=1,column=0)
+        self.txtTeamNumber.grid(row=1,column =1)
+        self.GetPlayersButton.grid(row=1,column =2)
+        self.BackButton.grid(row=1,column=3)
 
 
 class PlayerStatsCoach(tk.Frame,PlayerStats):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        Title - Title Label Widget
+        lblTeamNumber -Team Number Label widget
+        txtTeamNumber - Team Number Entry Widget
+        GetPlayersButton - Get Player Button Widget
+        BackButton - Back Button Label Widget
 
-        def __init__(self, parent, controller):
-            tk.Frame.__init__(self, parent)
-            self.controller = controller
+    """
 
-            """ Widget Declearations """
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
 
-            self.Title=tk.Label(self,text="Players Stats",font=controller.title_font)
-            self.lblTeamNumber = tk.Label(self,text="Team Number: ")
-            self.txtTeamNumber = tk.Entry(self)
-            self.GetPlayersButton =tk.Button(self,text="Get Player Stats",command=lambda:self.GetPlayersStats())
-            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
+        """ Widget Declearations """
 
-            """ Widget Stylings """
+        self.Title=tk.Label(self,text="Players Stats",font=controller.title_font)
+        self.lblTeamNumber = tk.Label(self,text="Team Number: ")
+        self.txtTeamNumber = tk.Entry(self)
+        self.GetPlayersButton =tk.Button(self,text="Get Player Stats",command=lambda:self.GetPlayersStats())
+        self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
-            self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
-            self.lblTeamNumber.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-            self.GetPlayersButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
-            self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        """ Widget Stylings """
 
-            """ Widget Positions """
+        self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+        self.lblTeamNumber.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.GetPlayersButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
 
-            self.Title.grid(row=0,column =0)
-            self.lblTeamNumber.grid(row=1,column=0)
-            self.txtTeamNumber.grid(row=1,column =1)
-            self.GetPlayersButton.grid(row=1,column =2)
-            self.BackButton.grid(row=1,column=3)
+        """ Widget Positions """
+
+        self.Title.grid(row=0,column =0)
+        self.lblTeamNumber.grid(row=1,column=0)
+        self.txtTeamNumber.grid(row=1,column =1)
+        self.GetPlayersButton.grid(row=1,column =2)
+        self.BackButton.grid(row=1,column=3)

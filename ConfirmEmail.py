@@ -9,6 +9,11 @@ from Login import *
 import Config
 
 class ConfirmEmail:
+    """
+    Methods:
+        CheckConfirmEmail
+
+    """
 
     def CheckConfirmEmail(self):
         """
@@ -30,11 +35,21 @@ class ConfirmEmail:
 
 
 class ConfirmEmailAdmin(tk.Frame,ConfirmEmail):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        title - Title Label Widget
+        lblText  - Confirm Email Label Widget
+        txtConfirm - Confirm Entry Widget
+        ConfirmButton - Confirm Button Widget
+
+    """
 
     def __init__(self, parent, controller):
         """
         Initalises a frame instance of ConfirmEmail At Admin Access Level
-
         """
         tk.Frame.__init__(self, parent)
         self.controller = controller
@@ -60,11 +75,21 @@ class ConfirmEmailAdmin(tk.Frame,ConfirmEmail):
         self.ConfirmButton.grid(row=2,column =1 )
 
 class ConfirmEmailPlayer(tk.Frame,ConfirmEmail):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        title - Title Label Widget
+        lblText  - Confirm Email Label Widget
+        txtConfirm - Confirm Entry Widget
+        ConfirmButton - Confirm Button Widget
+
+    """
 
     def __init__(self, parent, controller):
         """
         Initalises a frame instance of ConfirmEmail At Player Access Level
-
         """
         tk.Frame.__init__(self, parent)
         self.controller = controller
@@ -90,11 +115,21 @@ class ConfirmEmailPlayer(tk.Frame,ConfirmEmail):
         self.ConfirmButton.grid(row=2,column =1 )
 
 class ConfirmEmailCoach(tk.Frame,ConfirmEmail):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        title - Title Label Widget
+        lblText  - Confirm Email Label Widget
+        txtConfirm - Confirm Entry Widget
+        ConfirmButton - Confirm Button Widget
+
+    """
 
     def __init__(self, parent, controller):
         """
         Initalises a frame instance of ConfirmEmail At Coach Access Level
-
         """
         tk.Frame.__init__(self, parent)
         self.controller = controller

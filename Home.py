@@ -7,10 +7,21 @@ from Gui import *
 import Config
 
 class Home:
+    """
+    Methods:
+        GetData
 
-    def BackButtonRun(self):
-        Config.PagesViewed.pop()
-        self.controller.show_previous_frame(Config.PagesViewed[-1])
+    Variables:
+        controller
+        lblDataFirstName - Firstname Data display Label Widget
+        lblDataLastName - Lastname Data display Label Widget
+        lblDataPhoneNumber - Phone Number Data  display Label Widget
+        lblDataAddress - Address Data display Label Widget
+        lblDataPostcode - Postcode Data display Label Widget
+        lblDataDateOfBirth - Date of Birth Data Display Label Widget
+        lblDataTeam - Team Number Data display Label Widget
+
+    """
 
     def GetData(self):
         try:
@@ -70,6 +81,27 @@ class Home:
 
 
 class HomePlayer(tk.Frame,Home):
+    """
+    Methods:
+        __init__
+
+    Variables:
+        controller
+        titleProfile - Title Label Widget
+        lblFirstName - First Name Label Widget
+        lblLastName - Last Name Label Widget
+        lblPhoneNumber - Phone Number Label Widget
+        lblAddress - Address Label Widget
+        lblPostcode - Postcode Label Widget
+        lblDateOfBirth - Date Of Birth Label Widget
+        lblTeam - Team Label Widget
+        GetDataButton - Get Data Button Widget
+        MatchButton - Match Screen  Button Widget
+        AddPlayerButton - Profile Setup Button Widget
+        NewsButton - News/ Update Button Widget
+        BackButton - Back Button Widget
+
+    """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -124,6 +156,29 @@ class HomePlayer(tk.Frame,Home):
         self.AddPlayerButton.grid(row=4,column=3)
 
 class HomeCoach(tk.Frame,Home):
+    """
+    Methods:
+        __init__
+
+    Variables:
+        controller
+        titleProfile - Title Label Widget
+        lblFirstName - First Name Label Widget
+        lblLastName - Last Name Label Widget
+        lblPhoneNumber - Phone Number Label Widget
+        lblAddress - Address Label Widget
+        lblPostcode - Postcode Label Widget
+        lblDateOfBirth - Date Of Birth Label Widget
+        lblTeam - Team Label Widget
+        GetDataButton - Get Data Button Widget
+        MatchButton - Match Screen  Button Widget
+        AddPlayerButton - Profile Setup Button Widget
+        NewsButton - News/ Update Button Widget
+        BackButton - Back Button Widget
+        PlayerStatsButton - Player statistics Button Widget
+        AdminCommandsButton- Admin commands Button Widget
+
+    """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -186,6 +241,28 @@ class HomeCoach(tk.Frame,Home):
 
 
 class HomeAdmin(tk.Frame,Home):
+    """
+    Methods:
+        __init__
+
+    Variables:
+        titleProfile - Title Label Widget
+        lblFirstName - First Name Label Widget
+        lblLastName - Last Name Label Widget
+        lblPhoneNumber - Phone Number Label Widget
+        lblAddress - Address Label Widget
+        lblPostcode - Postcode Label Widget
+        lblDateOfBirth - Date Of Birth Label Widget
+        lblTeam - Team Label Widget
+        GetDataButton - Get Data Button Widget
+        MatchButton - Match Screen  Button Widget
+        AddPlayerButton - Profile Setup Button Widget
+        NewsButton - News/ Update Button Widget
+        BackButton - Back Button Widget
+        PlayerStatsButton - Player statistics Button Widget
+        AdminCommandsButton- Admin commands Button Widget
+
+    """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)

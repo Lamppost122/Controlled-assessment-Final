@@ -16,8 +16,28 @@ import random
 import  Config
 
 class Register:
+    """
+    Methods:
+        registers
+        getRegisterData
+        addNewUser
+        sendEmailConformation
+    Variables:
+        username - Contain a username(string)
+        confirmUsername - Contains a confirmUser Name(string)
+        password - Contains a Password(string)
+        confirmPassword - Contains a Confirm Password(string)
+        Email - Contains a Email Address(string)
+        accessLevel - Contains a access Level(string)
+        ValidEmail - Contains a ValdidEmail(boolean)
+        confirmationCode - contains a confirmation code(integer)
+
+    """
 
     def registers(self):
+        """
+        If the data passes the valiatin a new user in created and added to the user file
+        calls the login frame """
         self.getRegisterData()
         error = self.addNewUser()
         if error == False:
@@ -27,6 +47,7 @@ class Register:
 
 
     def getRegisterData(self):
+        """Get the data from the screen """
 
         self.username =  self.txtUsername.get()
         self.confirmUsername = self.txtConfirmUsername.get()
@@ -40,6 +61,7 @@ class Register:
 
 
     def addNewUser(self):
+        """Adds a new user to the user file  """
 
         data = {}
         users={}
@@ -76,6 +98,7 @@ class Register:
 
 
     def sendEmailConformation(self):
+        """Sends out a confirmation code """
 
         msg = MIMEMultipart()
         text = "Confirmation code: "
@@ -92,6 +115,29 @@ class Register:
 
 
 class RegisterAdmin(tk.Frame,Register):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        Title - Title Label Widget
+        loginButton - Login Button Widget
+        registerButton - Register Button Widget
+        lblUsername  - Username Label Widget
+        lblPassword -   Password Label Widget
+        lblConfirmUsername - Confirm Username Label Widget
+        lblConfirmPassword - Confrim Password Label Widget
+        lblEmail - Email Label Widget
+        txtUsername - Username Entry widget
+        txtConfirmUsername  - Confirm Username Entry widget
+        txtPassword - Password Entry widget
+        txtConfirmPassword - Confirm Password Entry widget
+        txtEmail - Email Entry widget
+        lblAccessLevel  -Access Level Label Widget
+        var - Contains the cmbAccessLevel options
+        cmbAccessLevel - Acces Level Option Menu Widget
+
+    """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -150,6 +196,28 @@ class RegisterAdmin(tk.Frame,Register):
         self.cmbAccessLevel.grid(row=6,column = 1)
 
 class RegisterCoach(tk.Frame,Register):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        Title - Title Label Widget
+        loginButton - Login Button Widget
+        registerButton - Register Button Widget
+        lblUsername  - Username Label Widget
+        lblPassword -   Password Label Widget
+        lblConfirmUsername - Confirm Username Label Widget
+        lblConfirmPassword - Confrim Password Label Widget
+        lblEmail - Email Label Widget
+        txtUsername - Username Entry widget
+        txtConfirmUsername  - Confirm Username Entry widget
+        txtPassword - Password Entry widget
+        txtConfirmPassword - Confirm Password Entry widget
+        txtEmail - Email Entry widget
+        lblAccessLevel  -Access Level Label Widget
+        var - Contains the cmbAccessLevel options
+        cmbAccessLevel - Acces Level Option Menu Widget
+    """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -209,6 +277,28 @@ class RegisterCoach(tk.Frame,Register):
         self.cmbAccessLevel.grid(row=6,column = 1)
 
 class RegisterPlayer(tk.Frame,Register):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        Title - Title Label Widget
+        loginButton - Login Button Widget
+        registerButton - Register Button Widget
+        lblUsername  - Username Label Widget
+        lblPassword -   Password Label Widget
+        lblConfirmUsername - Confirm Username Label Widget
+        lblConfirmPassword - Confrim Password Label Widget
+        lblEmail - Email Label Widget
+        txtUsername - Username Entry widget
+        txtConfirmUsername  - Confirm Username Entry widget
+        txtPassword - Password Entry widget
+        txtConfirmPassword - Confirm Password Entry widget
+        txtEmail - Email Entry widget
+        lblAccessLevel  -Access Level Label Widget
+        var - Contains the cmbAccessLevel options
+        cmbAccessLevel - Acces Level Option Menu Widget
+    """
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)

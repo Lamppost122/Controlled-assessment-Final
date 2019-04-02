@@ -5,9 +5,17 @@ import Config
 
 
 class System_init:
+    """
+    Method:
+        FileCreation
+        init__SystemBackUps
+
+
+     """
 
     @staticmethod
     def FileCreation():
+        """This creates file if they do not already exist """
         files = [Config.TeamFile,Config.UserFile,Config.PlayerFile,Config.MatchFile,Config.PlayerStatsFile,Config.UpdatesFile,Config.SeasonFile,Config.BackupListFile,Config.BackupDateFile,Config.MatchAvailablityFile,Config.MatchReportFile]
         for i in files:
             if not os.path.isfile(i):
@@ -31,6 +39,9 @@ class System_init:
 
     @staticmethod
     def init__SystemBackUps():
+        """
+        Initalises the backup file
+        """
         data={
         "Child":[Config.UserFile,Config.PlayerFile,Config.MatchFile,Config.TeamFile,Config.PlayerStatsFile,Config.UpdatesFile,Config.SeasonFile],
         "Parent":[],

@@ -14,9 +14,12 @@ class AddMatch:
         AddMatch
         getTeamMatches
         getMatchData
-
-
-
+    Variables:
+        Team - Contains a team number
+        Location - Contains a location
+        Time- Contains a time
+        Date - Contains a Date
+        Opposition - Contains a opposition
     """
 
 
@@ -24,16 +27,13 @@ class AddMatch:
 
         """
         Adds the current match on the screen to the Match File.
-
         Validates the following fields:
             Team Number
             Location
             Time
             Date
             Opposition
-
         Calls the Home Frame
-
         """
 
         self.getMatchData()
@@ -84,128 +84,168 @@ class AddMatch:
 
 
 class AddMatchCoach(tk.Frame,AddMatch):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        Title - Title Label Widget
+        lblTeam - Team Number Label Widget
+        lblLocation - Location Label Widget
+        lblTime - Time Label Widget
+        lblDay - Day Label Widget
+        lblOpposition - Opposition Label Widget
+        txtTeam - Team Entry Widget
+        txtLocation - Location Entry Widget
+        txtTime - Time Entry Widget
+        txtDate - Date Entry Widget
+        txtOpposition - Opposition Entry Widget
+        AddMatchButton - AddMatch Button Widget
+        BackButton - Back Button Widget
+        """
+    def __init__(self, parent, controller):
+        """
+        Initalises a frame instance of Add Match At Coach Access Level
+        """
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
 
-        def __init__(self, parent, controller):
-            """
-            Initalises a frame instance of Add Match At Coach Access Level
+        """ Widget Declearations """
 
-            """
-            tk.Frame.__init__(self, parent)
-            self.controller = controller
+        self.Title = tk.Label(self,text = "Add Match" ,font = controller.title_font)
+        self.lblTeam= tk.Label(self,text="Team: ")
+        self.lblLocation =tk.Label(self,text="Location: ")
+        self.lblTime = tk.Label(self,text="Time: ")
+        self.lblDay = tk.Label(self,text="Day: ")
+        self.lblOpposition = tk.Label(self,text="Opposition: ")
+        self.txtTeam = ttk.Entry(self)
+        self.txtLocation = ttk.Entry(self)
+        self.txtTime = ttk.Entry(self)
+        self.txtDate = ttk.Entry(self)
+        self.txtOpposition = ttk.Entry(self)
+        self.AddMatchButton = tk.Button(self,text="Add Match",command = lambda:self.AddMatch())
+        self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
-            """ Widget Declearations """
+        """ Widget Stylings """
 
-            self.Title = tk.Label(self,text = "Add Match" ,font = controller.title_font)
-            self.lblTeam= tk.Label(self,text="Team: ")
-            self.lblLocation =tk.Label(self,text="Location: ")
-            self.lblTime = tk.Label(self,text="Time: ")
-            self.lblDay = tk.Label(self,text="Day: ")
-            self.lblOpposition = tk.Label(self,text="Opposition: ")
-            self.txtTeam = ttk.Entry(self)
-            self.txtLocation = ttk.Entry(self)
-            self.txtTime = ttk.Entry(self)
-            self.txtDate = ttk.Entry(self)
-            self.txtOpposition = ttk.Entry(self)
-            self.AddMatchButton = tk.Button(self,text="Add Match",command = lambda:self.AddMatch())
-            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
+        self.Title.config(background="#f4f8ff",fg = "#485e82",pady="5")
+        self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+        self.lblTeam.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblLocation.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblTime.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblDay.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblOpposition.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.AddMatchButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
 
-            """ Widget Stylings """
+        """ Widget Positions """
 
-            self.Title.config(background="#f4f8ff",fg = "#485e82",pady="5")
-            self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
-            self.lblTeam.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-            self.lblLocation.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-            self.lblTime.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-            self.lblDay.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-            self.lblOpposition.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-            self.AddMatchButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
-            self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
-
-            """ Widget Positions """
-
-            self.Title.grid(row=0,column =0,columnspan = 2)
-            self.lblTeam.grid(row=1,column=0)
-            self.lblLocation.grid(row=2,column=0)
-            self.lblTime.grid(row=3,column=0)
-            self.lblDay.grid(row=4,column=0)
-            self.lblOpposition.grid(row=5,column=0)
-            self.txtTeam.grid(row = 1,column = 1)
-            self.txtLocation.grid(row = 2,column = 1)
-            self.txtTime.grid(row = 3,column = 1)
-            self.txtDate.grid(row = 4,column = 1)
-            self.txtOpposition.grid(row = 5,column = 1)
-            self.AddMatchButton.grid(row = 6,column = 1 ,columnspan = 1 )
-            self.BackButton.grid(row = 6,column = 0)
+        self.Title.grid(row=0,column =0,columnspan = 2)
+        self.lblTeam.grid(row=1,column=0)
+        self.lblLocation.grid(row=2,column=0)
+        self.lblTime.grid(row=3,column=0)
+        self.lblDay.grid(row=4,column=0)
+        self.lblOpposition.grid(row=5,column=0)
+        self.txtTeam.grid(row = 1,column = 1)
+        self.txtLocation.grid(row = 2,column = 1)
+        self.txtTime.grid(row = 3,column = 1)
+        self.txtDate.grid(row = 4,column = 1)
+        self.txtOpposition.grid(row = 5,column = 1)
+        self.AddMatchButton.grid(row = 6,column = 1 ,columnspan = 1 )
+        self.BackButton.grid(row = 6,column = 0)
 
 
 class AddMatchAdmin(tk.Frame,AddMatch):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        Title - Title Label Widget
+        lblTeam - Team Number Label Widget
+        lblLocation - Location Label Widget
+        lblTime - Time Label Widget
+        lblDay - Day Label Widget
+        lblOpposition - Opposition Label Widget
+        txtTeam - Team Entry Widget
+        txtLocation - Location Entry Widget
+        txtTime - Time Entry Widget
+        txtDate - Date Entry Widget
+        txtOpposition - Opposition Entry Widget
+        AddMatchButton - AddMatch Button Widget
+        BackButton - Back Button Widget
+        """
 
-        def __init__(self, parent, controller):
-            """
-            Initalises a frame instance of Add Match At Player Access Level
+    def __init__(self, parent, controller):
+        """
+        Initalises a frame instance of Add Match At Player Access Level
+        """
+        tk.Frame.__init__(self, parent)
 
-            """
-            tk.Frame.__init__(self, parent)
+        self.controller = controller
 
-            self.controller = controller
+        """ Widget Declearations """
 
-            """ Widget Declearations """
+        self.Title = tk.Label(self,text = "Add Match" ,font = controller.title_font)
+        self.lblTeam= tk.Label(self,text="Team: ")
+        self.lblLocation =tk.Label(self,text="Location: ")
+        self.lblTime = tk.Label(self,text="Time: ")
+        self.lblDay = tk.Label(self,text="Day: ")
+        self.lblOpposition = tk.Label(self,text="Opposition: ")
+        self.txtTeam = ttk.Entry(self)
+        self.txtLocation = ttk.Entry(self)
+        self.txtTime = ttk.Entry(self)
+        self.txtDate = ttk.Entry(self)
+        self.txtOpposition = ttk.Entry(self)
+        self.AddMatchButton = tk.Button(self,text="Add Match",command = lambda:self.AddMatch())
+        self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
-            self.Title = tk.Label(self,text = "Add Match" ,font = controller.title_font)
-            self.lblTeam= tk.Label(self,text="Team: ")
-            self.lblLocation =tk.Label(self,text="Location: ")
-            self.lblTime = tk.Label(self,text="Time: ")
-            self.lblDay = tk.Label(self,text="Day: ")
-            self.lblOpposition = tk.Label(self,text="Opposition: ")
-            self.txtTeam = ttk.Entry(self)
-            self.txtLocation = ttk.Entry(self)
-            self.txtTime = ttk.Entry(self)
-            self.txtDate = ttk.Entry(self)
-            self.txtOpposition = ttk.Entry(self)
-            self.AddMatchButton = tk.Button(self,text="Add Match",command = lambda:self.AddMatch())
-            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
+        """ Widget Stylings """
 
-            """ Widget Stylings """
+        self.Title.config(background="#f4f8ff",fg = "#485e82",pady="5")
+        self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+        self.lblTeam.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblLocation.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblTime.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblDay.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.lblOpposition.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.AddMatchButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
 
-            self.Title.config(background="#f4f8ff",fg = "#485e82",pady="5")
-            self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
-            self.lblTeam.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-            self.lblLocation.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-            self.lblTime.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-            self.lblDay.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-            self.lblOpposition.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-            self.AddMatchButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
-            self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        """ Widget Positions """
 
-            """ Widget Positions """
-
-            self.Title.grid(row=0,column =0,columnspan = 2)
-            self.lblTeam.grid(row=1,column=0)
-            self.lblLocation.grid(row=2,column=0)
-            self.lblTime.grid(row=3,column=0)
-            self.lblDay.grid(row=4,column=0)
-            self.lblOpposition.grid(row=5,column=0)
-            self.txtTeam.grid(row = 1,column = 1)
-            self.txtLocation.grid(row = 2,column = 1)
-            self.txtTime.grid(row = 3,column = 1)
-            self.txtDate.grid(row = 4,column = 1)
-            self.txtOpposition.grid(row = 5,column = 1)
-            self.AddMatchButton.grid(row = 6,column = 1 ,columnspan = 1 )
-            self.BackButton.grid(row = 6,column = 0)
+        self.Title.grid(row=0,column =0,columnspan = 2)
+        self.lblTeam.grid(row=1,column=0)
+        self.lblLocation.grid(row=2,column=0)
+        self.lblTime.grid(row=3,column=0)
+        self.lblDay.grid(row=4,column=0)
+        self.lblOpposition.grid(row=5,column=0)
+        self.txtTeam.grid(row = 1,column = 1)
+        self.txtLocation.grid(row = 2,column = 1)
+        self.txtTime.grid(row = 3,column = 1)
+        self.txtDate.grid(row = 4,column = 1)
+        self.txtOpposition.grid(row = 5,column = 1)
+        self.AddMatchButton.grid(row = 6,column = 1 ,columnspan = 1 )
+        self.BackButton.grid(row = 6,column = 0)
 
 class AddMatchPlayer(tk.Frame,AddMatch):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        """
 
-        def __init__(self, parent, controller):
-            """
-            Initalises a frame instance of Add Match At Player Access Level
+    def __init__(self, parent, controller):
+        """
+        Initalises a frame instance of Add Match At Player Access Level
+        """
+        tk.Frame.__init__(self, parent)
 
-            """
-            tk.Frame.__init__(self, parent)
+        self.controller = controller
 
-            self.controller = controller
+        """ Widget Declearations """
 
-            """ Widget Declearations """
+        """ Widget Stylings """
 
-            """ Widget Stylings """
-
-            """ Widget Positions """
+        """ Widget Positions """

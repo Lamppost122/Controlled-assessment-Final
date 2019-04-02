@@ -10,12 +10,29 @@ from SystemToolKit import *
 from Validation import *
 
 class EditMatch:
-    def BackButtonRun(self):
-            Config.PagesViewed.pop()
-            self.controller.show_previous_frame(Config.PagesViewed[-1])
-
+    """
+    Methods:
+        GetMatches
+        EditMatch
+    Variables:
+        orderedList - Contains match Ids
+        teamMatches - Contains the matching Data for the Matches in the orderedList
+        lblOpposition - Opposition Heading Label Widget
+        lblDate - Date Heading Label Widget
+        lblTime - Time Heading Label Widget
+        lblLocation - Location Heading Label Widget
+        txtOpposition - Opposition Entry Widget
+        txtDate - Date Entry Widget
+        txtTime - Time Entry Widget
+        txtLocation - Location Entry Widget
+    """
 
     def GetMatches(self):
+
+        """
+        This Function places a series of Entry Widgets containing match data matching a search
+
+        """
 
         self.orderedList = []
         self.teamMatches = []
@@ -95,6 +112,7 @@ class EditMatch:
 
 
     def Edit_Match(self):
+        """ Updates the Match File with changes made"""
 
         count = 0
         error =False
@@ -137,79 +155,114 @@ class EditMatch:
 
 
 class EditMatchAdmin(tk.Frame,EditMatch):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        StartCount - Contains a integer that relates to the position of generated widgets during the run time
+        Title - Title Label Widget
+        lblTeam - Team Number Label Widget
+        txtTeam - Team Number Entry Widget
+        getMatchesButton - Get Match Button Widget
+        EditMatchButton - Edit Match Button Widget
+        BackButton - Back Button Widget
 
-        def __init__(self, parent, controller):
-            tk.Frame.__init__(self, parent)
-            self.controller = controller
-            self.StartCount = 3
+    """
 
-            """ Widget Declearations """
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        self.StartCount = 3
 
-            self.Title = tk.Label(self,text = "Edit Match" ,font = controller.title_font)
-            self.lblTeam = tk.Label(self,text = "Team: ")
-            self.txtTeam = ttk.Entry(self)
-            self.getMatchesButton = tk.Button(self,text = "Get Matches",command = self.GetMatches)
-            self.EditMatchButton = tk.Button(self,text = "Edit Matches",command = self.Edit_Match)
-            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
+        """ Widget Declearations """
 
-            """ Widget Stylings """
+        self.Title = tk.Label(self,text = "Edit Match" ,font = controller.title_font)
+        self.lblTeam = tk.Label(self,text = "Team: ")
+        self.txtTeam = ttk.Entry(self)
+        self.getMatchesButton = tk.Button(self,text = "Get Matches",command = self.GetMatches)
+        self.EditMatchButton = tk.Button(self,text = "Edit Matches",command = self.Edit_Match)
+        self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
-            self.lblTeam.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-            self.getMatchesButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
-            self.EditMatchButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
-            self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
-            self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+        """ Widget Stylings """
 
-            """ Widget Positons """
+        self.lblTeam.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.getMatchesButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.EditMatchButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
 
-            self.Title.grid(row =0,column =0,columnspan =4)
-            self.lblTeam.grid(row =1,column =0)
-            self.txtTeam.grid(row =1,column =1)
-            self.getMatchesButton.grid(row =1,column =2)
-            self.EditMatchButton.grid(row =1,column =3)
-            self.BackButton.grid(row =1,column = 4)
+        """ Widget Positons """
+
+        self.Title.grid(row =0,column =0,columnspan =4)
+        self.lblTeam.grid(row =1,column =0)
+        self.txtTeam.grid(row =1,column =1)
+        self.getMatchesButton.grid(row =1,column =2)
+        self.EditMatchButton.grid(row =1,column =3)
+        self.BackButton.grid(row =1,column = 4)
 
 class EditMatchCoach(tk.Frame,EditMatch):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
+        StartCount - Contains a integer that relates to the position of generated widgets during the run time
+        Title - Title Label Widget
+        lblTeam - Team Number Label Widget
+        txtTeam - Team Number Entry Widget
+        getMatchesButton - Get Match Button Widget
+        EditMatchButton - Edit Match Button Widget
+        BackButton - Back Button Widget
 
-        def __init__(self, parent, controller):
-            tk.Frame.__init__(self, parent)
-            self.controller = controller
-            self.StartCount = 3
+    """
 
-            """ Widget Declearations """
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        self.StartCount = 3
 
-            self.Title = tk.Label(self,text = "Edit Match" ,font = controller.title_font)
-            self.lblTeam = tk.Label(self,text = "Team: ")
-            self.txtTeam = ttk.Entry(self)
-            self.getMatchesButton = tk.Button(self,text = "Get Matches",command = self.GetMatches)
-            self.EditMatchButton = tk.Button(self,text = "Edit Matches",command = self.Edit_Match)
-            self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
+        """ Widget Declearations """
 
-            """ Widget Stylings """
+        self.Title = tk.Label(self,text = "Edit Match" ,font = controller.title_font)
+        self.lblTeam = tk.Label(self,text = "Team: ")
+        self.txtTeam = ttk.Entry(self)
+        self.getMatchesButton = tk.Button(self,text = "Get Matches",command = self.GetMatches)
+        self.EditMatchButton = tk.Button(self,text = "Edit Matches",command = self.Edit_Match)
+        self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
-            self.lblTeam.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
-            self.getMatchesButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
-            self.EditMatchButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
-            self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
-            self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
+        """ Widget Stylings """
 
-            """ Widget Positions """
+        self.lblTeam.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
+        self.getMatchesButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.EditMatchButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.Title.config(background="#8ABFD9",fg = "#404040",pady="5")
 
-            self.Title.grid(row =0,column =0,columnspan =4)
-            self.lblTeam.grid(row =1,column =0)
-            self.txtTeam.grid(row =1,column =1)
-            self.getMatchesButton.grid(row =1,column =2)
-            self.EditMatchButton.grid(row =1,column =3)
-            self.BackButton.grid(row =1,column = 4)
+        """ Widget Positions """
+
+        self.Title.grid(row =0,column =0,columnspan =4)
+        self.lblTeam.grid(row =1,column =0)
+        self.txtTeam.grid(row =1,column =1)
+        self.getMatchesButton.grid(row =1,column =2)
+        self.EditMatchButton.grid(row =1,column =3)
+        self.BackButton.grid(row =1,column = 4)
 
 class EditMatchPlayer(tk.Frame,EditMatch):
+    """
+    Methods:
+        __init__
+    Variables:
+        controller
 
-        def __init__(self, parent, controller):
-            tk.Frame.__init__(self, parent)
-            self.controller = controller
+    """
 
-            """ Widget Declearations """
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
 
-            """ Widget Stylings """
+        """ Widget Declearations """
 
-            """ Widget Positions """
+        """ Widget Stylings """
+
+        """ Widget Positions """
