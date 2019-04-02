@@ -100,7 +100,6 @@ class MatchReport:
 
                     matchData.append(j.get())
                     if len(matchData) == 5:
-                        print matchData[4]
 
                         if Validation.Date(matchData[3])==True and Validation.TeamNumber(matchData[4])==True and Validation.Score(matchData[2])==True and Validation.Score(matchData[1])==True:
                             matchID =self.getMatchID(matchData[3],matchData[4])
@@ -123,7 +122,6 @@ class MatchReport:
             matchReportData = SystemToolKit.readFile(Config.MatchReportFile)
             matchReportID = str(uuid.uuid4())
             matchReportData[matchReportID] = matchReport
-            print matchReportData
             with open(Config.MatchReportFile, 'w') as fp:
                     json.dump(matchReportData, fp)
 
@@ -192,7 +190,6 @@ class MatchReport:
         if matchReport != None:
             for i in matchReport:
                 if i!= "Match Data":
-                    print playersData
                     try:
                         playersData[i]["Life time goals"] += int(matchReport[i]["Goals"])
                         playersData[i]["Season goals"] += int(matchReport[i]["Goals"])

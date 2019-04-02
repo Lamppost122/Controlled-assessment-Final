@@ -33,6 +33,10 @@ class PlayerStats:
         Data = SystemToolKit.readFile(Config.PlayerStatsFile)
         TeamID =SystemToolKit.getTeamId(self.txtTeamNumber.get())
         TeamData = Data[TeamID]
+        for i in self.grid_slaves():
+            if int(i.grid_info()["row"]) >=3:
+                i.grid_forget()
+
 
         """ Widget Declearations """
 
@@ -75,24 +79,31 @@ class PlayerStats:
         self.lblLifeTimeGreenCards.grid(row=3, column =8)
         self.lblLifeTimeYellowCards.grid(row=3, column =9)
         self.lblLifeTimeRedCards.grid(row=3, column =10)
+        if self.var2.get() == "Highest":
+            order = True
+        else:
+            order =False
 
-        TeamData=sorted(TeamData,key=lambda TeamData :TeamData["Last Name"] )
+        SortedTeamData=sorted(TeamData.items() ,  key=lambda x: x[1][self.var1.get()],reverse=order)
 
-        for j,i in enumerate(TeamData):
+        for j,i in enumerate(SortedTeamData):
+
+
+            playerID = i[0]
 
             """ Widget Declearations """
 
-            self.lblPlayerName =tk.Label(self,text=self.GetPlayerName(i))
-            self.lblLifeTimeGoals =tk.Label(self,text=TeamData[i]["Life time goals"])
-            self.lblLifeTimeGreenCards =tk.Label(self,text=TeamData[i]["Life time green cards"])
-            self.lblLifeTimeYellowCards =tk.Label(self,text=TeamData[i]["Life time yellow cards"])
-            self.lblLifeTimeRedCards =tk.Label(self,text=TeamData[i]["Life time red cards"])
-            self.lblLifeTimeGames =tk.Label(self,text=TeamData[i]["Life time Games"])
-            self.lblSeasonGoals =tk.Label(self,text=TeamData[i]["Season goals"])
-            self.lblSeasonGames =tk.Label(self,text=TeamData[i]["Season games"])
-            self.lblSeasonGreenCards =tk.Label(self,text=TeamData[i]["Season green cards"])
-            self.lblSeasonYellowCards =tk.Label(self,text=TeamData[i]["Season yellow cards"])
-            self.lblSeasonRedCards =tk.Label(self,text=TeamData[i]["Season red cards"])
+            self.lblPlayerName =tk.Label(self,text=self.GetPlayerName(playerID))
+            self.lblLifeTimeGoals =tk.Label(self,text=TeamData[playerID]["Life time goals"])
+            self.lblLifeTimeGreenCards =tk.Label(self,text=TeamData[playerID]["Life time green cards"])
+            self.lblLifeTimeYellowCards =tk.Label(self,text=TeamData[playerID]["Life time yellow cards"])
+            self.lblLifeTimeRedCards =tk.Label(self,text=TeamData[playerID]["Life time red cards"])
+            self.lblLifeTimeGames =tk.Label(self,text=TeamData[playerID]["Life time Games"])
+            self.lblSeasonGoals =tk.Label(self,text=TeamData[playerID]["Season goals"])
+            self.lblSeasonGames =tk.Label(self,text=TeamData[playerID]["Season games"])
+            self.lblSeasonGreenCards =tk.Label(self,text=TeamData[playerID]["Season green cards"])
+            self.lblSeasonYellowCards =tk.Label(self,text=TeamData[playerID]["Season yellow cards"])
+            self.lblSeasonRedCards =tk.Label(self,text=TeamData[playerID]["Season red cards"])
 
             """ Widget Stylings """
 
@@ -155,10 +166,14 @@ class PlayerStatsAdmin(tk.Frame,PlayerStats):
         self.txtTeamNumber = tk.Entry(self)
         self.GetPlayersButton =tk.Button(self,text="Get Player Stats",command=lambda:self.GetPlayersStats())
         self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
-        self.var = tk.StringVar()
-        options = ["First Name","Last Name","Life Time Goals","Life Time Green Cards","Life Time Yellow Cards","Life Time Red Cards","Season Goals","Season Green Cards","Season Yellow Cards","Season Red Cards"]
-        self.var.set(options[0])
-        self.cmbSort = tk.OptionMenu(self, self.var,*options)
+        self.var1 = tk.StringVar()
+        self.var2 = tk.StringVar()
+        SortOptions = ["Life time goals","Life time green cards","Life time yellow cards","Life time red cards","Season goals","Season green cards","Season yellow cards","Season red cards"]
+        OrderOpitons = ["Highest","Lowest"]
+        self.var1.set(SortOptions[0])
+        self.var2.set(OrderOpitons[0])
+        self.cmbSort = tk.OptionMenu(self, self.var1,*SortOptions)
+        self.cmbOrder = tk.OptionMenu(self, self.var2,*OrderOpitons)
         self.lblSort = tk.Label(self,text="Sort:")
 
 
@@ -172,13 +187,14 @@ class PlayerStatsAdmin(tk.Frame,PlayerStats):
 
         """ Widget Positions """
 
-        self.Title.grid(row=0,column =0,columnspan = 5)
+        self.Title.grid(row=0,column =0,columnspan = 6)
         self.cmbSort.grid(row=1,column=1)
+        self.cmbOrder.grid(row=1,column=2)
         self.lblSort.grid(row=1,column=0)
-        self.lblTeamNumber.grid(row=1,column=2)
-        self.txtTeamNumber.grid(row=1,column =3)
-        self.GetPlayersButton.grid(row=1,column =4)
-        self.BackButton.grid(row=1,column=5)
+        self.lblTeamNumber.grid(row=1,column=3)
+        self.txtTeamNumber.grid(row=1,column =4)
+        self.GetPlayersButton.grid(row=1,column =5)
+        self.BackButton.grid(row=1,column=6)
 
 
 class PlayerStatsPlayer(tk.Frame,PlayerStats):
