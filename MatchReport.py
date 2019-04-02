@@ -100,8 +100,9 @@ class MatchReport:
 
                     matchData.append(j.get())
                     if len(matchData) == 5:
+                        print matchData[4]
 
-                        if Validation.Date(matchData[3])==True and Validation.Time(matchData[4])==True and Validation.Score(matchData[2])==True and Validation.Score(matchData[1])==True:
+                        if Validation.Date(matchData[3])==True and Validation.TeamNumber(matchData[4])==True and Validation.Score(matchData[2])==True and Validation.Score(matchData[1])==True:
                             matchID =self.getMatchID(matchData[3],matchData[4])
                             winStatus = self.win_Status(matchData[2],matchData[1])
                             matchData = self.Match_Data(matchID,matchData[2],matchData[1],winStatus)
@@ -119,9 +120,13 @@ class MatchReport:
     def write_Match_Report(self,matchReport):
         """Writes a match report to the MatchReportFile """
         if matchReport != None:
-            matchReport = SystemToolKit.readFile(Config.MatchReportFile)
-            matchReportID = uuid.uuid4()
-            matchReport[matchReportID] = matchReport
+            matchReportData = SystemToolKit.readFile(Config.MatchReportFile)
+            matchReportID = str(uuid.uuid4())
+            matchReportData[matchReportID] = matchReport
+            print matchReportData
+            with open(Config.MatchReportFile, 'w') as fp:
+                    json.dump(matchReportData, fp)
+
 
     def getMatchID(self,Date,Team):
         """Returns a MatchId(string)"""
@@ -187,17 +192,31 @@ class MatchReport:
         if matchReport != None:
             for i in matchReport:
                 if i!= "Match Data":
+                    print playersData
+                    try:
+                        playersData[i]["Life time goals"] += int(matchReport[i]["Goals"])
+                        playersData[i]["Season goals"] += int(matchReport[i]["Goals"])
+                        playersData[i]["Life time green cards"] += int(matchReport[i]["Green cards"])
+                        playersData[i]["Season green cards"] += int(matchReport[i]["Green cards"])
+                        playersData[i]["Life time yellow cards"] += int(matchReport[i]["Yellow cards"])
+                        playersData[i]["Season yellow cards"] += int(matchReport[i]["Yellow cards"])
+                        playersData[i]["Life time red cards"] += int(matchReport[i]["Red Cards"])
+                        playersData[i]["Season red cards"] += int(matchReport[i]["Red Cards"])
+                        playersData[i]["Life time Games"] +=1
+                        playersData[i]["Season games"] += 1
+                    except KeyError:
+                        playersData[i] = {}
+                        playersData[i]["Life time goals"] = int(matchReport[i]["Goals"])
+                        playersData[i]["Season goals"] = int(matchReport[i]["Goals"])
+                        playersData[i]["Life time green cards"] = int(matchReport[i]["Green cards"])
+                        playersData[i]["Season green cards"] = int(matchReport[i]["Green cards"])
+                        playersData[i]["Life time yellow cards"] = int(matchReport[i]["Yellow cards"])
+                        playersData[i]["Season yellow cards"] = int(matchReport[i]["Yellow cards"])
+                        playersData[i]["Life time red cards"] = int(matchReport[i]["Red Cards"])
+                        playersData[i]["Season red cards"] = int(matchReport[i]["Red Cards"])
+                        playersData[i]["Life time Games"] =1
+                        playersData[i]["Season games"] = 1
 
-                    playersData[i]["Life time goals"] += int(matchReport[i]["Goals"])
-                    playersData[i]["Season goals"] += int(matchReport[i]["Goals"])
-                    playersData[i]["Life time green cards"] += int(matchReport[i]["Green cards"])
-                    playersData[i]["Season green cards"] += int(matchReport[i]["Green cards"])
-                    playersData[i]["Life time yellow cards"] += int(matchReport[i]["Yellow cards"])
-                    playersData[i]["Season yellow cards"] += int(matchReport[i]["Yellow cards"])
-                    playersData[i]["Life time red cards"] += int(matchReport[i]["Red Cards"])
-                    playersData[i]["Season red cards"] += int(matchReport[i]["Red Cards"])
-                    playersData[i]["Life time Games"] +=1
-                    playersData[i]["Season games"] += 1
 
 
             allPlayersData[TeamID] =playersData
@@ -239,10 +258,11 @@ class MatchReport:
         """Calls newsseason,write_Match_Report,Player_stats_update """
         self.newSeason()
         matchReport = self.get_Match_Report_Data()
-        self.write_Match_Report(matchReport)
-        self.Player_stats_update(matchReport)
-        messagebox.showinfo("","Match Report Submitted")
-        self.controller.show_frame("Home")
+        if matchReport != None:
+            self.write_Match_Report(matchReport)
+            self.Player_stats_update(matchReport)
+            messagebox.showinfo("","Match Report Submitted")
+            self.controller.show_frame("Home")
 
     def ImportTeam(self):
         """Calls get_team and write_to_screen """
@@ -259,44 +279,40 @@ class MatchReport:
         Names = []
         for i, j in enumerate(team):
                 if team[j]["Team Number"] == teamNumber:
-                    for k,l in enumerate(Players):
+                    for k,l in enumerate(team[j]):
+                        if team[j][l] in Players:
 
-                        Names.append((Players[team[j][str(k)]]["First name"],Players[team[j][str(k)]]["Last name"]))
+                            Names.append([Players[team[j][l]]["First name"],Players[team[j][l]]["Last name"]])
 
 
         return Names
 
     def Write_to_screen(self,team):
         """Adds a team into the matchReport """
-        counter = 0
-        columnFull =False
 
-
+        Grid = []
         for i,j in enumerate(reversed(self.grid_slaves())):
             if int(j.grid_info()["row"]) >= self.StartCount and int(j.grid_info()["column"]) <=1 :
+                if int(j.grid_info()["column"]) ==0:
+                    FirstName = j
+                else:
+                    LastName = j
+                    Grid.append([FirstName,LastName])
+
+        FinalGrid = []
+        for m,n in enumerate(Grid):
+            if n[0].get() !="" or n[1].get() !="":
+                pass
+            else:
+                FinalGrid.append(n)
+
+        for q,p in enumerate(FinalGrid):
+            if q < len(team):
+                p[0].insert(0,team[q][0])
+                p[1].insert(0,team[q][1])
 
 
-                try:
-                    if int(j.grid_info()["column"]) == 0:
-                        columnFull = False
-                    if columnFull == False:
-                        if j.get() != "":
-                            columnFull = True
-                            counter +=1
 
-                        else:
-                            columnFull = False
-                            text = team[int(j.grid_info()["row"])-self.StartCount-counter][int(j.grid_info()["column"])]
-                            j.delete(0,tk.END)
-                            j.insert(0,text)
-                    if columnFull == True:
-
-                        for k,l in  enumerate(reversed(self.grid_slaves())):
-                            if k == i-1:
-                                l.delete(0,tk.END)
-
-
-                except :AttributeError
 
 class MatchReportAdmin(tk.Frame, MatchReport):
     """
