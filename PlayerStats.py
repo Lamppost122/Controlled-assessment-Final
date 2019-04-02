@@ -76,6 +76,8 @@ class PlayerStats:
         self.lblLifeTimeYellowCards.grid(row=3, column =9)
         self.lblLifeTimeRedCards.grid(row=3, column =10)
 
+        TeamData=sorted(TeamData,key=lambda TeamData :TeamData["Last Name"] )
+
         for j,i in enumerate(TeamData):
 
             """ Widget Declearations """
@@ -153,6 +155,12 @@ class PlayerStatsAdmin(tk.Frame,PlayerStats):
         self.txtTeamNumber = tk.Entry(self)
         self.GetPlayersButton =tk.Button(self,text="Get Player Stats",command=lambda:self.GetPlayersStats())
         self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
+        self.var = tk.StringVar()
+        options = ["First Name","Last Name","Life Time Goals","Life Time Green Cards","Life Time Yellow Cards","Life Time Red Cards","Season Goals","Season Green Cards","Season Yellow Cards","Season Red Cards"]
+        self.var.set(options[0])
+        self.cmbSort = tk.OptionMenu(self, self.var,*options)
+        self.lblSort = tk.Label(self,text="Sort:")
+
 
         """ Widget Stylings """
 
@@ -160,14 +168,18 @@ class PlayerStatsAdmin(tk.Frame,PlayerStats):
         self.lblTeamNumber.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
         self.GetPlayersButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
         self.BackButton.config(compound="left",background="#307292",relief="flat",font=("Arial", 12, 'bold'),padx=5)
+        self.lblSort.config(justify="right",fg = "black",background="#8ABFD9",font=("Arial", 10, 'bold'))
 
         """ Widget Positions """
 
-        self.Title.grid(row=0,column =0)
-        self.lblTeamNumber.grid(row=1,column=0)
-        self.txtTeamNumber.grid(row=1,column =1)
-        self.GetPlayersButton.grid(row=1,column =2)
-        self.BackButton.grid(row=1,column=3)
+        self.Title.grid(row=0,column =0,columnspan = 5)
+        self.cmbSort.grid(row=1,column=1)
+        self.lblSort.grid(row=1,column=0)
+        self.lblTeamNumber.grid(row=1,column=2)
+        self.txtTeamNumber.grid(row=1,column =3)
+        self.GetPlayersButton.grid(row=1,column =4)
+        self.BackButton.grid(row=1,column=5)
+
 
 class PlayerStatsPlayer(tk.Frame,PlayerStats):
 
