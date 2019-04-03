@@ -14,37 +14,43 @@ class ImportData:
 
     """
 
-    def ImportData(FileName,DataFileName):
-        with open(DataFileName)as fp:
-            FileData=json.load(fp)
-        with open(FileName)as fp:
-            File=fp.readlines()
+    def ImportData(self,FileName):
+        try:
+            with open(FileName)as fp:
+                File=fp.readlines()
+        except FileNotFoundError:
+            messagebox.showinfo("Error Message","File not found this that name")
 
         delimiter = ","
-        TeamNumber= 0
+        TeamData={}
+        MatchData= SystemToolKit.readFile(Config.MatchFile)
+
+
         for i ,j in enumerate(File):
+
 
             if i==0:
                 HeaderRow = j.split(delimiter)
-                for m,n in enumerate(HeaderRow):
-                    if n.lower() == "team":
-                        TeamNumber = m +1
 
             else:
-                rowData = j.split(delimiter)
+
                 Data={}
-                TeamData = {}
-                for k,l in enumerate(rowData):
-                    if k ==TeamNumber:
-                        TeamID = MatchScreen.GetTeamID(TeamNumber)
+
+                rowData = j.split(delimiter)
+                for m,n in enumerate(HeaderRow):
+
+                    if n.lower() != "team":
+
+                        Data[str(n)] = rowData[m]
                     else:
+                        TeamID = SystemToolKit.getTeamId(rowData[m])
+                        MatchID = str(uuid.uuid4())
+                TeamData[MatchID] = Data
 
-                        Data[HeaderRow[k]]= l
-                TeamData[str(uuid.uuid4())] = Data
+        MatchData[TeamID] =TeamData
 
-                FileData[TeamID] = TeamData
-        with open(FileName,"w")as fp:
-             json.dump(FileData,fp)
+        with open(Config.MatchFile,"w")as fp:
+             json.dump(MatchData,fp)
 
 class ImportDataAdmin(tk.Frame,ImportData):
     """
@@ -67,7 +73,7 @@ class ImportDataAdmin(tk.Frame,ImportData):
 
         self.Title = tk.Label(self,text="Import Data",font= controller.title_font)
         self.txtFileName =ttk.Entry(self)
-        self.importButton =tk.Button(self,text ="Import")
+        self.importButton =tk.Button(self,text ="Import",command = lambda:self.ImportData(self.txtFileName.get()))
         self.BackButton= tk.Button(self, text="Back",command=lambda:SystemToolKit.BackButtonRun(controller))
 
         """ Widget Styligns """
