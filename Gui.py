@@ -109,5 +109,5 @@ if __name__ == "__main__":
 
 
     app = SampleApp()
-    app.title("Whichurch Hockey Club Team System")
+    app.title("Whitchurch Hockey Club Team System")
     app.mainloop()
