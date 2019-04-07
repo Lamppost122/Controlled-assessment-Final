@@ -7,7 +7,7 @@ from tkinter import ttk
 from Gui import *
 import Config
 from SystemToolKit import *
-from SystemToolKit import *
+
 
 class ConfirmAvailablity:
     """
