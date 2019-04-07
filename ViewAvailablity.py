@@ -6,7 +6,6 @@ from tkinter import ttk
 from Gui import *
 from Config import *
 from SystemToolKit import *
-from SystemToolKit import *
 
 class ViewAvailablity:
         """
