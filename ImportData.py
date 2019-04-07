@@ -6,7 +6,6 @@ from tkinter import font  as tkfont
 from tkinter import messagebox
 from tkinter import ttk
 import uuid
-from MatchScreen import *
 class ImportData:
     """
     Methods:
