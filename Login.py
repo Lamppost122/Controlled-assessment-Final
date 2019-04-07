@@ -1,6 +1,5 @@
 import json
 import hashlib
-import imaplib
 import email
 import tkinter as tk
 from tkinter import font  as tkfont
