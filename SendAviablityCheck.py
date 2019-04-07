@@ -9,8 +9,8 @@ from SystemToolKit import *
 import Config
 from Validation import *
 import smtplib
-##from email.MIMEMultipart import MIMEMultipart
-##from email.MIMEText import MIMEText
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEText import MIMEText
 
 class SendAvailablityCheck:
     """
